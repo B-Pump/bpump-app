@@ -1,25 +1,25 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
-import styles from './exoscard.style';
+import styles from './style/exoscard.style';
 import { checkImageURL } from '../../../utils';
 
-const ExosCard = ({ exo, handleNavigate }) => {
+const ExosCard = ({ item, handleCardPress }) => {
     return <>
-        <TouchableOpacity style={styles.container} onPress={handleNavigate}>
+        <TouchableOpacity style={styles.container} onPress={(handleCardPress(item))}>
             <TouchableOpacity style={styles.logoContainer}>
             <Image
                 source={{
-                    uri: checkImageURL(exo.employer_logo)
-                    ? exo.employer_logo
-                    : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
+                    uri: checkImageURL(item.exo_logo)
+                    ? item.exo_logo
+                    : "https://urlz.fr/pjmA",
                 }}
                 resizeMode='contain'
                 style={styles.logoImage}
             />
             </TouchableOpacity>
             <View style={styles.textContainer}>
-                <Text style={styles.exoName} numberOfLines={1}>{exo.exo_title}</Text>
-                <Text style={styles.exoType}>{exo.exo_employment_type}</Text>
+                <Text style={styles.exoName} numberOfLines={1}>{item.exo_title}</Text>
+                <Text style={styles.exoType}>{item.exo_type}</Text>
             </View>
         </TouchableOpacity>
     </>

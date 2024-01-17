@@ -1,24 +1,22 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import styles from './exos.style';
+import styles from './style/exos.style';
 import { COLORS, SIZES } from '../../constants';
 import ExosCard from '../common/cards/ExosCard';
 import useFetch from '../../hook/useFetch';
 
 const Exos = () => {
     const router = useRouter();
-
     const { data, isLoading, error } = useFetch('search', {
-        query: "React developer",
-        num_pages: 1
+        // utilisation API
     });
 
     return <>
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Exercices recommandés</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {}}>
                     <Text style={styles.headerBtn}>Afficher tout</Text>
                 </TouchableOpacity>
             </View>
@@ -28,11 +26,11 @@ const Exos = () => {
                 ) : error ? (
                     <Text>Erreur lors du chargement des exercices</Text>
                 ) : (
-                    data?.map((exo) => (
+                    data?.map((item) => (
                         <ExosCard
-                            exo={exo}
-                            key={`liste-exo-${exo?.exo_id}`}
-                            handleNavigate={() => router.push(`/exo-details/${exo.exo_id}`)}
+                            item={item}
+                            key={`liste-exo-${item?.exo_id}`}
+                            handleCardPress={() => router.push(`/exo-details/${item.exo_id}`)}
                         />
                     ))
                 )}

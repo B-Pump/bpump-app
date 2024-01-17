@@ -1,26 +1,26 @@
 import { Text, View, SafeAreaView, ScrollView, RefreshControl, Share } from 'react-native';
 import { Stack } from 'expo-router';
 
-import { ScreenHeaderBtn } from '../../components';
-import { COLORS, icons, SIZES } from '../../constants';
+import { COLORS, SIZES } from '../../constants';
+import styles from '../../styles/bpump';
 
-const ExoDetails = () => {
+const BpumpSettings = () => {
     return <>
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
             <Stack.Screen
                 options={{
                     headerStyle: { backgroundColor: COLORS.lightWhite },
                     headerShadowVisible: false,
-                    headerTitle: ""
+                    headerTitle: "Paramètres"
                 }}
             />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1, padding: SIZES.medium }}>
-                    <Text>Ceci est le détail de l'exercice</Text>
+                    <Text>Ceci sont les paramètres</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>
     </>
 }
 
-export default ExoDetails
+export default BpumpSettings

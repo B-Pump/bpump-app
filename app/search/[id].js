@@ -22,18 +22,9 @@ const ExoSearch = () => {
         setSearchResult([])
 
         try {
-            const options = { // test avec un api random
-                method: "GET",
-                url: `https://jsearch.p.rapidapi.com/search`,
-                headers: {
-                    "X-RapidAPI-Key": '6e3d131171msh3555abaa618c04bp100003jsn9659c1946681',
-                    "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
-                },
-                params: {
-                    query: params.id,
-                    page: page.toString(),
-                },
-            };
+            const options = {
+                // requête api avec la recherche
+            }
 
             const response = await axios.request(options);
             setSearchResult(response.data.data);

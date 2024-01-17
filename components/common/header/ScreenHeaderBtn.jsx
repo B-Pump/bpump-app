@@ -1,9 +1,11 @@
-import React from 'react';
+import { useRouter } from 'expo-router';
 import { TouchableOpacity, Image } from 'react-native';
 
-import styles from './screenheader.style'
+import styles from './style/screenheader.style'
 
 const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
+    const router = useRouter();
+
     return <>
         <TouchableOpacity style={styles.btnContainer} onPress={handlePress}>
             <Image 

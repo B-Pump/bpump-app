@@ -1,20 +1,16 @@
-import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import styles from './welcome.style';
+import styles from './style/welcome.style';
 import { icons, SIZES } from '../../constants';
-
-const exoTypes = ["Haut du corps", "Bas du corps", "Cardio"]
 
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
     const router = useRouter();
-    const [activeExoType, setActiveExoType] = useState("");
 
     return <>
         <View>
             <View style={styles.container}>
-                <Text style={styles.userName}>Bonjour Pierre !</Text>
+                <Text style={styles.userName}>Bonjour, je suis B-Pump !</Text>
                 <Text style={styles.welcomeMessage}>Trouvez votre programme d'entraînement parfait !</Text>
             </View>
             <View style={styles.searchContainer}>
@@ -34,26 +30,25 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
                     />
                 </TouchableOpacity>
             </View>
-            {/* <View style={styles.tabsContainer}>
+            <View style={styles.tabsContainer}>
                 <FlatList
                     showsHorizontalScrollIndicator={false}
-                    data={exoTypes}
+                    data={["Haut du corps", "Bas du corps", "Cardio", "Flexibilité"]}
                     renderItem={({ item }) => (
                         <TouchableOpacity 
-                            style={styles.tab(activeExoType, item)}
+                            style={styles.tab(item)}
                             onPress={() => {
-                                setActiveExoType(item);
                                 router.push(`/search/${item}`)
                             }}
                         >
-                            <Text style={styles.tabText(activeExoType, item)}>{item}</Text>
+                            <Text style={styles.tabText(item)}>{item}</Text>
                         </TouchableOpacity>
                     )}
                     keyExtractor={item => item}
                     contentContainerStyle={{ columnGap: SIZES.small }}
                     horizontal
                 />
-            </View> */}
+            </View>
         </View>
     </>
 }

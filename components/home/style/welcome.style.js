@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONT, SIZES } from "../../constants";
+import { COLORS, FONT, SIZES } from "../../../constants";
 
 const styles = StyleSheet.create({
     container: {
@@ -55,16 +55,16 @@ const styles = StyleSheet.create({
         width: "100%",
         marginTop: SIZES.medium,
     },
-    tab: (activeExoType, item) => ({
+    tab: (item) => ({
         paddingVertical: SIZES.small / 2,
         paddingHorizontal: SIZES.small,
         borderRadius: SIZES.medium,
         borderWidth: 1,
-        borderColor: activeExoType === item ? COLORS.secondary : COLORS.gray2,
+        borderColor: COLORS.gray2,
     }),
     tabText: (activeExoType, item) => ({
         fontFamily: FONT.medium,
-        color: activeExoType === item ? COLORS.secondary : COLORS.gray2,
+        color: COLORS.secondary,
     }),
 })
 

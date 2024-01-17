@@ -1,31 +1,31 @@
 import { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import axios from 'axios';
 
-const useFetch = (endpoint, query) => {
+const useFetch = (endpoint) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const options = { // test avec un api random
+    const options = {
         method: 'GET',
-        url: `https://jsearch.p.rapidapi.com/${endpoint}`,
+        url: `https://wft-geo-db.p.rapidapi.com/v1/geo/${endpoint}`,
         headers: {
             'X-RapidAPI-Key': '6e3d131171msh3555abaa618c04bp100003jsn9659c1946681',
-            'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
-        },
-        params: {...query}
+            'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+        }
     }
 
     const fetchData = async () => {
         setIsLoading(true);
-
         try {
             const response = await axios.request(options);
+            console.log(response.data);
             setData(response.data.data);
             setIsLoading(false);
         } catch (error) {
             setError(error);
-            alert("Erreur lors du chargement des programmes")
+            Alert.alert("Erreur de l'API", "Erreur lors du chargement des données")
         } finally {
             setIsLoading(false);
         }

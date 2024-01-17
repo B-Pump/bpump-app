@@ -3,7 +3,7 @@ import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 
 import { COLORS, icons, images, SIZES } from '../constants';
-import { Exos, Programmes, ScreenHeaderBtn, Welcome } from '../components';
+import { Exos, Prog, ScreenHeaderBtn, Welcome } from '../components';
 
 const Home = () => {
     const router = useRouter();
@@ -16,10 +16,18 @@ const Home = () => {
                     headerStyle: { backgroundColor: COLORS.lightWhite },
                     headerShadowVisible: false,
                     headerLeft: () => (
-                        <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%"/>
+                        <ScreenHeaderBtn 
+                            iconUrl={images.logo} 
+                            dimension="100%" 
+                            handlePress={() => router.push("/bpump/about")}
+                        />
                     ),
                     headerRight: () => (
-                        <ScreenHeaderBtn iconUrl={images.profile} dimension="100%"/>
+                        <ScreenHeaderBtn 
+                            iconUrl={icons.settings} 
+                            dimension="70%" 
+                            handlePress={() => router.push("/bpump/settings")}
+                        />
                     ),
                     headerTitle: ""
                 }}
@@ -35,7 +43,7 @@ const Home = () => {
                             }
                         }}
                     />
-                    <Programmes/>
+                    <Prog/>
                     <Exos/>
                 </View>
             </ScrollView>

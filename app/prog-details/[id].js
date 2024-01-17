@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 import { ScreenHeaderBtn } from '../../components';
 import { COLORS, icons, SIZES } from '../../constants';
 
-const ExoDetails = () => {
+const ProgDetails = () => {
     return <>
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
             <Stack.Screen
@@ -16,11 +16,11 @@ const ExoDetails = () => {
             />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1, padding: SIZES.medium }}>
-                    <Text>Ceci est le détail de l'exercice</Text>
+                    <Text>Ceci est le détail du programme</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>
     </>
 }
 
-export default ExoDetails
+export default ProgDetails

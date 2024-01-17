@@ -1,20 +1,20 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONT, SHADOWS, SIZES } from "../../../constants";
+import { COLORS, FONT, SHADOWS, SIZES } from "../../../../constants";
 
 const styles = StyleSheet.create({
-    container: (selectedProg, item) => ({
+    container: (item) => ({
         width: 250,
         padding: SIZES.xLarge,
-        backgroundColor: selectedProg === item.exo_id ? COLORS.primary : "#FFF",
+        backgroundColor: "#FFF",
         borderRadius: SIZES.medium,
         justifyContent: "space-between",
         ...SHADOWS.medium,
         shadowColor: COLORS.white,
     }),
-    logoContainer: (selectedProg, item) => ({
+    logoContainer: (item) => ({
         width: 50,
         height: 50,
-        backgroundColor: selectedProg === item.exo_id ? "#FFF" : COLORS.white,
+        backgroundColor: COLORS.white,
         borderRadius: SIZES.medium,
         justifyContent: "center",
         alignItems: "center",
@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
     infoContainer: {
         marginTop: SIZES.large,
     },
-    exoName: (selectedProg, item) => ({
+    progName: (item) => ({
         fontSize: SIZES.large,
         fontFamily: FONT.medium,
-        color: selectedProg === item.exo_id ? COLORS.white : COLORS.primary,
+        color: COLORS.primary,
     }),
     infoWrapper: {
         flexDirection: "row",
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "center",
     },
-    publisher: (selectedProg) => ({
+    publisher: () => ({
         fontSize: SIZES.medium - 2,
         fontFamily: FONT.bold,
-        color: selectedProg === item.exo_id ? COLORS.white : COLORS.primary,
+        color: COLORS.primary,
     }),
-    location: {
+    duration: {
         fontSize: SIZES.medium - 2,
         fontFamily: FONT.regular,
         color: "#B3AEC6",

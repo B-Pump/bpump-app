@@ -1,34 +1,21 @@
-import { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import styles from './programmes.style';
+import styles from './style/prog.style';
 import { COLORS, SIZES } from '../../constants';
-import ProgrammesCard from '../common/cards/ProgrammesCard';
+import ProgCard from '../common/cards/ProgCard';
 import useFetch from '../../hook/useFetch';
 
-const Programmes = () => {
+const Prog = () => {
     const router = useRouter();
-
     const { data, isLoading, error } = useFetch('search', {
-        query: "React developer",
-        num_pages: 1
+        // utilisation API
     });
-
-    const [selectedProg, setSelectedProg] = useState();
-
-    const handleCardPress = (item) => {
-        router.push(`/exo-details/${item.exo_id}`);
-        setSelectedProg(item.exo_id)
-    }
 
     return <>
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Programmes recommandés</Text>
-                <TouchableOpacity>
-                    <Text style={styles.headerBtn}>Afficher tout</Text>
-                </TouchableOpacity>
             </View>
             <View style={styles.cardsContainer}>
                 {isLoading ? (
@@ -40,9 +27,12 @@ const Programmes = () => {
                         showsHorizontalScrollIndicator={false}
                         data = {data}
                         renderItem={({ item }) => (
-                            <ProgrammesCard item={item} selectedProg={selectedProg} handleCardPress={handleCardPress}/>
+                            <ProgCard 
+                                item={item} 
+                                handleCardPress={() => router.push(`/prog-details/${item.prog_id}`)}
+                            />
                         )}
-                        keyExtractor={item => item?.exo_id}
+                        keyExtractor={item => item?.prog_id}
                         contentContainerStyle={{ columnGap: SIZES.medium }}
                         horizontal
                     />
@@ -52,4 +42,4 @@ const Programmes = () => {
     </>
 }
 
-export default Programmes
+export default Prog
