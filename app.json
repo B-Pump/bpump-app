@@ -1,13 +1,25 @@
 {
-    "expo": {
-        "scheme": "acme",
-        "web": {
-            "bundler": "metro"
-        },
-        "plugins": [
-            "expo-router"
-        ],
-        "name": "bpump-app",
-        "slug": "bpump-app"
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "name": "bpump-app",
+    "slug": "bpump-app",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "4a752c12-2f60-477e-93fd-efe6db60af67"
+      }
+    },
+    "owner": "wiizz",
+    "android": {
+      "package": "com.wiizz.bpumpapp"
     }
+  }
 }

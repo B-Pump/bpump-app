@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
+import { ExosCard } from '../../components';
+import useFetch from '../../hook/useFetch';
+
 import styles from './style/exos.style';
 import { COLORS, SIZES } from '../../constants';
-import ExosCard from '../common/cards/ExosCard';
-import useFetch from '../../hook/useFetch';
 
 const Exos = () => {
     const router = useRouter();

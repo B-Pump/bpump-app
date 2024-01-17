@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
+import { ProgCard } from '../../components';
+import useFetch from '../../hook/useFetch';
+
 import styles from './style/prog.style';
 import { COLORS, SIZES } from '../../constants';
-import ProgCard from '../common/cards/ProgCard';
-import useFetch from '../../hook/useFetch';
 
 const Prog = () => {
     const router = useRouter();
@@ -16,6 +17,9 @@ const Prog = () => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Programmes recommandés</Text>
+                <TouchableOpacity onPress={() => {}}>
+                    <Text style={styles.headerBtn}>Afficher tout</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.cardsContainer}>
                 {isLoading ? (
