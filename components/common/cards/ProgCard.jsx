@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 import styles from './style/progcard.style';
-import { checkImageURL } from '../../../utils';
+import { checkImageURL } from '../../../utils/checkImageURL';
 
 const ProgCard = ({ item, handleCardPress }) => {
     return <>

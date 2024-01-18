@@ -1,22 +1,24 @@
-import { Text, View, SafeAreaView, ScrollView, RefreshControl, Share } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView, Share } from 'react-native';
 import { Stack } from 'expo-router';
 
+import { useTheme } from '../../utils/themeProvider';
+
 import { ScreenHeaderBtn } from '../../components';
-import { COLORS, SIZES, icons } from '../../constants';
+import { SIZES, icons } from '../../constants';
 import styles from '../../styles/bpump';
 
 const BpumpAbout = () => {
     const onShare = () => {
         Share.share({
-            message: "J'ai me suis mit au sport grâce à B-Pump, le coach sportif 100% robotique ! Tu devrais essayer : <lien_vers_le_site_web>"
+            message: "Je me suis mit au sport grâce à B-Pump, le coach sportif 100% robotique ! Tu devrais essayer : <lien_vers_le_site_web>"
         });
     }
 
     return <>
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors }}>
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: COLORS.lightWhite },
+                    headerStyle: { backgroundColor: useTheme().colors },
                     headerShadowVisible: false,
                     headerRight: () => (
                         <ScreenHeaderBtn
@@ -30,7 +32,7 @@ const BpumpAbout = () => {
             />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1, padding: SIZES.medium }}>
-                    <Text>Yoyuoyoyooy</Text>
+                    <Text>Le Projet B-Pump est ...</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>

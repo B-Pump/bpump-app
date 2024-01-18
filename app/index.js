@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 
-import { COLORS, icons, images, SIZES } from '../constants';
+import { useTheme } from '../utils/themeProvider';
+
+import { icons, images, SIZES } from '../constants';
 import { Exos, Prog, ScreenHeaderBtn, Welcome } from '../components';
 
 const Home = () => {
@@ -10,10 +12,10 @@ const Home = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
     return <>
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite}}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors }}>
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: COLORS.lightWhite },
+                    headerStyle: { backgroundColor: useTheme().colors },
                     headerShadowVisible: false,
                     headerLeft: () => (
                         <ScreenHeaderBtn 

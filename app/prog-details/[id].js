@@ -1,15 +1,16 @@
-import { Text, View, SafeAreaView, ScrollView, RefreshControl, Share } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { Stack } from 'expo-router';
 
-import { ScreenHeaderBtn } from '../../components';
-import { COLORS, icons, SIZES } from '../../constants';
+import { useTheme } from '../../utils/themeProvider';
+
+import { SIZES } from '../../constants';
 
 const ProgDetails = () => {
     return <>
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors }}>
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: COLORS.lightWhite },
+                    headerStyle: { backgroundColor: useTheme().colors },
                     headerShadowVisible: false,
                     headerTitle: ""
                 }}

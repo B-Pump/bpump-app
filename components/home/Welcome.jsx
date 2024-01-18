@@ -1,8 +1,8 @@
 import { View, Text, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import styles from './style/welcome.style';
 import { icons, SIZES } from '../../constants';
+import styles from './style/welcome.style';
 
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
     const router = useRouter();

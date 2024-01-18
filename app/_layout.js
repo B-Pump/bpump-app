@@ -3,6 +3,8 @@ import { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
+import { ThemeProvider } from '../utils/themeProvider';
+
 SplashScreen.preventAutoHideAsync();
 
 const Layout = () => {
@@ -20,7 +22,11 @@ const Layout = () => {
 
     if (!fontsLoaded) return null;
 
-    return <Stack onLayout={onLayoutRootView}/>
+    return <>
+        <ThemeProvider>
+            <Stack onLayout={onLayoutRootView}/>
+        </ThemeProvider>
+    </>
 }
 
 export default Layout

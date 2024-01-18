@@ -8,6 +8,7 @@
       "expo-router"
     ],
     "name": "bpump-app",
+    "displayName": "B-Pump",
     "slug": "bpump-app",
     "extra": {
       "router": {

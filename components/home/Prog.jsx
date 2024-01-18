@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import { ProgCard } from '../../components';
+import { ProgCard } from '../common/cards/ProgCard';
 import useFetch from '../../hook/useFetch';
 
 import styles from './style/prog.style';
