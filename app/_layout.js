@@ -7,6 +7,10 @@ import { ThemeProvider } from '../utils/themeProvider';
 
 SplashScreen.preventAutoHideAsync();
 
+/**
+ * Composant principal de l'application
+ * @returns {React.ReactNode} - Composant de la mise en page
+ */
 const Layout = () => {
     const [fontsLoaded] = useFonts({
         DMBold: require('../assets/fonts/DMSans-Bold.ttf'),
@@ -14,6 +18,10 @@ const Layout = () => {
         DMRegular: require('../assets/fonts/DMSans-Regular.ttf'),
     })
 
+    /**
+     * Callback appelée lorsque la mise en page de la racine est effectuée
+     * Masque l'écran de démarrage lorsque les polices sont chargées
+     */
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) {
             await SplashScreen.hideAsync();

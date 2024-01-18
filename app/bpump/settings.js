@@ -10,6 +10,10 @@ import { osInternalBuildId } from 'expo-device';
 import { COLORS, SIZES } from '../../constants';
 import styles from '../../styles/bpump';
 
+/**
+ * Composant représentant l'écran des paramètres de l'application
+ * @returns {React.ReactNode} - Composant de l'écran des paramètres
+ */
 const BpumpSettings = () => {
     const { dark, colors, setScheme } = useTheme();
     const [selectedVoice, setSelectedVoice] = useState("rien");
@@ -20,7 +24,7 @@ const BpumpSettings = () => {
                 options={{
                     headerStyle: { backgroundColor: colors },
                     headerShadowVisible: false,
-                    headerTitle: "Paramètres"
+                    headerTitle: ""
                 }}
             />
             <ScrollView showsVerticalScrollIndicator={false}>

@@ -7,6 +7,10 @@ import { useTheme } from '../utils/themeProvider';
 import { icons, images, SIZES } from '../constants';
 import { Exos, Prog, ScreenHeaderBtn, Welcome } from '../components';
 
+/**
+ * Composant représentant la page d'accueil de l'application
+ * @returns {React.ReactNode} - Composant de la page d'accueil
+ */
 const Home = () => {
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState("");

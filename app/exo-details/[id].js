@@ -5,6 +5,10 @@ import { useTheme } from '../../utils/themeProvider';
 
 import { SIZES } from '../../constants';
 
+/**
+ * Composant représentant l'écran des détails de l'exercice
+ * @returns {React.ReactNode} - Composant de l'écran des détails de l'exercice
+ */
 const ExoDetails = () => {
     return <>
         <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors }}>

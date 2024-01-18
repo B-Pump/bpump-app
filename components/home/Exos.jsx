@@ -7,6 +7,10 @@ import useFetch from '../../hook/useFetch';
 import styles from './style/exos.style';
 import { COLORS, SIZES } from '../../constants';
 
+/**
+ * Composant représentant la section des exercices recommandés
+ * @returns {React.ReactNode} - Composant de la section des exercices recommandés
+ */
 const Exos = () => {
     const router = useRouter();
     const { data, isLoading, error } = useFetch('search', {

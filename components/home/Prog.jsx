@@ -7,6 +7,10 @@ import useFetch from '../../hook/useFetch';
 import styles from './style/prog.style';
 import { COLORS, SIZES } from '../../constants';
 
+/**
+ * Composant représentant la section des programmes recommandés
+ * @returns {React.ReactNode} - Composant de la section des programmes recommandés
+ */
 const Prog = () => {
     const router = useRouter();
     const { data, isLoading, error } = useFetch('search', {

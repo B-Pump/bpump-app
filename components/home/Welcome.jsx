@@ -4,6 +4,14 @@ import { useRouter } from 'expo-router';
 import { icons, SIZES } from '../../constants';
 import styles from './style/welcome.style';
 
+/**
+ * Composant représentant l'écran de bienvenue (accueil) de l'application
+ * @param {Object} props - Propriétés du composant
+ * @param {string} props.searchTerm - Mots de recherche saisie par l'utilisateur dans le TextInput
+ * @param {Function} props.setSearchTerm - Fonction pour mettre à jour le terme de recherche
+ * @param {Function} props.handleClick - Fonction appelée lorsqu'on appuie sur le bouton de recherche
+ * @returns {React.ReactNode} - Composant de l'écran de bienvenue
+ */
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
     const router = useRouter();
 

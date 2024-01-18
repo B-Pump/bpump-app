@@ -5,6 +5,10 @@ import { useTheme } from '../../utils/themeProvider';
 
 import { SIZES } from '../../constants';
 
+/**
+ * Composant représentant l'écran des détails du programme
+ * @returns {React.ReactNode} - Composant de l'écran des détails du programme
+ */
 const ProgDetails = () => {
     return <>
         <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors }}>
