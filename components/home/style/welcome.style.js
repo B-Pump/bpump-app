@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { COLORS, FONT, SIZES } from "../../../constants";
+import { StyleSheet } from "react-native"
+import { COLORS, FONT, SIZES } from "../../../constants"
 
 const styles = StyleSheet.create({
     container: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.medium,
         borderWidth: 1,
         borderColor: COLORS.gray2,
-        backgroundColor: COLORS.lightWhite
+        backgroundColor: COLORS.lightWhite,
     },
     tabText: {
         fontFamily: FONT.medium,

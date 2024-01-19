@@ -6,10 +6,10 @@ Application mobile pour le projet B-Pump réalisée avec [React native](https://
 
 # Fonctionnalités
 
-- Utilisation d'une API pour avoir la liste des exercices
-- Suggestions de programmes, création de programmes personnalisés
-- Recherche d'exercices et de programmes
-- Description de l'exercice avec une vidéo de démonstration.
+-   Utilisation d'une API pour avoir la liste des exercices
+-   Suggestions de programmes, création de programmes personnalisés
+-   Recherche d'exercices et de programmes
+-   Description de l'exercice avec une vidéo de démonstration.
 
 # Utilisation
 

@@ -5,8 +5,8 @@
  */
 export const checkImageURL = (url) => {
     if (!url) {
-        return false;
+        return false
     } else {
-        return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+        return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
     }
 }

@@ -1,11 +1,11 @@
-import { Stack } from 'expo-router';
-import { useCallback } from 'react';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+import { Stack } from "expo-router"
+import { useCallback } from "react"
+import { useFonts } from "expo-font"
+import * as SplashScreen from "expo-splash-screen"
 
-import { ThemeProvider } from '../utils/themeProvider';
+import { ThemeProvider } from "../utils/themeProvider"
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
 /**
  * Composant principal de l'application
@@ -13,9 +13,9 @@ SplashScreen.preventAutoHideAsync();
  */
 const Layout = () => {
     const [fontsLoaded] = useFonts({
-        DMBold: require('../assets/fonts/DMSans-Bold.ttf'),
-        DMMedium: require('../assets/fonts/DMSans-Medium.ttf'),
-        DMRegular: require('../assets/fonts/DMSans-Regular.ttf'),
+        DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
+        DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
+        DMRegular: require("../assets/fonts/DMSans-Regular.ttf"),
     })
 
     /**
@@ -24,17 +24,19 @@ const Layout = () => {
      */
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) {
-            await SplashScreen.hideAsync();
+            await SplashScreen.hideAsync()
         }
     }, [fontsLoaded])
 
-    if (!fontsLoaded) return null;
+    if (!fontsLoaded) return null
 
-    return <>
-        <ThemeProvider>
-            <Stack onLayout={onLayoutRootView}/>
-        </ThemeProvider>
-    </>
+    return (
+        <>
+            <ThemeProvider>
+                <Stack onLayout={onLayoutRootView} />
+            </ThemeProvider>
+        </>
+    )
 }
 
 export default Layout

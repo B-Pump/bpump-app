@@ -1,7 +1,7 @@
-import { useRouter } from 'expo-router';
-import { Pressable, Image } from 'react-native';
+import { useRouter } from "expo-router"
+import { Pressable, Image } from "react-native"
 
-import styles from './style/screenheader.style'
+import styles from "./style/screenheader.style"
 
 /**
  * Composant représentant un bouton d'en tête de l'écran
@@ -12,20 +12,26 @@ import styles from './style/screenheader.style'
  * @returns {React.ReactNode} - Composant du bouton d'en tête de l'écran
  */
 const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
-    const router = useRouter();
+    const router = useRouter()
 
-    return <>
-        <Pressable 
-            style={({ pressed }) => [{opacity: pressed ? 0.5 : 1}, styles.btnContainer]} 
-            onPress={handlePress} android_disableSound={false}
-        >
-            <Image 
-                source={iconUrl} 
-                resizeMode="cover"
-                style={styles.btnImg(dimension)}
-            />
-        </Pressable>
-    </>
+    return (
+        <>
+            <Pressable
+                style={({ pressed }) => [
+                    { opacity: pressed ? 0.5 : 1 },
+                    styles.btnContainer,
+                ]}
+                onPress={handlePress}
+                android_disableSound={false}
+            >
+                <Image
+                    source={iconUrl}
+                    resizeMode="cover"
+                    style={styles.btnImg(dimension)}
+                />
+            </Pressable>
+        </>
+    )
 }
 
 export default ScreenHeaderBtn

@@ -1,12 +1,7 @@
-import ScreenHeaderBtn from './common/header/ScreenHeaderBtn';
+import ScreenHeaderBtn from "./common/header/ScreenHeaderBtn"
 
-import Welcome from './home/Welcome';
-import Prog from './home/Prog';
-import Exos from './home/Exos';
+import Welcome from "./home/Welcome"
+import Prog from "./home/Prog"
+import Exos from "./home/Exos"
 
-export {
-    ScreenHeaderBtn,
-    Welcome,
-    Prog,
-    Exos
-}
+export { ScreenHeaderBtn, Welcome, Prog, Exos }

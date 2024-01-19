@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react"
 
-import { COLORS } from '../constants';
+import { COLORS } from "../constants"
 
 /**
  * Contexte pour gérer le thème de l'application
@@ -17,33 +17,35 @@ import { COLORS } from '../constants';
 export const ThemeContext = createContext({
     dark: false,
     colors: COLORS.lightWhite,
-    setScheme: () => {}
-});
+    setScheme: () => {},
+})
 
 /**
  * Fournisseur de thème pour encapsuler l'application avec le contexte du thème
- * @param {Object} props - Propriétés du composant 
+ * @param {Object} props - Propriétés du composant
  * @param {React.ReactNode} props.children - Composants enfants encapsulés dans le fournisseur de thème
  * @returns {React.ReactNode} - Composant avec le contexte du thème
  */
 export const ThemeProvider = ({ children }) => {
-    const [isDark, setIsDark] = useState();
+    const [isDark, setIsDark] = useState()
     const defaultTheme = {
         dark: isDark,
         colors: {
             background: isDark ? COLORS.tertiary : COLORS.lightWhite,
             text: isDark ? COLORS.lightWhite : "black",
             icon: isDark ? COLORS.lightWhite : COLORS.tertiary,
-            showall: isDark ? COLORS.secondary : COLORS.gray
+            showall: isDark ? COLORS.secondary : COLORS.gray,
         },
-        setScheme: (scheme) => setIsDark(scheme == "dark")
+        setScheme: (scheme) => setIsDark(scheme == "dark"),
     }
-    
-    return <>
-        <ThemeContext.Provider value={defaultTheme}>
-            {children}
-        </ThemeContext.Provider>
-    </>
+
+    return (
+        <>
+            <ThemeContext.Provider value={defaultTheme}>
+                {children}
+            </ThemeContext.Provider>
+        </>
+    )
 }
 
 /**

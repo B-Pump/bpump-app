@@ -1,26 +1,32 @@
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, Pressable, View } from 'react-native';
-import { Stack, useRouter, useGlobalSearchParams } from 'expo-router';
-import { Text, SafeAreaView } from 'react-native';
-import axios from 'axios';
+import { useEffect, useState } from "react"
+import {
+    ActivityIndicator,
+    FlatList,
+    Image,
+    Pressable,
+    View,
+} from "react-native"
+import { Stack, useRouter, useGlobalSearchParams } from "expo-router"
+import { Text, SafeAreaView } from "react-native"
+import axios from "axios"
 
-import { useTheme } from '../../utils/themeProvider';
+import { useTheme } from "../../utils/themeProvider"
 
-import { ExosCard } from '../../components';
-import { COLORS, icons, SIZES } from '../../constants';
-import styles from '../../styles/search';
+import { ExosCard } from "../../components"
+import { COLORS, icons, SIZES } from "../../constants"
+import styles from "../../styles/search"
 
 const ExoSearch = () => {
-    const params = useGlobalSearchParams();
+    const params = useGlobalSearchParams()
     const router = useRouter()
 
-    const [searchResult, setSearchResult] = useState([]);
-    const [searchLoader, setSearchLoader] = useState(false);
-    const [searchError, setSearchError] = useState(null);
-    const [page, setPage] = useState(1);
+    const [searchResult, setSearchResult] = useState([])
+    const [searchLoader, setSearchLoader] = useState(false)
+    const [searchError, setSearchError] = useState(null)
+    const [page, setPage] = useState(1)
 
     const handleSearch = async () => {
-        setSearchLoader(true);
+        setSearchLoader(true)
         setSearchResult([])
 
         try {
@@ -28,21 +34,21 @@ const ExoSearch = () => {
                 // requête api avec la recherche
             }
 
-            const response = await axios.request(options);
-            setSearchResult(response.data.data);
+            const response = await axios.request(options)
+            setSearchResult(response.data.data)
         } catch (error) {
-            setSearchError(error);
-            console.log(error);
+            setSearchError(error)
+            console.log(error)
         } finally {
-            setSearchLoader(false);
+            setSearchLoader(false)
         }
-    };
+    }
 
     const handlePagination = (direction) => {
-        if (direction === 'left' && page > 1) {
+        if (direction === "left" && page > 1) {
             setPage(page - 1)
             handleSearch()
-        } else if (direction === 'right') {
+        } else if (direction === "right") {
             setPage(page + 1)
             handleSearch()
         }
@@ -53,10 +59,14 @@ const ExoSearch = () => {
     }, [])
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors.background }}>
+        <SafeAreaView
+            style={{ flex: 1, backgroundColor: useTheme().colors.background }}
+        >
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: useTheme().colors.background },
+                    headerStyle: {
+                        backgroundColor: useTheme().colors.background,
+                    },
                     headerShadowVisible: false,
                     headerTitle: "",
                 }}
@@ -66,22 +76,37 @@ const ExoSearch = () => {
                 renderItem={({ item }) => (
                     <ExosCard
                         exo={item}
-                        handleNavigate={() => router.push(`/exo-details/${item.exo_id}`)}
+                        handleNavigate={() =>
+                            router.push(`/exo-details/${item.exo_id}`)
+                        }
                     />
                 )}
                 keyExtractor={(item) => item.exo_id}
-                contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
+                contentContainerStyle={{
+                    padding: SIZES.medium,
+                    rowGap: SIZES.medium,
+                }}
                 ListHeaderComponent={() => (
                     <>
                         <View style={styles.container}>
                             <Text style={styles.searchTitle}>{params.id}</Text>
-                            <Text style={styles.noOfSearchedExos}>Voici ce que nous avons trouvé pour vous :</Text>
+                            <Text style={styles.noOfSearchedExos}>
+                                Voici ce que nous avons trouvé pour vous :
+                            </Text>
                         </View>
                         <View style={styles.loaderContainer}>
                             {searchLoader ? (
-                                <ActivityIndicator size="large" color={COLORS.primary} />
-                            ) : searchError && (
-                                <Text>Erreur lors du chargement du contenu de votre recherche</Text>
+                                <ActivityIndicator
+                                    size="large"
+                                    color={COLORS.primary}
+                                />
+                            ) : (
+                                searchError && (
+                                    <Text>
+                                        Erreur lors du chargement du contenu de
+                                        votre recherche
+                                    </Text>
+                                )
                             )}
                         </View>
                     </>
@@ -89,7 +114,10 @@ const ExoSearch = () => {
                 ListFooterComponent={() => (
                     <View style={styles.footerContainer}>
                         <Pressable
-                            style={({ pressed }) => [{opacity: pressed ? 0.5 : 1}, styles.paginationButton]} 
+                            style={({ pressed }) => [
+                                { opacity: pressed ? 0.5 : 1 },
+                                styles.paginationButton,
+                            ]}
                             onPress={() => handlePagination("left")}
                         >
                             <Image
@@ -102,7 +130,10 @@ const ExoSearch = () => {
                             <Text style={styles.paginationText}>{page}</Text>
                         </View>
                         <Pressable
-                            style={({ pressed }) => [{opacity: pressed ? 0.5 : 1}, styles.paginationButton]} 
+                            style={({ pressed }) => [
+                                { opacity: pressed ? 0.5 : 1 },
+                                styles.paginationButton,
+                            ]}
                             onPress={() => handlePagination("right")}
                         >
                             <Image
