@@ -15,22 +15,20 @@ const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
     const router = useRouter()
 
     return (
-        <>
-            <Pressable
-                style={({ pressed }) => [
-                    { opacity: pressed ? 0.5 : 1 },
-                    styles.btnContainer,
-                ]}
-                onPress={handlePress}
-                android_disableSound={false}
-            >
-                <Image
-                    source={iconUrl}
-                    resizeMode="cover"
-                    style={styles.btnImg(dimension)}
-                />
-            </Pressable>
-        </>
+        <Pressable
+            style={({ pressed }) => [
+                { opacity: pressed ? 0.5 : 1 },
+                styles.btnContainer,
+            ]}
+            onPress={handlePress}
+            android_disableSound={false}
+        >
+            <Image
+                source={iconUrl}
+                resizeMode="cover"
+                style={styles.btnImg(dimension)}
+            />
+        </Pressable>
     )
 }
 

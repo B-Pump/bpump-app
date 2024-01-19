@@ -24,36 +24,34 @@ const BpumpAbout = () => {
     }
 
     return (
-        <>
-            <SafeAreaView
-                style={{
-                    flex: 1,
-                    backgroundColor: useTheme().colors.background,
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: useTheme().colors.background,
+            }}
+        >
+            <Stack.Screen
+                options={{
+                    headerStyle: {
+                        backgroundColor: useTheme().colors.background,
+                    },
+                    headerShadowVisible: false,
+                    headerRight: () => (
+                        <ScreenHeaderBtn
+                            iconUrl={icons.share}
+                            dimension="60%"
+                            handlePress={onShare}
+                        />
+                    ),
+                    headerTitle: "À propos de nous",
                 }}
-            >
-                <Stack.Screen
-                    options={{
-                        headerStyle: {
-                            backgroundColor: useTheme().colors.background,
-                        },
-                        headerShadowVisible: false,
-                        headerRight: () => (
-                            <ScreenHeaderBtn
-                                iconUrl={icons.share}
-                                dimension="60%"
-                                handlePress={onShare}
-                            />
-                        ),
-                        headerTitle: "À propos de nous",
-                    }}
-                />
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={{ flex: 1, padding: SIZES.medium }}>
-                        <Text>Le Projet B-Pump est ...</Text>
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-        </>
+            />
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={{ flex: 1, padding: SIZES.medium }}>
+                    <Text>Le Projet B-Pump est ...</Text>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 

@@ -19,55 +19,48 @@ const Exos = () => {
     })
 
     return (
-        <>
-            <View style={styles.container}>
-                <View style={styles.header}>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text
+                    style={[
+                        styles.headerTitle,
+                        { color: useTheme().colors.text },
+                    ]}
+                >
+                    Exercices recommandés
+                </Text>
+                <Pressable
+                    style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
+                    onPress={() => {}}
+                >
                     <Text
                         style={[
-                            styles.headerTitle,
-                            { color: useTheme().colors.text },
+                            styles.headerBtn,
+                            { color: useTheme().colors.showall },
                         ]}
                     >
-                        Exercices recommandés
+                        Afficher tout
                     </Text>
-                    <Pressable
-                        style={({ pressed }) => [
-                            { opacity: pressed ? 0.5 : 1 },
-                        ]}
-                        onPress={() => {}}
-                    >
-                        <Text
-                            style={[
-                                styles.headerBtn,
-                                { color: useTheme().colors.showall },
-                            ]}
-                        >
-                            Afficher tout
-                        </Text>
-                    </Pressable>
-                </View>
-                <View style={styles.cardsContainer}>
-                    {isLoading ? (
-                        <ActivityIndicator
-                            size="large"
-                            color={COLORS.primary}
-                        />
-                    ) : error ? (
-                        <Text>Erreur lors du chargement des exercices</Text>
-                    ) : (
-                        data?.map((item) => (
-                            <ExosCard
-                                item={item}
-                                key={`liste-exo-${item?.exo_id}`}
-                                handleCardPress={() =>
-                                    router.push(`/exo-details/${item.exo_id}`)
-                                }
-                            />
-                        ))
-                    )}
-                </View>
+                </Pressable>
             </View>
-        </>
+            <View style={styles.cardsContainer}>
+                {isLoading ? (
+                    <ActivityIndicator size="large" color={COLORS.primary} />
+                ) : error ? (
+                    <Text>Erreur lors du chargement des exercices</Text>
+                ) : (
+                    data?.map((item) => (
+                        <ExosCard
+                            item={item}
+                            key={`liste-exo-${item?.exo_id}`}
+                            handleCardPress={() =>
+                                router.push(`/exo-details/${item.exo_id}`)
+                            }
+                        />
+                    ))
+                )}
+            </View>
+        </View>
     )
 }
 

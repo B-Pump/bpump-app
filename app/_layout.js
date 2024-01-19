@@ -31,11 +31,9 @@ const Layout = () => {
     if (!fontsLoaded) return null
 
     return (
-        <>
-            <ThemeProvider>
-                <Stack onLayout={onLayoutRootView} />
-            </ThemeProvider>
-        </>
+        <ThemeProvider>
+            <Stack onLayout={onLayoutRootView} />
+        </ThemeProvider>
     )
 }
 
