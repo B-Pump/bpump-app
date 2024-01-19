@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     searchBtn: {
         width: 50,
         height: "100%",
-        backgroundColor: COLORS.tertiary,
         borderRadius: SIZES.medium,
         justifyContent: "center",
         alignItems: "center",
@@ -49,23 +48,23 @@ const styles = StyleSheet.create({
     searchBtnImage: {
         width: "50%",
         height: "50%",
-        tintColor: COLORS.white,
     },
     tabsContainer: {
         width: "100%",
         marginTop: SIZES.medium,
     },
-    tab: (item) => ({
+    tab: {
         paddingVertical: SIZES.small / 2,
         paddingHorizontal: SIZES.small,
         borderRadius: SIZES.medium,
         borderWidth: 1,
         borderColor: COLORS.gray2,
-    }),
-    tabText: (activeExoType, item) => ({
+        backgroundColor: COLORS.lightWhite
+    },
+    tabText: {
         fontFamily: FONT.medium,
         color: COLORS.secondary,
-    }),
+    },
 })
 
 export default styles

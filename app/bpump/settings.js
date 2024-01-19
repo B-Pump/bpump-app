@@ -19,10 +19,10 @@ const BpumpSettings = () => {
     const [selectedVoice, setSelectedVoice] = useState("rien");
 
     return <>
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: colors },
+                    headerStyle: { backgroundColor: colors.background },
                     headerShadowVisible: false,
                     headerTitle: ""
                 }}
@@ -30,21 +30,22 @@ const BpumpSettings = () => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1, padding: SIZES.medium }}>
                     <View style={styles.settingSwitch}>
-                        <Text>Utiliser le mode sombre</Text>
+                        <Text style={{ color: colors.text }}>Utiliser le mode sombre</Text>
                         <Switch
                             trackColor={{
                                 true: COLORS.gray2,
                                 false: COLORS.gray2
                             }}
                             onChange={() => {
-                                dark ? setScheme('light') : setScheme('dark')
+                                dark ? setScheme("light") : setScheme("dark")
                             }}
                             value={dark}
                             thumbColor={COLORS.white}
                         />
                     </View>
                     <View>
-                        <Picker 
+                        <Picker
+                            style={{ color: colors.text }}
                             selectedValue={selectedVoice} 
                             onValueChange={(itemValue) => {
                                 setSelectedVoice(itemValue)
@@ -58,10 +59,10 @@ const BpumpSettings = () => {
                         </Picker>
                     </View>
                     <View>
-                        <Text style={styles.settingTitle}>Informations complémentaires</Text>
+                        <Text style={[styles.settingTitle, { color: colors.text }]}>Informations complémentaires</Text>
                         <View style={styles.settingDevice}>
-                            <Text>ID de l'appareil : {osInternalBuildId}</Text>
-                            <Text>Version du client : {version}</Text>
+                            <Text style={{ color: colors.text }}>ID de l'appareil : {osInternalBuildId}</Text>
+                            <Text style={{ color: colors.text }}>Version du client : {version}</Text>
                         </View>
                     </View>
                 </View>

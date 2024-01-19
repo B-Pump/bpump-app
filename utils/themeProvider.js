@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useColorScheme } from 'react-native';
+import { createContext, useContext, useState } from 'react';
 
 import { COLORS } from '../constants';
 
@@ -28,18 +27,18 @@ export const ThemeContext = createContext({
  * @returns {React.ReactNode} - Composant avec le contexte du thème
  */
 export const ThemeProvider = ({ children }) => {
-    const colorScheme = useColorScheme() || "light";
-    const [isDark, setIsDark] = useState(colorScheme == "dark");
-
-    useEffect(() => {
-        setIsDark(colorScheme == "dark")
-    },[colorScheme])
-
+    const [isDark, setIsDark] = useState();
     const defaultTheme = {
         dark: isDark,
-        colors: isDark ? COLORS.tertiary : COLORS.lightWhite,
+        colors: {
+            background: isDark ? COLORS.tertiary : COLORS.lightWhite,
+            text: isDark ? COLORS.lightWhite : "black",
+            icon: isDark ? COLORS.lightWhite : COLORS.tertiary,
+            showall: isDark ? COLORS.secondary : COLORS.gray
+        },
         setScheme: (scheme) => setIsDark(scheme == "dark")
     }
+    
     return <>
         <ThemeContext.Provider value={defaultTheme}>
             {children}

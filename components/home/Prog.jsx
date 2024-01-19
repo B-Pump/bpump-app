@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, Pressable, FlatList, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
+import { useTheme } from '../../utils/themeProvider';
 import { ProgCard } from '../common/cards/ProgCard';
 import useFetch from '../../hook/useFetch';
 
@@ -20,10 +21,13 @@ const Prog = () => {
     return <>
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerTitle}>Programmes recommandés</Text>
-                <TouchableOpacity onPress={() => {}}>
-                    <Text style={styles.headerBtn}>Afficher tout</Text>
-                </TouchableOpacity>
+                <Text style={[styles.headerTitle, { color: useTheme().colors.text }]}>Programmes recommandés</Text>
+                <Pressable 
+                    style={({ pressed }) => [{opacity: pressed ? 0.5 : 1}]}
+                    onPress={() => {}}
+                >
+                    <Text style={[styles.headerBtn, { color: useTheme().colors.showall }]}>Afficher tout</Text>
+                </Pressable>
             </View>
             <View style={styles.cardsContainer}>
                 {isLoading ? (

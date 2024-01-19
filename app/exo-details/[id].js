@@ -11,10 +11,10 @@ import { SIZES } from '../../constants';
  */
 const ExoDetails = () => {
     return <>
-        <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors.background }}>
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: useTheme().colors },
+                    headerStyle: { backgroundColor: useTheme().colors.background },
                     headerShadowVisible: false,
                     headerTitle: ""
                 }}

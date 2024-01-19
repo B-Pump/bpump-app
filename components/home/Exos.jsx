@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, Pressable, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
+import { useTheme } from '../../utils/themeProvider';
 import { ExosCard } from '../common/cards/ExosCard';
 import useFetch from '../../hook/useFetch';
 
@@ -20,10 +21,13 @@ const Exos = () => {
     return <>
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerTitle}>Exercices recommandés</Text>
-                <TouchableOpacity onPress={() => {}}>
-                    <Text style={styles.headerBtn}>Afficher tout</Text>
-                </TouchableOpacity>
+                <Text style={[styles.headerTitle, { color: useTheme().colors.text }]}>Exercices recommandés</Text>
+                <Pressable
+                    style={({ pressed }) => [{opacity: pressed ? 0.5 : 1}]}
+                    onPress={() => {}}
+                >
+                    <Text style={[styles.headerBtn, { color: useTheme().colors.showall }]}>Afficher tout</Text>
+                </Pressable>
             </View>
             <View style={styles.cardsContainer}>
                 {isLoading ? (

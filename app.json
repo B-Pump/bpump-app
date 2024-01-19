@@ -1,26 +1,38 @@
 {
-  "expo": {
-    "scheme": "acme",
-    "web": {
-      "bundler": "metro"
-    },
-    "plugins": [
-      "expo-router"
-    ],
-    "name": "bpump-app",
-    "displayName": "B-Pump",
-    "slug": "bpump-app",
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "4a752c12-2f60-477e-93fd-efe6db60af67"
-      }
-    },
-    "owner": "wiizz",
-    "android": {
-      "package": "com.wiizz.bpumpapp"
+    "expo": {
+        "name": "Robot B-Pump",
+        "description": "Application du robot B-Pump, votre coach sportif 100% Robotique !",
+        "slug": "bpump-app",
+        "owner": "wiizz",
+        "version": "1.0.0",
+        "githubUrl": "https://github.com/wiizzl/bpump-app",
+        "scheme": "acme",
+        "plugins": ["expo-router"],
+        "icon": "./assets/icon.png",
+        "platforms": ["android", "web"],
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "4a752c12-2f60-477e-93fd-efe6db60af67"
+            }
+        },
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "android": {
+            "package": "com.wiizz.bpumpapp",
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            }
+        },
+        "web": {
+            "bundler": "metro",
+            "favicon": "./assets/favicon.png"
+        }
     }
-  }
 }
