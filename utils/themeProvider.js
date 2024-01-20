@@ -3,15 +3,15 @@ import { createContext, useContext, useState } from "react"
 import { COLORS } from "../constants"
 
 /**
- * Contexte pour gérer le thème de l'application
+ * Context to manage the application theme
  * @typedef {Object} ThemeContextType
- * @property {boolean} dark - Indique si le thème est sombre.
- * @property {Object} colors - Couleurs du thème.
- * @property {Function} setScheme - Fonction pour définir le schéma du thème.
+ * @property {boolean} dark - Indicates whether the theme is dark
+ * @property {Object} colors - Theme colors
+ * @property {Function} setScheme - Function to set the theme schema
  */
 
 /**
- * Contexte du thème de l'application
+ * App theme background
  * @type {React.Context<ThemeContextType>}
  */
 export const ThemeContext = createContext({
@@ -21,10 +21,10 @@ export const ThemeContext = createContext({
 })
 
 /**
- * Fournisseur de thème pour encapsuler l'application avec le contexte du thème
- * @param {Object} props - Propriétés du composant
- * @param {React.ReactNode} props.children - Composants enfants encapsulés dans le fournisseur de thème
- * @returns {React.ReactNode} - Composant avec le contexte du thème
+ * Theme provider to wrap the application with theme context
+ * @param {Object} props - Component Properties
+ * @param {React.ReactNode} props.children - Child components encapsulated in theme provider
+ * @returns {React.Component} - Component with theme context
  */
 export const ThemeProvider = ({ children }) => {
     const [isDark, setIsDark] = useState()
@@ -50,7 +50,7 @@ export const ThemeProvider = ({ children }) => {
 }
 
 /**
- * Hook pour utiliser le contexte du thème
- * @returns {ThemeContextType} - Valeur actuelle du contexte du thème
+ * Hook to use theme context
+ * @returns {ThemeContextType} - Current value of theme context
  */
 export const useTheme = () => useContext(ThemeContext)

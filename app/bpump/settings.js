@@ -11,8 +11,8 @@ import { COLORS, SIZES } from "../../constants"
 import styles from "../../styles/bpump"
 
 /**
- * Composant représentant l'écran des paramètres de l'application
- * @returns {React.ReactNode} - Composant de l'écran des paramètres
+ * Component representing the application settings screen
+ * @returns {React.Component} - Settings Screen Component
  */
 const BpumpSettings = () => {
     const { dark, colors, setScheme } = useTheme()

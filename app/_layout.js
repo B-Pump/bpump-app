@@ -8,8 +8,8 @@ import { ThemeProvider } from "../utils/themeProvider"
 SplashScreen.preventAutoHideAsync()
 
 /**
- * Composant principal de l'application
- * @returns {React.ReactNode} - Composant de la mise en page
+ * Main component of the application
+ * @returns {React.Component} - Layout Component
  */
 const Layout = () => {
     const [fontsLoaded] = useFonts({
@@ -19,8 +19,8 @@ const Layout = () => {
     })
 
     /**
-     * Callback appelée lorsque la mise en page de la racine est effectuée
-     * Masque l'écran de démarrage lorsque les polices sont chargées
+     * Callback called when root layout is done
+     * Hide the splash screen when fonts are loaded
      */
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) {

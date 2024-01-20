@@ -4,11 +4,11 @@ import styles from "./style/progcard.style"
 import { checkImageURL } from "../../../utils/checkImageURL"
 
 /**
- * Composant représentant une carte cliquable pour accèder aux détails du programme
- * @param {Object} props - Propriété du composant
- * @param {Object} props.item - Informations sur le programme à afficher sur la carte
- * @param {Function} props.handleCardPress - Fonction appelée lorsqu'on appuie sur la carte
- * @returns {React.ReactNode} - Composant de la carte du programme
+ * Component representing a clickable card to access program details
+ * @param {Object} props - Component property
+ * @param {Object} props.item - Program information to display on the card
+ * @param {Function} props.handleCardPress - Function called when card is pressed
+ * @returns {React.Component} - Program Card Component
  */
 const ProgCard = ({ item, handleCardPress }) => {
     return (

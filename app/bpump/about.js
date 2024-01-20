@@ -8,13 +8,13 @@ import { SIZES, icons } from "../../constants"
 import styles from "../../styles/bpump"
 
 /**
- *  Composant représentant l'écran "A propos" de l'application
+ *  Composant Component representing the application's "About" screen
  * @returns {React.ReactNode} - Composant de l'écran "A propos".
  */
 const BpumpAbout = () => {
     /**
-     * Fonction appelée lorsqu'on souhaite partager l'appli
-     * Utilise l'API Share de React Native pour partager un message
+     * Function called when you want to share the app
+     * Uses React Native's Share API to share a message
      */
     const onShare = () => {
         Share.share({

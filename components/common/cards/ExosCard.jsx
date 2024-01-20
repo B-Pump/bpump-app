@@ -4,11 +4,11 @@ import styles from "./style/exoscard.style"
 import { checkImageURL } from "../../../utils/checkImageURL"
 
 /**
- * Composant représentant une carte cliquable pour accèder aux détails de l'exercice
- * @param {Object} props - Propriété du composant
+ * Component representing a clickable card to access exercise details
+ * @param {Object} props - Component property
  * @param {Object} props.item - Informations sur l'exercice à afficher sur la carte
- * @param {Function} props.handleCardPress - Fonction appelée lorsqu'on appuie sur la carte
- * @returns {React.ReactNode} - Composant de la carte d'exercice
+ * @param {Function} props.handleCardPress - Exercise information to display on the map
+ * @returns {React.Component} - Exercise Card Component
  */
 const ExosCard = ({ item, handleCardPress }) => {
     return (

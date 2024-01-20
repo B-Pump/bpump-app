@@ -6,8 +6,8 @@ import { useTheme } from "../../utils/themeProvider"
 import { SIZES } from "../../constants"
 
 /**
- * Composant représentant l'écran des détails de l'exercice
- * @returns {React.ReactNode} - Composant de l'écran des détails de l'exercice
+ * Component representing the exercise details screen
+ * @returns {React.Component} - Component of the exercise details screen
  */
 const ExoDetails = () => {
     return (

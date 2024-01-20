@@ -9,8 +9,8 @@ import styles from "./style/exos.style"
 import { COLORS, SIZES } from "../../constants"
 
 /**
- * Composant représentant la section des exercices recommandés
- * @returns {React.ReactNode} - Composant de la section des exercices recommandés
+ * Component representing the recommended exercises section
+ * @returns {React.Component} - Component of the recommended exercises section
  */
 const Exos = () => {
     const router = useRouter()

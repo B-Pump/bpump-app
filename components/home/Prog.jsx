@@ -15,8 +15,8 @@ import styles from "./style/prog.style"
 import { COLORS, SIZES } from "../../constants"
 
 /**
- * Composant représentant la section des programmes recommandés
- * @returns {React.ReactNode} - Composant de la section des programmes recommandés
+ * Component representing the recommended programs section
+ * @returns {React.Component} - Component of the recommended programs section
  */
 const Prog = () => {
     const router = useRouter()

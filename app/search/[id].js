@@ -16,6 +16,10 @@ import { ExosCard } from "../../components"
 import { COLORS, icons, SIZES } from "../../constants"
 import styles from "../../styles/search"
 
+/**
+ * Component to handle the search functionality and displaying the search results
+ * @returns {React.Component} The rendered component for searching and displaying search results
+ */
 const ExoSearch = () => {
     const params = useGlobalSearchParams()
     const router = useRouter()

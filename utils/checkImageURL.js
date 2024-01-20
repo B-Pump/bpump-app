@@ -1,7 +1,7 @@
 /**
- * Vérifie si l'URL fournie pointe vers une image avec certains formats
- * @param {string} url - L'URL de l'image à vérifier
- * @returns {boolean} - Retourne true si l'URL est une image valide, sinon false
+ * Checks if the provided URL points to an image with certain formats
+ * @param {string} url - The URL of the image to check
+ * @returns {boolean} - Returns true if the URL is a valid image, otherwise false
  */
 export const checkImageURL = (url) => {
     if (!url) {

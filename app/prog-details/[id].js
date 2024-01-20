@@ -6,8 +6,8 @@ import { useTheme } from "../../utils/themeProvider"
 import { SIZES } from "../../constants"
 
 /**
- * Composant représentant l'écran des détails du programme
- * @returns {React.ReactNode} - Composant de l'écran des détails du programme
+ * Component representing the program details screen
+ * @returns {React.Component} - Program Details Screen Component
  */
 const ProgDetails = () => {
     return (

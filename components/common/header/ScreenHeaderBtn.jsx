@@ -9,7 +9,7 @@ import styles from "./style/screenheader.style"
  * @param {string} props.iconUrl - URL de l'icône du bouton
  * @param {string} props.dimension - Dimension du bouton (en %)
  * @param {Function} props.handlePress - Fonction appelée lorsqu'on appuie sur le bouton
- * @returns {React.ReactNode} - Composant du bouton d'en tête de l'écran
+ * @returns {React.Component} - Composant du bouton d'en tête de l'écran
  */
 const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
     const router = useRouter()
