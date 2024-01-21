@@ -71,6 +71,8 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
                         "Bas du corps",
                         "Cardio",
                         "Flexibilité",
+                        "Calisthénie",
+                        "Core",
                     ]}
                     renderItem={({ item }) => (
                         <Pressable

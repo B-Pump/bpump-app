@@ -12,7 +12,7 @@ import axios from "axios"
 
 import { useTheme } from "../../utils/themeProvider"
 
-import { ExosCard } from "../../components"
+import { ExosCard } from "../../components/common/cards/ExosCard"
 import { COLORS, icons, SIZES } from "../../constants"
 import styles from "../../styles/search"
 

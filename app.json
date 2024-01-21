@@ -8,7 +8,7 @@
         "githubUrl": "https://github.com/wiizzl/bpump-app",
         "scheme": "acme",
         "plugins": ["expo-router"],
-        "icon": "./assets/icon.png",
+        "icon": "assets/images/icon.png",
         "platforms": ["android", "web"],
         "extra": {
             "router": {
@@ -19,20 +19,20 @@
             }
         },
         "splash": {
-            "image": "./assets/splash.png",
+            "image": "assets/images/splash.png",
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"
         },
         "android": {
             "package": "com.wiizz.bpumpapp",
             "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
+                "foregroundImage": "assets/images/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             }
         },
         "web": {
             "bundler": "metro",
-            "favicon": "./assets/favicon.png"
+            "favicon": "assets/images/favicon.png"
         }
     }
 }
