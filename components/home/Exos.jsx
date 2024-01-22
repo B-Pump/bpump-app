@@ -1,4 +1,4 @@
-import { View, Text, Pressable, ActivityIndicator } from "react-native"
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native"
 import { useRouter } from "expo-router"
 
 import { useTheme } from "../../utils/themeProvider"
@@ -29,10 +29,7 @@ const Exos = () => {
                 >
                     Exercices recommandés
                 </Text>
-                <Pressable
-                    style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
-                    onPress={() => {}}
-                >
+                <TouchableOpacity onPress={() => {}}>
                     <Text
                         style={[
                             styles.headerBtn,
@@ -41,7 +38,7 @@ const Exos = () => {
                     >
                         Afficher tout
                     </Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
             <View style={styles.cardsContainer}>
                 {isLoading ? (

@@ -3,7 +3,7 @@ import {
     ActivityIndicator,
     FlatList,
     Image,
-    Pressable,
+    TouchableOpacity,
     View,
 } from "react-native"
 import { Stack, useRouter, useGlobalSearchParams } from "expo-router"
@@ -21,8 +21,8 @@ import styles from "../../styles/search"
  * @returns {React.Component} The rendered component for searching and displaying search results
  */
 const ExoSearch = () => {
-    const params = useGlobalSearchParams()
     const router = useRouter()
+    const params = useGlobalSearchParams()
 
     const [searchResult, setSearchResult] = useState([])
     const [searchLoader, setSearchLoader] = useState(false)
@@ -117,11 +117,8 @@ const ExoSearch = () => {
                 )}
                 ListFooterComponent={() => (
                     <View style={styles.footerContainer}>
-                        <Pressable
-                            style={({ pressed }) => [
-                                { opacity: pressed ? 0.5 : 1 },
-                                styles.paginationButton,
-                            ]}
+                        <TouchableOpacity
+                            style={styles.paginationButton}
                             onPress={() => handlePagination("left")}
                         >
                             <Image
@@ -129,15 +126,12 @@ const ExoSearch = () => {
                                 style={styles.paginationImage}
                                 resizeMode="contain"
                             />
-                        </Pressable>
+                        </TouchableOpacity>
                         <View style={styles.paginationTextBox}>
                             <Text style={styles.paginationText}>{page}</Text>
                         </View>
-                        <Pressable
-                            style={({ pressed }) => [
-                                { opacity: pressed ? 0.5 : 1 },
-                                styles.paginationButton,
-                            ]}
+                        <TouchableOpacity
+                            style={styles.paginationButton}
                             onPress={() => handlePagination("right")}
                         >
                             <Image
@@ -145,7 +139,7 @@ const ExoSearch = () => {
                                 style={styles.paginationImage}
                                 resizeMode="contain"
                             />
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                 )}
             />

@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react"
-import { View, ScrollView, SafeAreaView, Pressable, Text } from "react-native"
+import {
+    View,
+    ScrollView,
+    SafeAreaView,
+    TouchableOpacity,
+    Text,
+} from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Stack, useRouter } from "expo-router"
 
 import { useTheme } from "../utils/themeProvider"
-import { Login } from "../components"
+import { GetStarted } from "../components"
 
 import { icons, images, SIZES } from "../constants"
 import { Exos, Prog, ScreenHeaderBtn, Welcome } from "../components"
@@ -48,36 +54,50 @@ const Home = () => {
                 backgroundColor: useTheme().colors.background,
             }}
         >
-            <Stack.Screen
-                options={{
-                    headerStyle: {
-                        backgroundColor: useTheme().colors.background,
-                    },
-                    headerShadowVisible: false,
-                    headerLeft: () => (
-                        <ScreenHeaderBtn
-                            iconUrl={images.logo}
-                            dimension="100%"
-                            handlePress={() => router.push("/bpump/about")}
-                        />
-                    ),
-                    headerRight: () => (
-                        <ScreenHeaderBtn
-                            iconUrl={icons.settings}
-                            dimension="70%"
-                            handlePress={() => router.push("/bpump/settings")}
-                        />
-                    ),
-                    headerTitle: "",
-                }}
-            />
+            {userLoggedIn ? (
+                <Stack.Screen
+                    options={{
+                        headerStyle: {
+                            backgroundColor: useTheme().colors.background,
+                        },
+                        headerShadowVisible: false,
+                        headerLeft: () => (
+                            <ScreenHeaderBtn
+                                iconUrl={images.logo}
+                                dimension="100%"
+                                handlePress={() => router.push("/bpump/about")}
+                            />
+                        ),
+                        headerRight: () => (
+                            <ScreenHeaderBtn
+                                iconUrl={icons.settings}
+                                dimension="70%"
+                                handlePress={() =>
+                                    router.push("/bpump/settings")
+                                }
+                            />
+                        ),
+                        headerTitle: "",
+                    }}
+                />
+            ) : (
+                <Stack.Screen
+                    options={{
+                        headerStyle: {
+                            backgroundColor: useTheme().colors.background,
+                        },
+                        headerShadowVisible: false,
+                        headerTitle: "",
+                    }}
+                />
+            )}
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1, padding: SIZES.medium }}>
                     {userLoggedIn ? (
                         <>
-                            <Pressable onPress={clearUserData}>
+                            <TouchableOpacity onPress={clearUserData}>
                                 <Text>Se déconnecter</Text>
-                            </Pressable>
+                            </TouchableOpacity>
                             <Welcome
                                 searchTerm={searchTerm}
                                 setSearchTerm={setSearchTerm}
@@ -91,7 +111,7 @@ const Home = () => {
                             <Exos />
                         </>
                     ) : (
-                        <Login login={updateUserLoggedIn} />
+                        <GetStarted login={updateUserLoggedIn} />
                     )}
                 </View>
             </ScrollView>

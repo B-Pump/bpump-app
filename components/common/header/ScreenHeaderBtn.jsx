@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router"
-import { Pressable, Image } from "react-native"
+import { TouchableOpacity, Image } from "react-native"
 
 import styles from "./style/screenheader.style"
 
@@ -12,14 +12,9 @@ import styles from "./style/screenheader.style"
  * @returns {React.Component} - Composant du bouton d'en tête de l'écran
  */
 const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
-    const router = useRouter()
-
     return (
-        <Pressable
-            style={({ pressed }) => [
-                { opacity: pressed ? 0.5 : 1 },
-                styles.btnContainer,
-            ]}
+        <TouchableOpacity
+            style={styles.btnContainer}
             onPress={handlePress}
             android_disableSound={false}
         >
@@ -28,7 +23,7 @@ const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
                 resizeMode="cover"
                 style={styles.btnImg(dimension)}
             />
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 

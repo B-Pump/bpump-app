@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image } from "react-native"
+import { View, Text, TouchableOpacity, Image } from "react-native"
 
 import styles from "./style/progcard.style"
 import { checkImageURL } from "../../../utils/checkImageURL"
@@ -12,19 +12,11 @@ import { checkImageURL } from "../../../utils/checkImageURL"
  */
 const ProgCard = ({ item, handleCardPress }) => {
     return (
-        <Pressable
-            style={({ pressed }) => [
-                { opacity: pressed ? 0.5 : 1 },
-                styles.container(item),
-            ]}
+        <TouchableOpacity
+            style={styles.container(item)}
             onPress={() => handleCardPress(item)}
         >
-            <Pressable
-                style={({ pressed }) => [
-                    { opacity: pressed ? 0.5 : 1 },
-                    styles.logoContainer(item),
-                ]}
-            >
+            <TouchableOpacity style={styles.logoContainer(item)}>
                 <Image
                     source={{
                         uri: checkImageURL(item.prog_logo)
@@ -34,7 +26,7 @@ const ProgCard = ({ item, handleCardPress }) => {
                     resizeMode="contain"
                     style={styles.logoImage}
                 />
-            </Pressable>
+            </TouchableOpacity>
             <Text style={styles.companyName} numberOfLines={1}>
                 {item.employer_name}
             </Text>
@@ -44,7 +36,7 @@ const ProgCard = ({ item, handleCardPress }) => {
                 </Text>
                 <Text style={styles.duration}>{item.prog_duration}</Text>
             </View>
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 

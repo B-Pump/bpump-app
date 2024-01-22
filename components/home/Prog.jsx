@@ -1,7 +1,7 @@
 import {
     View,
     Text,
-    Pressable,
+    TouchableOpacity,
     FlatList,
     ActivityIndicator,
 } from "react-native"
@@ -35,10 +35,7 @@ const Prog = () => {
                 >
                     Programmes recommandés
                 </Text>
-                <Pressable
-                    style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
-                    onPress={() => {}}
-                >
+                <TouchableOpacity onPress={() => {}}>
                     <Text
                         style={[
                             styles.headerBtn,
@@ -47,7 +44,7 @@ const Prog = () => {
                     >
                         Afficher tout
                     </Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
             <View style={styles.cardsContainer}>
                 {isLoading ? (

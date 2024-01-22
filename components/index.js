@@ -4,6 +4,6 @@ import Welcome from "./home/Welcome"
 import Prog from "./home/Prog"
 import Exos from "./home/Exos"
 
-import Login from "./authentification/Login"
+import GetStarted from "./auth/GetStarted"
 
-export { ScreenHeaderBtn, Welcome, Prog, Exos, Login }
+export { ScreenHeaderBtn, Welcome, Prog, Exos, GetStarted }
