@@ -1,40 +1,27 @@
-import { Stack } from "expo-router"
-import { useCallback } from "react"
-import { useFonts } from "expo-font"
-import * as SplashScreen from "expo-splash-screen"
+import { SplashScreen, Slot } from "expo-router";
+import { useEffect } from "react";
+import { useFonts } from "expo-font";
 
-import { ThemeProvider } from "../utils/themeProvider"
+import { AuthProvider } from "../context/auth";
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
-/**
- * Main component of the application
- * @returns {React.Component} - Layout Component
- */
-const Layout = () => {
-    const [fontsLoaded] = useFonts({
+export default function RootLayout() {
+    const [fontsLoaded, fontError] = useFonts({
         DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
         DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
         DMRegular: require("../assets/fonts/DMSans-Regular.ttf"),
-    })
+    });
 
-    /**
-     * Callback called when root layout is done
-     * Hide the splash screen when fonts are loaded
-     */
-    const onLayoutRootView = useCallback(async () => {
-        if (fontsLoaded) {
-            await SplashScreen.hideAsync()
-        }
-    }, [fontsLoaded])
+    useEffect(() => {
+        if (fontsLoaded || fontError) SplashScreen.hideAsync();
+    }, [fontsLoaded, fontError]);
 
-    if (!fontsLoaded) return null
+    if (!fontsLoaded && !fontError) return null;
 
     return (
-        <ThemeProvider>
-            <Stack onLayout={onLayoutRootView} />
-        </ThemeProvider>
-    )
+        <AuthProvider>
+            <Slot />
+        </AuthProvider>
+    );
 }
-
-export default Layout

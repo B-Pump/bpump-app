@@ -1,0 +1,24 @@
+import { useState } from "react";
+import { SafeAreaView, ScrollView } from "react-native";
+import { router } from "expo-router";
+
+import { Home } from "../../components";
+import { COLORS, SIZES } from "../../constants";
+
+export default function Index() {
+    const [searchTerm, setSearchTerm] = useState("");
+
+    return (
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.background, padding: SIZES.medium }}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Home
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    handleClick={() => {
+                        if (searchTerm) router.push(`/search/${searchTerm}`);
+                    }}
+                />
+            </ScrollView>
+        </SafeAreaView>
+    );
+}

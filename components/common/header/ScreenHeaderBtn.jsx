@@ -1,30 +1,11 @@
-import { useRouter } from "expo-router"
-import { TouchableOpacity, Image } from "react-native"
+import { TouchableOpacity, Image } from "react-native";
 
-import styles from "./style/screenheader.style"
+import styles from "./style/screenheaderbtn.style";
 
-/**
- * Composant représentant un bouton d'en tête de l'écran
- * @param {Object} props - Propriétés du composant
- * @param {string} props.iconUrl - URL de l'icône du bouton
- * @param {string} props.dimension - Dimension du bouton (en %)
- * @param {Function} props.handlePress - Fonction appelée lorsqu'on appuie sur le bouton
- * @returns {React.Component} - Composant du bouton d'en tête de l'écran
- */
-const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
+export default function ScreenHeaderBtn({ iconUrl, dimension, handlePress }) {
     return (
-        <TouchableOpacity
-            style={styles.btnContainer}
-            onPress={handlePress}
-            android_disableSound={false}
-        >
-            <Image
-                source={iconUrl}
-                resizeMode="cover"
-                style={styles.btnImg(dimension)}
-            />
+        <TouchableOpacity style={styles.btnContainer} onPress={handlePress}>
+            <Image source={iconUrl} resizeMode="cover" style={styles.btnImg(dimension)} />
         </TouchableOpacity>
-    )
+    );
 }
-
-export default ScreenHeaderBtn
