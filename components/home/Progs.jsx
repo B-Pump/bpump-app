@@ -1,12 +1,14 @@
 import { View, Text, TouchableOpacity, ActivityIndicator, FlatList } from "react-native";
 
+import ProgsCard from "../common/cards/ProgsCard";
+
 import { COLORS, SIZES } from "../../constants";
 import styles from "./style/progs.style";
 
 export default function Progs() {
-    let data = ["Programme 1", "Programme 2"];
+    let data = ["Programme 1", "Programme 2", "Programme 3", "Programme 4"];
     let isLoading = false;
-    let error = true;
+    let error = false;
 
     return (
         <View style={styles.container}>
@@ -25,7 +27,7 @@ export default function Progs() {
                     <FlatList
                         showsHorizontalScrollIndicator={false}
                         data={data}
-                        renderItem={({ item }) => console.log("programme")}
+                        renderItem={({ item, index }) => <ProgsCard prog={item} key={index} />}
                         keyExtractor={(item) => item}
                         contentContainerStyle={{ columnGap: SIZES.medium }}
                         horizontal
