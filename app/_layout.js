@@ -1,4 +1,5 @@
 import { SplashScreen, Slot } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 
@@ -22,6 +23,7 @@ export default function RootLayout() {
     return (
         <AuthProvider>
             <Slot />
+            <StatusBar style="auto" />
         </AuthProvider>
     );
 }

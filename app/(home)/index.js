@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SafeAreaView, ScrollView } from "react-native";
 import { router } from "expo-router";
 
-import { Home } from "../../components";
+import { Home, Progs, Exos } from "../../components";
 import { COLORS, SIZES } from "../../constants";
 
 export default function Index() {
@@ -18,6 +18,8 @@ export default function Index() {
                         if (searchTerm) router.push(`/search/${searchTerm}`);
                     }}
                 />
+                <Progs />
+                <Exos />
             </ScrollView>
         </SafeAreaView>
     );

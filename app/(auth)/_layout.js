@@ -1,6 +1,8 @@
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 
-import { COLORS } from "../../constants";
+import { ScreenHeaderBtn } from "../../components";
+
+import { COLORS, icons } from "../../constants";
 
 export default function AuthLayout() {
     return (
@@ -12,6 +14,9 @@ export default function AuthLayout() {
                     headerStyle: {
                         backgroundColor: COLORS.light.background,
                     },
+                    headerLeft: () => (
+                        <ScreenHeaderBtn iconUrl={icons.back} dimension="65%" handlePress={() => router.back()} />
+                    ),
                     headerShadowVisible: false,
                     headerTitle: "",
                 }}
@@ -22,6 +27,9 @@ export default function AuthLayout() {
                     headerStyle: {
                         backgroundColor: COLORS.light.background,
                     },
+                    headerLeft: () => (
+                        <ScreenHeaderBtn iconUrl={icons.back} dimension="65%" handlePress={() => router.back()} />
+                    ),
                     headerShadowVisible: false,
                     headerTitle: "",
                 }}
