@@ -23,6 +23,14 @@
                 "backgroundColor": "#ffffff"
             }
         },
-        "plugins": ["expo-router"]
+        "plugins": ["expo-router"],
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "e683ab09-dadc-4f6d-8db0-dedb30182142"
+            }
+        }
     }
 }
