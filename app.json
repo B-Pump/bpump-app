@@ -6,7 +6,6 @@
         "owner": "wiizz",
         "githubUrl": "https://github.com/wiizzl/bpump-app",
         "scheme": "bpump",
-        "userInterfaceStyle": "light",
         "assetBundlePatterns": ["**/*"],
         "icon": "./assets/images/icon.png",
         "splash": {
@@ -22,9 +21,6 @@
                 "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             }
-        },
-        "web": {
-            "favicon": "./assets/images/favicon.png"
         },
         "plugins": ["expo-router"]
     }
