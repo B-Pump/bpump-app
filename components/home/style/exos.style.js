@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         marginTop: SIZES.small,
     },
     headerTitle: {
-        fontSize: SIZES.large,
+        fontSize: SIZES.medium + 3,
         fontFamily: FONT.medium,
         color: COLORS.light.text,
     },

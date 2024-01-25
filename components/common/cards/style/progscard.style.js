@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     progTitle: {
         fontSize: SIZES.large,
         fontFamily: FONT.medium,
-        color: COLORS.secondary,
+        color: COLORS.quaternary,
     },
     infoWrapper: {
         flexDirection: "row",
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     publisher: {
         fontSize: SIZES.medium - 2,
         fontFamily: FONT.regular,
-        color: COLORS.secondary,
+        color: COLORS.quaternary,
     },
     infosup: {
         fontSize: SIZES.medium - 2,

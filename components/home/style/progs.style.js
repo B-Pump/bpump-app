@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     headerTitle: {
-        fontSize: SIZES.large,
+        fontSize: SIZES.medium + 3,
         fontFamily: FONT.medium,
         color: COLORS.light.text,
     },

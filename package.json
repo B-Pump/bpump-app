@@ -12,6 +12,7 @@
     "axios": "^1.6.5",
     "expo": "^50.0.3",
     "expo-constants": "~15.4.5",
+    "expo-device": "~5.9.3",
     "expo-font": "^11.10.2",
     "expo-linear-gradient": "~12.7.1",
     "expo-linking": "~6.2.2",

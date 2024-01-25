@@ -8,12 +8,12 @@ const styles = StyleSheet.create({
     homeTitle: {
         fontFamily: FONT.regular,
         fontSize: SIZES.large,
-        color: COLORS.secondary,
+        color: COLORS.quaternary,
     },
     homeDesc: {
         fontFamily: FONT.bold,
         fontSize: SIZES.xLarge,
-        color: COLORS.secondary,
+        color: COLORS.quaternary,
         marginTop: 2,
     },
     searchContainer: {
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     tabText: {
         fontFamily: FONT.medium,
-        color: COLORS.secondary,
+        color: COLORS.quaternary,
     },
 });
 

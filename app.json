@@ -1,6 +1,7 @@
 {
     "expo": {
         "name": "Robot B-Pump",
+        "description": "Application of the B-Pump robot, your 100% Robotic sports coach !",
         "slug": "bpump-app",
         "version": "1.0.0",
         "owner": "wiizz",

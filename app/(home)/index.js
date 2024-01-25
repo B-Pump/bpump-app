@@ -9,7 +9,7 @@ export default function Index() {
     const [searchTerm, setSearchTerm] = useState("");
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.background, padding: SIZES.medium }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.background, paddingHorizontal: SIZES.medium }}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Home
                     searchTerm={searchTerm}

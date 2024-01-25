@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 
 import { COLORS, SIZES, icons } from "../../../constants";
-import styles from "../../../style/search";
+import styles from "../../../style/search.style";
 
 export default function Search() {
     const { id } = useLocalSearchParams();

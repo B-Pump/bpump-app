@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     exoName: {
         fontSize: SIZES.medium,
         fontFamily: "DMBold",
-        color: COLORS.secondary,
+        color: COLORS.quaternary,
     },
     exoType: {
         fontSize: SIZES.small + 2,

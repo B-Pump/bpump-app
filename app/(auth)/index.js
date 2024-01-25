@@ -2,7 +2,7 @@ import { SafeAreaView, View, Text, TouchableOpacity, Button } from "react-native
 import { router } from "expo-router";
 
 import { COLORS, SIZES } from "../../constants";
-import styles from "../../style/auth";
+import styles from "../../style/auth.style";
 
 export default function Index() {
     return (
