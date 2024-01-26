@@ -28,13 +28,16 @@ export default function Settings() {
                     <Text style={styles.settingsContainerTitle}>Configuration du robot</Text>
                     <View style={styles.settingsContent}>
                         <View style={styles.objectContainer(false, false)}>
-                            <Text>Connecter votre robot</Text>
-                            <TouchableOpacity onPress={() => router.push("/scan")}>
+                            <Text>
+                                Connecter votre robot en scannant un code-qr que vous pouvez retrouver depuis votre
+                                exemplaire du robot.
+                            </Text>
+                            <TouchableOpacity onPress={() => router.push("bpump/scan")}>
                                 <Text>Scanner le code QR</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.objectContainer(true, false)}>
-                            <Text>Modifier la voix</Text>
+                            <Text>Modifier la voix de B-Pump afin </Text>
                         </View>
                     </View>
                 </View>

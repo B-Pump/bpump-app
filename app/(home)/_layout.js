@@ -69,7 +69,17 @@ export default function HomeLayout() {
                     headerTitle: "",
                 }}
             />
-            <Stack.Screen name="bpump/about" options={{ headerShown: false }} />
+            <Stack.Screen
+                name="bpump/scan"
+                options={{
+                    headerTransparent: true,
+                    headerLeft: () => (
+                        <ScreenHeaderBtn iconUrl={icons.back} dimension="65%" handlePress={() => router.back()} />
+                    ),
+                    headerShadowVisible: false,
+                    headerTitle: "",
+                }}
+            />
             <Stack.Screen
                 name="search/[id]"
                 options={{
