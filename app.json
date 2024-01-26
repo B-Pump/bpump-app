@@ -1,41 +1,37 @@
 {
-  "expo": {
-    "name": "Robot B-Pump",
-    "description": "Application of the B-Pump robot, your 100% Robotic sports coach !",
-    "slug": "bpump-app",
-    "version": "1.0.0",
-    "owner": "wiizz",
-    "githubUrl": "https://github.com/wiizzl/bpump-app",
-    "scheme": "bpump",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "icon": "./assets/images/icon.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.wiizz.bpumpapp"
-    },
-    "plugins": [
-      "expo-router"
-    ],
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "e683ab09-dadc-4f6d-8db0-dedb30182142"
-      }
+    "expo": {
+        "name": "Robot B-Pump",
+        "description": "Application of the B-Pump robot, your 100% Robotic sports coach !",
+        "slug": "bpump-app",
+        "version": "1.0.0",
+        "owner": "wiizz",
+        "githubUrl": "https://github.com/wiizzl/bpump-app",
+        "scheme": "bpump",
+        "assetBundlePatterns": ["**/*"],
+        "icon": "./assets/images/icon.png",
+        "splash": {
+            "image": "./assets/images/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/images/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "package": "com.wiizz.bpumpapp"
+        },
+        "plugins": ["expo-router"],
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "e683ab09-dadc-4f6d-8db0-dedb30182142"
+            }
+        }
     }
-  }
 }

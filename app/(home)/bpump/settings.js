@@ -66,7 +66,7 @@ export default function Settings() {
                         </View>
                         <View style={styles.objectContainer(true, false)}>
                             <Text>
-                                Supprimer votre comtpe est une action irréversible. Cela supprimera vos programmes et
+                                Supprimer votre compte est une action irréversible. Cela supprimera vos programmes et
                                 votre activité.
                             </Text>
                             <TouchableOpacity style={styles.accountBtn} onPress={useAuth().signOut}>
