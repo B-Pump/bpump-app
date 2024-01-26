@@ -69,6 +69,7 @@ export default function HomeLayout() {
                     headerTitle: "",
                 }}
             />
+            <Stack.Screen name="bpump/about" options={{ headerShown: false }} />
             <Stack.Screen
                 name="search/[id]"
                 options={{

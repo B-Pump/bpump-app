@@ -1,5 +1,7 @@
-import { SafeAreaView, ScrollView, View, Text, Button, Image, TouchableOpacity } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
 import { osInternalBuildId } from "expo-device";
+import { applicationId } from "expo-application";
+import { router } from "expo-router";
 
 import { useAuth } from "../../../context/auth";
 import { version as pkV } from "../../../package.json";
@@ -19,8 +21,22 @@ export default function Settings() {
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.background, paddingHorizontal: SIZES.medium }}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.container}>
-                    <Text style={styles.settingsTitle}>Configurez votre robot !</Text>
-                    <Text style={styles.settingsDesc}>Paramètres</Text>
+                    <Text style={styles.settingsTitle}>Paramètres généraux</Text>
+                    <Text style={styles.settingsDesc}>Configurez dès maintenant pour utiliser votre B-Pump !</Text>
+                </View>
+                <View style={styles.settingsContainer}>
+                    <Text style={styles.settingsContainerTitle}>Configuration du robot</Text>
+                    <View style={styles.settingsContent}>
+                        <View style={styles.objectContainer(false, false)}>
+                            <Text>Connecter votre robot</Text>
+                            <TouchableOpacity onPress={() => router.push("/scan")}>
+                                <Text>Scanner le code QR</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.objectContainer(true, false)}>
+                            <Text>Modifier la voix</Text>
+                        </View>
+                    </View>
                 </View>
                 <View style={styles.settingsContainer}>
                     <Text style={styles.settingsContainerTitle}>Thème de l'application</Text>
@@ -43,6 +59,10 @@ export default function Settings() {
                     <Text style={styles.settingsContainerTitle}>Informations complémentaires</Text>
                     <View style={styles.settingsContent}>
                         <View style={[styles.objectContainer(false, true), styles.deviceInfo]}>
+                            <Text>Nom de l'appareil :</Text>
+                            <Text>{applicationId}</Text>
+                        </View>
+                        <View style={[styles.objectContainer(true, true), styles.deviceInfo]}>
                             <Text>ID de l'appareil :</Text>
                             <Text>{osInternalBuildId}</Text>
                         </View>

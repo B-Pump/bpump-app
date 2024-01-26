@@ -24,7 +24,7 @@
             },
             "package": "com.wiizz.bpumpapp"
         },
-        "plugins": ["expo-router"],
+        "plugins": ["expo-router", "expo-camera"],
         "extra": {
             "router": {
                 "origin": false
