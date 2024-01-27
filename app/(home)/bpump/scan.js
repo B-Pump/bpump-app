@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
 
-import styles from "../../../style/scan";
+import styles from "../../../style/scan.style";
 
 export default function Scan() {
     const { width, height } = Dimensions.get("window");
