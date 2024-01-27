@@ -1,7 +1,6 @@
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 
 import { COLORS, SIZES } from "../../constants";
-import styles from "../../style/auth.style";
 
 export default function Register() {
     return (

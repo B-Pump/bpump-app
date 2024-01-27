@@ -1,11 +1,11 @@
-import { SafeAreaView, ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
-import { osInternalBuildId } from "expo-device";
 import { applicationId } from "expo-application";
+import { osInternalBuildId } from "expo-device";
 import { router } from "expo-router";
+import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
+import { expo as cfV } from "../../../app.json";
 import { useAuth } from "../../../context/auth";
 import { version as pkV } from "../../../package.json";
-import { expo as cfV } from "../../../app.json";
 
 import { COLORS, SIZES, icons } from "../../../constants";
 import styles from "../../../style/settings.style";

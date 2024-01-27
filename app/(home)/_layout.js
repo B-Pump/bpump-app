@@ -2,7 +2,7 @@ import { Stack, router } from "expo-router";
 import { Share } from "react-native";
 
 import { ScreenHeaderBtn } from "../../components";
-import { images, COLORS, icons } from "../../constants";
+import { COLORS, icons, images } from "../../constants";
 
 export default function HomeLayout() {
     return (

@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 
-import useFetch from "../../context/api";
 import ExosCard from "../common/cards/ExosCard";
 
 import { COLORS } from "../../constants";

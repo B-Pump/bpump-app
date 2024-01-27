@@ -61,4 +61,4 @@ const SHADOWS = {
     },
 };
 
-export { COLORS, FONT, SIZES, SHADOWS };
+export { COLORS, FONT, SHADOWS, SIZES };

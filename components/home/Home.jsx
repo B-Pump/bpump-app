@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { View, Text, TouchableOpacity, Image, FlatList, TextInput } from "react-native";
+import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { SIZES, icons } from "../../constants";
 import styles from "./style/home.style";

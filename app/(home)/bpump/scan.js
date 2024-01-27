@@ -1,17 +1,15 @@
-import { useState, useEffect } from "react";
-import { Text, View, Alert, StyleSheet, Dimensions } from "react-native";
-import { CameraView, Camera } from "expo-camera/next";
+import { Camera, CameraView } from "expo-camera/next";
 import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
 
-import { COLORS, FONT } from "../../../constants";
 import styles from "../../../style/scan";
 
 export default function Scan() {
-    const [hasPermission, setHasPermission] = useState(null);
-    const [scanned, setScanned] = useState(false);
-
     const { width, height } = Dimensions.get("window");
-    const qrSize = Math.min(width, height) * 0.7;
+    const qrSize = Math.min(width, height) * 0.7 + 50;
+
+    const [hasPermission, setHasPermission] = useState(null);
 
     useEffect(() => {
         const getCameraPermissions = async () => {
@@ -22,9 +20,9 @@ export default function Scan() {
     }, []);
 
     const handleBarCodeScanned = ({ type, data }) => {
+        router.back();
         console.log(`QR Code scanné : ${type} - ${data}`);
         Alert.alert("Scanneur", `${data}`);
-        router.back();
     };
 
     if (hasPermission === null) {
@@ -37,13 +35,13 @@ export default function Scan() {
     return (
         <View style={styles.container}>
             <CameraView
-                onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
+                onBarcodeScanned={handleBarCodeScanned}
                 barcodeScannerSettings={{ barCodeTypes: ["qr"] }}
                 style={StyleSheet.absoluteFillObject}
             />
             <View style={styles.overlayContainer}>
                 <Text style={styles.overlayText}>Scannez le code QR de votre robot</Text>
-                <View style={styles.frame(height, width, qrSize + 50)} />
+                <View style={styles.frame(height, width, qrSize)} />
             </View>
         </View>
     );

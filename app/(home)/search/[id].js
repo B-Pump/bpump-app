@@ -1,6 +1,6 @@
-import { SafeAreaView, View, Text, FlatList, ActivityIndicator, TouchableOpacity, Image } from "react-native";
-import { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 
 import { COLORS, SIZES, icons } from "../../../constants";
 import styles from "../../../style/search.style";

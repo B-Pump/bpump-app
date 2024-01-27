@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from "react-native";
 
 import ProgsCard from "../common/cards/ProgsCard";
 

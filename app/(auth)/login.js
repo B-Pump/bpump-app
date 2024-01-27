@@ -1,9 +1,8 @@
-import { SafeAreaView, View, Text, Button } from "react-native";
+import { Button, SafeAreaView, Text } from "react-native";
 
 import { useAuth } from "../../context/auth";
 
 import { COLORS, SIZES } from "../../constants";
-import styles from "../../style/auth.style";
 
 export default function Login() {
     return (

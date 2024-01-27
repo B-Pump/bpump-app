@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import { images } from "../../../constants";
 import styles from "../../common/cards/style/exoscard.style";

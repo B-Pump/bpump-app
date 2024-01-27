@@ -1,7 +1,7 @@
-import { SplashScreen, Slot } from "expo-router";
+import { useFonts } from "expo-font";
+import { Slot, SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { useFonts } from "expo-font";
 
 import { AuthProvider } from "../context/auth";
 

@@ -1,8 +1,8 @@
+import { router } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView, ScrollView } from "react-native";
-import { router } from "expo-router";
 
-import { Home, Progs, Exos } from "../../components";
+import { Exos, Home, Progs } from "../../components";
 import { COLORS, SIZES } from "../../constants";
 
 export default function Index() {

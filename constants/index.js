@@ -1,5 +1,5 @@
-import images from "./images";
 import icons from "./icons";
-import { COLORS, FONT, SIZES, SHADOWS } from "./ui";
+import images from "./images";
+import { COLORS, FONT, SHADOWS, SIZES } from "./ui";
 
-export { images, icons, COLORS, FONT, SIZES, SHADOWS };
+export { COLORS, FONT, SHADOWS, SIZES, icons, images };
