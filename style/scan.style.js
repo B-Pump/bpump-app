@@ -2,10 +2,6 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONT } from "../constants";
 
 const styles = StyleSheet.create({
-    permissonProblem: {
-        paddingVertical: "80%",
-        paddingHorizontal: 110,
-    },
     container: {
         flex: 1,
         flexDirection: "column",
@@ -35,6 +31,10 @@ const styles = StyleSheet.create({
         padding: 5,
         marginHorizontal: 40,
         marginTop: "50%",
+    },
+    permissonProblem: {
+        paddingVertical: "80%",
+        paddingHorizontal: 110,
     },
 });
 

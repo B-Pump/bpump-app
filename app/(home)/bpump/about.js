@@ -1,11 +1,41 @@
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { router, Stack } from "expo-router";
+import { SafeAreaView, ScrollView, Share, Text, View } from "react-native";
 
-import { COLORS, SIZES } from "../../../constants";
+import { ScreenHeaderBtn } from "../../../components";
+import { useTheme } from "../../../context/theme";
+
+import { icons, SIZES } from "../../../constants";
 import styles from "../../../style/about.style";
 
 export default function About() {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.background, paddingHorizontal: SIZES.medium }}>
+        <SafeAreaView
+            style={{ flex: 1, backgroundColor: useTheme().colors.background, paddingHorizontal: SIZES.medium }}
+        >
+            <Stack.Screen
+                options={{
+                    headerStyle: {
+                        backgroundColor: useTheme().colors.background,
+                    },
+                    headerLeft: () => (
+                        <ScreenHeaderBtn iconUrl={icons.back} dimension="65%" handlePress={() => router.back()} />
+                    ),
+                    headerRight: () => (
+                        <ScreenHeaderBtn
+                            iconUrl={icons.share}
+                            dimension="60%"
+                            handlePress={() => {
+                                Share.share({
+                                    message:
+                                        "Je me suis mit au sport grâce à B-Pump, le coach sportif 100% robotique ! Tu devrais essayer : <lien_vers_le_site_web>",
+                                });
+                            }}
+                        />
+                    ),
+                    headerShadowVisible: false,
+                    headerTitle: "",
+                }}
+            />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.container}>
                     <Text style={styles.aboutTitle}>Apprenez en plus sur notre projet !</Text>

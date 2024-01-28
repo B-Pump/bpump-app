@@ -1,8 +1,9 @@
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from "react-native";
 
+import { useTheme } from "../../context/theme";
 import ProgsCard from "../common/cards/ProgsCard";
 
-import { COLORS, SIZES } from "../../constants";
+import { SIZES } from "../../constants";
 import styles from "./style/progs.style";
 
 export default function Progs() {
@@ -20,7 +21,7 @@ export default function Progs() {
             </View>
             <View style={styles.cardsContainer}>
                 {isLoading ? (
-                    <ActivityIndicator size="large" color={COLORS.light.text} />
+                    <ActivityIndicator size="large" color={useTheme().colors.text} />
                 ) : error ? (
                     <Text>Erreur lors du chargement des programmes</Text>
                 ) : (

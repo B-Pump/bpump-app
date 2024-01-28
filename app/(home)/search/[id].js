@@ -2,6 +2,8 @@ import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 
+import { useTheme } from "../../../context/theme";
+
 import { COLORS, SIZES, icons } from "../../../constants";
 import styles from "../../../style/search.style";
 
@@ -41,7 +43,7 @@ export default function Search() {
     }, []);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.background }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: useTheme().colors.background }}>
             <FlatList
                 data={searchResult}
                 renderItem={({ item }) => {
