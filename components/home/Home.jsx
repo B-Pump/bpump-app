@@ -29,7 +29,7 @@ export default function Home({ searchTerm, setSearchTerm, handleClick }) {
                     showsHorizontalScrollIndicator={false}
                     data={["Haut du corps", "Bas du corps", "Cardio", "Flexibilité", "Calisthénie", "Core"]}
                     renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.tab} onPress={() => router.push(`/search/${item}`)}>
+                        <TouchableOpacity style={styles.tab} onPress={() => router.push(`search/${item}`)}>
                             <Text style={styles.tabText}>{item}</Text>
                         </TouchableOpacity>
                     )}

@@ -93,6 +93,32 @@ export default function HomeLayout() {
                     headerTitle: "",
                 }}
             />
+            <Stack.Screen
+                name="exos/[id]"
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLORS.light.background,
+                    },
+                    headerLeft: () => (
+                        <ScreenHeaderBtn iconUrl={icons.back} dimension="65%" handlePress={() => router.back()} />
+                    ),
+                    headerShadowVisible: false,
+                    headerTitle: "",
+                }}
+            />
+            <Stack.Screen
+                name="progs/[id]"
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLORS.light.background,
+                    },
+                    headerLeft: () => (
+                        <ScreenHeaderBtn iconUrl={icons.back} dimension="65%" handlePress={() => router.back()} />
+                    ),
+                    headerShadowVisible: false,
+                    headerTitle: "",
+                }}
+            />
         </Stack>
     );
 }

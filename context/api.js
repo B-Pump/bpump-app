@@ -1,22 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useFetch = (endpoint, workout) => {
+export default function useFetch(method, endpoint, arg, query) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const options = {
-        method: "GET",
-        url: `https://r77s73sc-3000.uks1.devtunnels.ms/${endpoint}/${workout}`,
+        method: method,
+        url: `https://r77s73sc-3000.uks1.devtunnels.ms/${endpoint}/${arg}`,
+        params: { ...query },
     };
 
     const fetchData = async () => {
+        setIsLoading(true);
         try {
             const response = await axios.request(options);
-            console.log(response.data);
+            setData(response.data);
+            setIsLoading(false);
         } catch (error) {
+            setError(error);
             console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -30,6 +36,4 @@ const useFetch = (endpoint, workout) => {
     };
 
     return { data, isLoading, error, refetch };
-};
-
-export default useFetch;
+}

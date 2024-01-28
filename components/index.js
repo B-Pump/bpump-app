@@ -10,4 +10,7 @@ import Notif from "./settings/Notif";
 import Robot from "./settings/Robot";
 import Theme from "./settings/Theme";
 
-export { Compte, Exos, Home, Infos, Notif, Progs, Robot, ScreenHeaderBtn, Theme };
+import Exo from "./content/Exo";
+import Prog from "./content/Prog";
+
+export { Compte, Exo, Exos, Home, Infos, Notif, Prog, Progs, Robot, ScreenHeaderBtn, Theme };
