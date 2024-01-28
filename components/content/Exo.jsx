@@ -14,7 +14,7 @@ export default function Exo({ exo }) {
             ) : error ? (
                 <Text>Erreur</Text>
             ) : (
-                <Text>Exercice - {data.sugar?.title}</Text>
+                <Text>Exercice - {data[exo]?.sugar.title}</Text>
             )}
         </View>
     );

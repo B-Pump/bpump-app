@@ -22,10 +22,10 @@ export function ExosCard({ exo }) {
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.exoName} numberOfLines={1}>
-                            {data.sugar?.title}
+                            {data[exo]?.sugar.title}
                         </Text>
                         <Text style={styles.exoType} numberOfLines={1}>
-                            {data.sugar?.category} - Niveau {data.sugar?.difficulty}
+                            {data[exo]?.sugar.category} - Niveau {data[exo]?.sugar.difficulty}
                         </Text>
                     </View>
                 </>
