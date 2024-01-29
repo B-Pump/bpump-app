@@ -15,6 +15,7 @@ export const ThemeProvider = ({ children }) => {
         colors: {
             background: mode === "dark" ? COLORS.dark.background : COLORS.light.background,
             text: mode === "dark" ? COLORS.dark.text : COLORS.light.text,
+            icon: mode === "dark" ? COLORS.secondary : COLORS.primary,
         },
         setScheme: (scheme) => setMode(scheme),
     };
