@@ -11,9 +11,9 @@ export default function Search({ data, load, error, keyword }) {
         const { data, isLoading, error } = useFetch("GET", "exos", item, {});
         return (
             // TODO: asynchronization to wait for isLoading and error to be ok
-            data[item]?.sugar.title.toLowerCase().includes(keyword) ||
-            data[item]?.sugar.description.toLowerCase().includes(keyword) ||
-            data[item]?.sugar.category.toLowerCase().includes(keyword)
+            data[item]?.sugar.title.toLowerCase().includes(keyword.toLowerCase()) ||
+            data[item]?.sugar.description.toLowerCase().includes(keyword.toLowerCase()) ||
+            data[item]?.sugar.category.toLowerCase().includes(keyword.toLowerCase())
         );
     });
 

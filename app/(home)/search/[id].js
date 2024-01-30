@@ -33,7 +33,7 @@ export default function SearchContent() {
                     <Text style={styles.title}>{id}</Text>
                     <Text style={styles.desc}>Voici ce que nous avons trouvé pour vous :</Text>
                 </View>
-                <Search data={data} load={isLoading} error={error} keyword={id.toLowerCase()} />
+                <Search data={data} load={isLoading} error={error} keyword={id} />
             </ScrollView>
         </SafeAreaView>
     );
