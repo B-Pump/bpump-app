@@ -1,20 +1,27 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Switch, Text, TouchableOpacity, View } from "react-native";
 
 import { COLORS } from "../../constants";
 import styles from "./style/notif.style";
 
 export default function Notif() {
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [dailyRemindersEnabled, setDailyRemindersEnabled] = useState(false);
     const [date, setDate] = useState(new Date(Date.now()));
     const [show, setShow] = useState(false);
 
     const onTimeChange = (event, selectedDate) => {
         setShow(false);
         setDate(selectedDate);
-        console.log(selectedDate, event);
     };
+
+    useEffect(() => {
+        if (dailyRemindersEnabled) {
+            //
+        } else {
+            //
+        }
+    }, [dailyRemindersEnabled, date]);
 
     return (
         <View style={styles.container}>
@@ -25,10 +32,8 @@ export default function Notif() {
                     <Switch
                         trackColor={{ false: COLORS.gray2, true: COLORS.gray }}
                         thumbColor={COLORS.white}
-                        onValueChange={() => {
-                            setIsEnabled(!isEnabled);
-                        }}
-                        value={isEnabled}
+                        onValueChange={(value) => setDailyRemindersEnabled(value)}
+                        value={dailyRemindersEnabled}
                     />
                 </View>
                 <View style={styles.object(true, false, false, false)}>

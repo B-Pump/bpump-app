@@ -1,7 +1,7 @@
 import { Stack, router } from "expo-router";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 
-import { Compte, Infos, Notif, Robot, ScreenHeaderBtn, Theme } from "../../../components";
+import { Compte, Infos, Robot, ScreenHeaderBtn, Theme } from "../../../components";
 import { useTheme } from "../../../context/theme";
 
 import { SIZES, icons } from "../../../constants";
@@ -31,7 +31,7 @@ export default function Settings() {
                 </View>
                 <Robot />
                 <Theme />
-                <Notif />
+                {/* <Notif />  TODO: daily background notification system (https://docs.expo.dev/push-notifications/push-notifications-setup)*/}
                 <Infos />
                 <Compte />
             </ScrollView>
