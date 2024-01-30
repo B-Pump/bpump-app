@@ -4,6 +4,7 @@ import right from "../assets/icons/right.png";
 import search from "../assets/icons/search.png";
 import settings from "../assets/icons/settings.png";
 import share from "../assets/icons/share.png";
+import star from "../assets/icons/star.png";
 
 export default {
     settings,
@@ -12,4 +13,5 @@ export default {
     left,
     right,
     back,
+    star,
 };
