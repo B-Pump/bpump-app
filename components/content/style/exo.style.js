@@ -86,14 +86,24 @@ const styles = StyleSheet.create({
         color: COLORS.light.text,
         fontFamily: FONT.bold,
     },
-    caseDescBox: {
+    caseBox: {
         marginVertical: SIZES.small,
     },
-    caseDesc: {
+    caseBoxTitle: {
+        color: COLORS.light.text,
+        fontFamily: FONT.medium,
+        paddingBottom: SIZES.small / 2,
+    },
+    caseInfo: {
         fontSize: SIZES.medium - 2,
         color: COLORS.gray,
         fontFamily: FONT.regular,
-        marginVertical: SIZES.small / 1.25,
+    },
+    video: {
+        alignSelf: "center",
+        width: "100%",
+        height: 200,
+        borderRadius: 30,
     },
 });
 

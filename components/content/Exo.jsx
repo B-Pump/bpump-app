@@ -1,21 +1,65 @@
-import { useState } from "react";
-import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { ResizeMode, Video } from "expo-av";
+import { useRef, useState } from "react";
+import { ActivityIndicator, FlatList, Image, LogBox, Text, TouchableOpacity, View } from "react-native";
 
 import { COLORS, SIZES, icons, images } from "../../constants";
 import styles from "./style/exo.style";
 
-const tabs = ["Informations", "Démonstration"];
+LogBox.ignoreLogs(["new NativeEventEmitter"]); // avoid "new NativeEventEmitter" logs which are due to a version bug between expo_sdk v50 and expo-av
+LogBox.ignoreAllLogs();
 
 export default function Exo({ exo, data, load, error }) {
+    const tabs = ["Informations", "Démonstration"];
     const [activeTab, setActiveTab] = useState(tabs[0]);
+
+    const videoRef = useRef(null);
+    const [video, setVideo] = useState({});
+
     const displayTabContent = () => {
         switch (activeTab) {
             case tabs[0]:
                 return (
                     <View style={styles.caseContainer}>
-                        <Text style={styles.caseTitle}>En savoir plus sur cet exercice :</Text>
-                        <View style={styles.caseDescBox}>
-                            <Text style={styles.caseDesc}>{data[exo]?.sugar.description ?? "Aucune données"}</Text>
+                        <Text style={styles.caseTitle}>En savoir plus sur cet exercice</Text>
+                        <View style={styles.caseBox}>
+                            <Text style={styles.caseBoxTitle}>Description :</Text>
+                            <Text style={styles.caseInfo}>{data[exo]?.sugar.description ?? "Aucune données"}</Text>
+                        </View>
+                        <View style={styles.caseBox}>
+                            <Text style={styles.caseBoxTitle}>Muscles sollicités :</Text>
+                            {data[exo]?.sugar.muscles?.map((item, index) => (
+                                <Text style={styles.caseInfo} key={index}>
+                                    {"\u2022 "}
+                                    {item ?? "Aucune données"}
+                                </Text>
+                            ))}
+                        </View>
+                        <View style={styles.caseBox}>
+                            <Text style={styles.caseBoxTitle}>Consignes de sécurité :</Text>
+                            {data[exo]?.sugar.security?.map((item, index) => (
+                                <Text style={styles.caseInfo} key={index}>
+                                    {"\u2022 "}
+                                    {item ?? "Aucune données"}
+                                </Text>
+                            ))}
+                        </View>
+                        <View style={styles.caseBox}>
+                            <Text style={styles.caseBoxTitle}>Préréquis :</Text>
+                            {data[exo]?.sugar.needed?.map((item, index) => (
+                                <Text style={styles.caseInfo} key={index}>
+                                    {"\u2022 "}
+                                    {item ?? "Aucune données"}
+                                </Text>
+                            ))}
+                        </View>
+                        <View style={styles.caseBox}>
+                            <Text style={styles.caseBoxTitle}>Dépenses énergétiques :</Text>
+                            <Text style={styles.caseInfo}>
+                                <Text>
+                                    Calories brulées pour 10 reps :{" "}
+                                    {data[exo]?.sugar.energetic.calories ?? "Aucune données"} kcal
+                                </Text>
+                            </Text>
                         </View>
                     </View>
                 );
@@ -23,8 +67,18 @@ export default function Exo({ exo, data, load, error }) {
                 return (
                     <View style={styles.caseContainer}>
                         <Text style={styles.caseTitle}>Comment faire cet exercice :</Text>
-                        <View style={styles.caseDescBox}>
-                            <Text style={styles.caseDesc}>{data[exo]?.sugar.description ?? "Aucune données"}</Text>
+                        <View style={styles.caseBox}>
+                            <Text style={styles.caseBoxTitle}>Vidéo :</Text>
+                            <Video
+                                ref={videoRef}
+                                style={styles.video}
+                                source={{
+                                    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+                                }}
+                                useNativeControls
+                                resizeMode={ResizeMode.CONTAIN}
+                                onPlaybackStatusUpdate={(status) => setVideo(() => status)}
+                            />
                         </View>
                     </View>
                 );

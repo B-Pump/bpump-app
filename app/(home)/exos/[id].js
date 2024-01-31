@@ -40,6 +40,7 @@ export default function ExosDetails() {
                 }}
             />
             <ScrollView
+                style={{ marginBottom: SIZES.xxLarge + 30 }} // prevent the button from hiding the bottom content of the scrollview
                 showsVerticalScrollIndicator={false}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             >
