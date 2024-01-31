@@ -1,5 +1,6 @@
 import { Stack, router, useLocalSearchParams } from "expo-router";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { useCallback, useState } from "react";
+import { RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import { ScreenHeaderBtn, Search } from "../../../components";
 import useFetch from "../../../context/api";
@@ -10,7 +11,14 @@ import styles from "../../../style/search.style";
 
 export default function SearchContent() {
     const { id } = useLocalSearchParams();
-    const { data, isLoading, error } = useFetch("GET", "fetch", "exos");
+    const { data, isLoading, error, refetch } = useFetch("GET", "fetch", "exos");
+
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        refetch();
+        setRefreshing(false);
+    });
 
     return (
         <SafeAreaView
@@ -28,7 +36,10 @@ export default function SearchContent() {
                     headerTitle: "",
                 }}
             />
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            >
                 <View style={styles.container}>
                     <Text style={styles.title}>{id}</Text>
                     <Text style={styles.desc}>Voici ce que nous avons trouvé pour vous :</Text>
