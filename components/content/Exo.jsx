@@ -6,7 +6,6 @@ import { COLORS, SIZES, icons, images } from "../../constants";
 import styles from "./style/exo.style";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // avoid "new NativeEventEmitter" logs which are due to a version bug between expo_sdk v50 and expo-av
-LogBox.ignoreAllLogs();
 
 export default function Exo({ exo, data, load, error }) {
     const tabs = ["Informations", "Démonstration"];
