@@ -6,7 +6,7 @@ import styles from "./style/home.style";
 
 export default function Home({ searchTerm, setSearchTerm, handleClick }) {
     return (
-        <View>
+        <>
             <View style={styles.container}>
                 <Text style={styles.homeTitle}>Bonjour, je suis B-Pump !</Text>
                 <Text style={styles.homeDesc}>Trouvez votre programme d'entraînement parfait !</Text>
@@ -38,6 +38,6 @@ export default function Home({ searchTerm, setSearchTerm, handleClick }) {
                     horizontal
                 />
             </View>
-        </View>
+        </>
     );
 }

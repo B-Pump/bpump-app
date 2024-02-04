@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 
 import useFetch from "../../context/api";
@@ -13,7 +14,7 @@ export default function Exos() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Exercices recommandés</Text>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => router.push("exos/showall")}>
                     <Text style={styles.headerBtn}>Afficher tout</Text>
                 </TouchableOpacity>
             </View>

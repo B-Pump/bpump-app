@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from "react-native";
 
 import { useTheme } from "../../context/theme";
@@ -15,8 +16,8 @@ export default function Progs() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Programmes recommandés</Text>
-                <TouchableOpacity onPress={() => {}}>
-                    <Text style={styles.headerBtn}>Afficher tout</Text>
+                <TouchableOpacity onPress={() => router.push("progs/create")}>
+                    <Text style={styles.headerBtn}>Créer</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.cardsContainer}>
