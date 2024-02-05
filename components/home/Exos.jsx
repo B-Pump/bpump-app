@@ -24,7 +24,7 @@ export default function Exos() {
                 ) : error ? (
                     <Text>Erreur lors du chargement des exercices</Text>
                 ) : (
-                    data?.map((item, index) => <ExosCard exo={item} key={index} />)
+                    data.slice(0, 4)?.map((item, index) => <ExosCard exo={item} key={index} />)
                 )}
             </View>
         </View>

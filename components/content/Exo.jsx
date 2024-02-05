@@ -21,11 +21,11 @@ export default function Exo({ exo, data, load, error }) {
                     <View style={styles.caseContainer}>
                         <Text style={styles.caseTitle}>En savoir plus sur cet exercice</Text>
                         <View style={styles.caseBox}>
-                            <Text style={styles.caseBoxTitle}>Description :</Text>
+                            <Text style={styles.caseBoxTitle}>📜​ Description :</Text>
                             <Text style={styles.caseInfo}>{data[exo]?.sugar.description ?? "Aucune données"}</Text>
                         </View>
                         <View style={styles.caseBox}>
-                            <Text style={styles.caseBoxTitle}>Muscles sollicités :</Text>
+                            <Text style={styles.caseBoxTitle}>💪🏻​ Muscles sollicités :</Text>
                             {data[exo]?.sugar.muscles?.map((item, index) => (
                                 <Text style={styles.caseInfo} key={index}>
                                     {"\u2022 "}
@@ -34,7 +34,7 @@ export default function Exo({ exo, data, load, error }) {
                             ))}
                         </View>
                         <View style={styles.caseBox}>
-                            <Text style={styles.caseBoxTitle}>Consignes de sécurité :</Text>
+                            <Text style={styles.caseBoxTitle}>🔐​ Consignes de sécurité :</Text>
                             {data[exo]?.sugar.security?.map((item, index) => (
                                 <Text style={styles.caseInfo} key={index}>
                                     {"\u2022 "}
@@ -43,7 +43,7 @@ export default function Exo({ exo, data, load, error }) {
                             ))}
                         </View>
                         <View style={styles.caseBox}>
-                            <Text style={styles.caseBoxTitle}>Préréquis :</Text>
+                            <Text style={styles.caseBoxTitle}>​🏋️ Préréquis :</Text>
                             {data[exo]?.sugar.needed?.map((item, index) => (
                                 <Text style={styles.caseInfo} key={index}>
                                     {"\u2022 "}
@@ -52,7 +52,7 @@ export default function Exo({ exo, data, load, error }) {
                             ))}
                         </View>
                         <View style={styles.caseBox}>
-                            <Text style={styles.caseBoxTitle}>Dépenses énergétiques :</Text>
+                            <Text style={styles.caseBoxTitle}>🤸​ Dépenses énergétiques :</Text>
                             <Text style={styles.caseInfo}>
                                 <Text>
                                     Calories brulées pour 10 reps :{" "}
@@ -67,7 +67,7 @@ export default function Exo({ exo, data, load, error }) {
                     <View style={styles.caseContainer}>
                         <Text style={styles.caseTitle}>Comment faire cet exercice :</Text>
                         <View style={styles.caseBox}>
-                            <Text style={styles.caseBoxTitle}>Vidéo :</Text>
+                            <Text style={styles.caseBoxTitle}>📹​ Vidéo :</Text>
                             <Video
                                 ref={videoRef}
                                 style={styles.video}
