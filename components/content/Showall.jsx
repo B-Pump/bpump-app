@@ -24,7 +24,7 @@ export default function Showall({ data, load, error }) {
                         ) : error ? (
                             <Text>Erreur lors du chargement des exercices</Text>
                         ) : (
-                            data?.map((item, index) => <ExosCard exo={item} key={index} />)
+                            data?.map((item, index) => <ExosCard data={item} load={load} error={error} key={index} />)
                         )}
                     </View>
                 </>

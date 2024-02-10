@@ -8,7 +8,7 @@ import { COLORS } from "../../constants";
 import styles from "./style/exos.style";
 
 export default function Exos() {
-    const { data, isLoading, error } = useFetch("GET", "fetch", "exos", {});
+    const { data, isLoading, error } = useFetch("GET", "exos/all", {});
 
     return (
         <View style={styles.container}>
@@ -24,7 +24,10 @@ export default function Exos() {
                 ) : error ? (
                     <Text>Erreur lors du chargement des exercices</Text>
                 ) : (
-                    data.slice(0, 4)?.map((item, index) => <ExosCard exo={item} key={index} />)
+                    data
+                        ?.sort(() => Math.random() - 0.5)
+                        .slice(0, 4)
+                        .map((item, index) => <ExosCard data={item} load={isLoading} error={error} key={index} />)
                 )}
             </View>
         </View>

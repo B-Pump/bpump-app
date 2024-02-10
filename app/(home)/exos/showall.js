@@ -8,7 +8,7 @@ import { useTheme } from "../../../context/theme";
 import { SIZES, icons } from "../../../constants";
 
 export default function ShowallExo() {
-    const { data, isLoading, error } = useFetch("GET", "fetch", "exos", {});
+    const { data, isLoading, error } = useFetch("GET", "exos/all", {});
 
     return (
         <SafeAreaView

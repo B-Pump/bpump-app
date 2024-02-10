@@ -7,7 +7,7 @@ import styles from "./style/exo.style";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // avoid "new NativeEventEmitter" logs which are due to a version bug between expo_sdk v50 and expo-av
 
-export default function Exo({ exo, data, load, error }) {
+export default function Exo({ data, load, error }) {
     const tabs = ["Informations", "Démonstration"];
     const [activeTab, setActiveTab] = useState(tabs[0]);
 
@@ -22,11 +22,11 @@ export default function Exo({ exo, data, load, error }) {
                         <Text style={styles.caseTitle}>En savoir plus sur cet exercice</Text>
                         <View style={styles.caseBox}>
                             <Text style={styles.caseBoxTitle}>📜​ Description :</Text>
-                            <Text style={styles.caseInfo}>{data[exo]?.sugar.description ?? "Aucune données"}</Text>
+                            <Text style={styles.caseInfo}>{data?.sugar?.description ?? "Aucune données"}</Text>
                         </View>
                         <View style={styles.caseBox}>
                             <Text style={styles.caseBoxTitle}>💪🏻​ Muscles sollicités :</Text>
-                            {data[exo]?.sugar.muscles?.map((item, index) => (
+                            {data?.sugar?.muscles?.map((item, index) => (
                                 <Text style={styles.caseInfo} key={index}>
                                     {"\u2022 "}
                                     {item ?? "Aucune données"}
@@ -35,7 +35,7 @@ export default function Exo({ exo, data, load, error }) {
                         </View>
                         <View style={styles.caseBox}>
                             <Text style={styles.caseBoxTitle}>🔐​ Consignes de sécurité :</Text>
-                            {data[exo]?.sugar.security?.map((item, index) => (
+                            {data?.sugar?.security?.map((item, index) => (
                                 <Text style={styles.caseInfo} key={index}>
                                     {"\u2022 "}
                                     {item ?? "Aucune données"}
@@ -44,7 +44,7 @@ export default function Exo({ exo, data, load, error }) {
                         </View>
                         <View style={styles.caseBox}>
                             <Text style={styles.caseBoxTitle}>​🏋️ Préréquis :</Text>
-                            {data[exo]?.sugar.needed?.map((item, index) => (
+                            {data?.sugar?.needed?.map((item, index) => (
                                 <Text style={styles.caseInfo} key={index}>
                                     {"\u2022 "}
                                     {item ?? "Aucune données"}
@@ -56,7 +56,7 @@ export default function Exo({ exo, data, load, error }) {
                             <Text style={styles.caseInfo}>
                                 <Text>
                                     Calories brulées pour 10 reps :{" "}
-                                    {data[exo]?.sugar.energetic.calories ?? "Aucune données"} kcal
+                                    {data?.sugar?.energetic.calories ?? "Aucune données"} kcal
                                 </Text>
                             </Text>
                         </View>
@@ -99,13 +99,13 @@ export default function Exo({ exo, data, load, error }) {
                             <Image source={images.logo} style={styles.headerLogoImage} />
                         </View>
                         <View style={styles.headerTitleBox}>
-                            <Text style={styles.headerTitle}>Exercice - {data[exo]?.sugar.title}</Text>
+                            <Text style={styles.headerTitle}>Exercice - {data?.sugar?.title}</Text>
                         </View>
                         <View style={styles.headerCategoryBox}>
-                            <Text style={styles.headerCategory}>{data[exo]?.sugar.category} | </Text>
+                            <Text style={styles.headerCategory}>{data?.sugar?.category} | </Text>
                             <View style={styles.categoryDifficultyBox}>
                                 <Image source={icons.star} resizeMode="contain" style={styles.categoryDifficultyImg} />
-                                <Text style={styles.categoryDifficulty}>{data[exo]?.sugar.difficulty}/5</Text>
+                                <Text style={styles.categoryDifficulty}>{data?.sugar?.difficulty}/5</Text>
                             </View>
                         </View>
                     </View>

@@ -11,7 +11,7 @@ import styles from "../../../style/search.style";
 
 export default function SearchContent() {
     const { id } = useLocalSearchParams();
-    const { data, isLoading, error, refetch } = useFetch("GET", "fetch", "exos");
+    const { data, isLoading, error, refetch } = useFetch("GET", "exos/all", {});
 
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = useCallback(() => {

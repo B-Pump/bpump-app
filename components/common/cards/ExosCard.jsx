@@ -1,17 +1,13 @@
 import { router } from "expo-router";
 import { ActivityIndicator, Image, Text, TouchableOpacity, View } from "react-native";
 
-import useFetch from "../../../context/api";
-
 import { COLORS, images } from "../../../constants";
 import styles from "../../common/cards/style/exoscard.style";
 
-export function ExosCard({ exo }) {
-    const { data, isLoading, error } = useFetch("GET", "exos", exo, {});
-
+export function ExosCard({ data, load, error }) {
     return (
-        <TouchableOpacity style={styles.container} onPress={() => router.push(`/exos/${exo}`)}>
-            {isLoading ? (
+        <TouchableOpacity style={styles.container} onPress={() => router.push(`/exos/${data?.id}`)}>
+            {load ? (
                 <ActivityIndicator size="large" color={COLORS.light.text} />
             ) : error ? (
                 <Text>Erreur lors du chargement de l'exercice</Text>
@@ -22,10 +18,10 @@ export function ExosCard({ exo }) {
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.exoName} numberOfLines={1}>
-                            {data[exo]?.sugar.title}
+                            {data?.sugar.title}
                         </Text>
                         <Text style={styles.exoType} numberOfLines={1}>
-                            {data[exo]?.sugar.category} - Niveau {data[exo]?.sugar.difficulty}
+                            {data?.sugar.category} - Niveau {data?.sugar.difficulty}
                         </Text>
                     </View>
                 </>
