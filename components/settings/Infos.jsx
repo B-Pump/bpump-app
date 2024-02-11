@@ -1,5 +1,4 @@
-import { applicationId } from "expo-application";
-import { osInternalBuildId } from "expo-device";
+import { brand, osInternalBuildId } from "expo-device";
 import { Text, View } from "react-native";
 
 import { expo as cfV } from "../../app.json";
@@ -20,7 +19,7 @@ export default function Infos() {
             <View style={styles.content}>
                 <View style={[styles.object(false), styles.info]}>
                     <Text>Nom de l'appareil :</Text>
-                    <Text>{applicationId}</Text>
+                    <Text>{brand}</Text>
                 </View>
                 <View style={[styles.object(true), styles.info]}>
                     <Text>ID de l'appareil :</Text>
