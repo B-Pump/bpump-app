@@ -5,7 +5,7 @@
         "slug": "bpump-app",
         "version": "1.0.0",
         "owner": "wiizz",
-        "githubUrl": "https://github.com/wiizzl/bpump-app",
+        "githubUrl": "https://github.com/B-Pump/bpump-app",
         "scheme": "bpump",
         "assetBundlePatterns": ["**/*"],
         "icon": "./assets/images/icon.png",

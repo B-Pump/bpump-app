@@ -1,16 +1,15 @@
 import { router } from "expo-router";
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from "react-native";
 
-import { useTheme } from "../../context/theme";
+import useFetch from "../../context/api";
 import ProgsCard from "../common/cards/ProgsCard";
 
-import { SIZES } from "../../constants";
+import { COLORS, SIZES } from "../../constants";
 import styles from "./style/progs.style";
 
 export default function Progs() {
-    let data = ["Programme 1", "Programme 2", "Programme 3", "Programme 4"];
-    let isLoading = false;
-    let error = false;
+    // TODO: dynamic username for api
+    const { data, isLoading, error } = useFetch("GET", "progs/all?username=wiizz", {});
 
     return (
         <View style={styles.container}>
@@ -22,15 +21,17 @@ export default function Progs() {
             </View>
             <View style={styles.cardsContainer}>
                 {isLoading ? (
-                    <ActivityIndicator size="large" color={useTheme().colors.text} />
+                    <ActivityIndicator size="large" color={COLORS.light.text} />
                 ) : error ? (
                     <Text>Erreur lors du chargement des programmes</Text>
                 ) : (
                     <FlatList
                         showsHorizontalScrollIndicator={false}
                         data={data}
-                        renderItem={({ item, index }) => <ProgsCard prog={item} key={index} />}
-                        keyExtractor={(item) => item}
+                        renderItem={({ item, index }) => (
+                            <ProgsCard data={item} load={isLoading} error={error} key={index} />
+                        )}
+                        keyExtractor={(item) => item.id.toString()}
                         contentContainerStyle={{ columnGap: SIZES.medium }}
                         horizontal
                     />

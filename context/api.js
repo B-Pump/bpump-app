@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function useFetch(method, endpoint, query) {
+export default function useFetch(method, endpoint, body) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ export default function useFetch(method, endpoint, query) {
     const options = {
         method: method,
         url: `https://r77s73sc-3000.uks1.devtunnels.ms/${endpoint}`,
-        params: { ...query },
+        data: body,
     };
 
     const fetchData = async () => {
