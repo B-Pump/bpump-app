@@ -1,10 +1,14 @@
 import { router } from "expo-router";
-import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { SIZES, icons } from "../../constants";
+import useFetch from "../../context/api";
+
+import { COLORS, SIZES, icons } from "../../constants";
 import styles from "./style/home.style";
 
 export default function Home({ searchTerm, setSearchTerm, handleClick }) {
+    const { data, isLoading, error } = useFetch("GET", "exos/all", {});
+
     return (
         <>
             <View style={styles.container}>
@@ -25,18 +29,24 @@ export default function Home({ searchTerm, setSearchTerm, handleClick }) {
                 </TouchableOpacity>
             </View>
             <View style={styles.tabsContainer}>
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    data={["Haut du corps", "Bas du corps", "Cardio", "Flexibilité", "Calisthénie", "Core"]}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.tab} onPress={() => router.push(`search/${item}`)}>
-                            <Text style={styles.tabText}>{item}</Text>
-                        </TouchableOpacity>
-                    )}
-                    keyExtractor={(item) => item}
-                    contentContainerStyle={{ columnGap: SIZES.small }}
-                    horizontal
-                />
+                {isLoading ? (
+                    <ActivityIndicator size="large" color={COLORS.light.text} />
+                ) : error ? (
+                    <Text>Erreur lors du chargement des preset de recherche</Text>
+                ) : (
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        data={[...new Set(data.map((item) => item.sugar.category))]}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity style={styles.tab} onPress={() => router.push(`search/${item}`)}>
+                                <Text style={styles.tabText}>{item}</Text>
+                            </TouchableOpacity>
+                        )}
+                        keyExtractor={(item) => item}
+                        contentContainerStyle={{ columnGap: SIZES.small }}
+                        horizontal
+                    />
+                )}
             </View>
         </>
     );

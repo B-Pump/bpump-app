@@ -26,7 +26,7 @@ export default function Exos() {
                 ) : (
                     data
                         ?.sort(() => Math.random() - 0.5)
-                        .slice(0, 4)
+                        .slice(0, 2)
                         .map((item, index) => <ExosCard data={item} load={isLoading} error={error} key={index} />)
                 )}
             </View>
