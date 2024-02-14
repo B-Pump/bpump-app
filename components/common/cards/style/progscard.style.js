@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     progCategory: {
         fontSize: SIZES.medium,
         fontFamily: FONT.regular,
-        color: "#B3AEC6",
+        color: COLORS.gray2,
         marginTop: SIZES.small / 1.5,
     },
     infoContainer: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     infosup: {
         fontSize: SIZES.medium - 2,
         fontFamily: FONT.regular,
-        color: "#B3AEC6",
+        color: COLORS.gray,
     },
 });
 
