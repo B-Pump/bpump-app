@@ -9,7 +9,7 @@ import styles from "./style/progs.style";
 
 export default function Progs() {
     // TODO: dynamic username for api
-    const { data, isLoading, error } = useFetch("GET", "progs/all?username=wiizz", {});
+    const { data, isLoading, error } = useFetch("GET", "progs/all?username=pierre");
 
     return (
         <View style={styles.container}>
@@ -23,7 +23,7 @@ export default function Progs() {
                 {isLoading ? (
                     <ActivityIndicator size="large" color={COLORS.light.text} />
                 ) : error ? (
-                    <Text>Erreur lors du chargement des programmes</Text>
+                    <Text>{error}</Text>
                 ) : (
                     <FlatList
                         showsHorizontalScrollIndicator={false}

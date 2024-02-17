@@ -10,7 +10,7 @@ export default function ProgsCard({ data, load, error }) {
             {load ? (
                 <ActivityIndicator size="large" color={COLORS.light.text} />
             ) : error ? (
-                <Text>Erreur lors du chargement du programme</Text>
+                <Text>{error}</Text>
             ) : (
                 <>
                     <View style={styles.logoContainer}>

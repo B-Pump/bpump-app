@@ -8,7 +8,7 @@ import { COLORS } from "../../constants";
 import styles from "./style/exos.style";
 
 export default function Exos() {
-    const { data, isLoading, error } = useFetch("GET", "exos/all", {});
+    const { data, isLoading, error } = useFetch("GET", "exos/all");
 
     return (
         <View style={styles.container}>
@@ -22,7 +22,7 @@ export default function Exos() {
                 {isLoading ? (
                     <ActivityIndicator size="large" color={COLORS.light.text} />
                 ) : error ? (
-                    <Text>Erreur lors du chargement des exercices</Text>
+                    <Text>{error}</Text>
                 ) : (
                     data
                         ?.sort(() => Math.random() - 0.5)

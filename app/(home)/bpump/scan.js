@@ -21,7 +21,7 @@ export default function Scan() {
 
     const handleBarCodeScanned = ({ type, data }) => {
         router.back();
-        console.log(`QR Code scanné : ${type} - ${data}`);
+        console.info(`QR Code scanné : ${type} - ${data}`);
         Alert.alert("Scanneur", `${data}`);
     };
 

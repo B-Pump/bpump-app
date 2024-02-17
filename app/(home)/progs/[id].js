@@ -13,7 +13,7 @@ import styles from "../../../style/progs.style";
 export default function ProgsDetails() {
     const { data, isLoading, error, refetch } = useFetch(
         "GET",
-        `progs/${useLocalSearchParams().id}?username=wiizz`,
+        `progs/${useLocalSearchParams().id}?username=pierre`,
         {},
     );
     const [refreshing, setRefreshing] = useState(false);

@@ -8,7 +8,7 @@ import { COLORS, SIZES, icons, images } from "../../constants";
 import styles from "./style/prog.style";
 
 export default function Prog({ data, load, error }) {
-    const { data: exoData, isLoading: exoLoad, error: exoError } = useFetch("GET", "exos/all", {});
+    const { data: exoData, isLoading: exoLoad, error: exoError } = useFetch("GET", "exos/all");
 
     const tabs = ["Informations", "Liste des exercices"];
     const [activeTab, setActiveTab] = useState(tabs[0]);
@@ -62,7 +62,7 @@ export default function Prog({ data, load, error }) {
             {load ? (
                 <ActivityIndicator size="large" color={COLORS.light.text} />
             ) : error ? (
-                <Text>Erreur lors du chargement des détails du programme</Text>
+                <Text>{error}</Text>
             ) : (
                 <>
                     <View style={styles.headerContainer}>

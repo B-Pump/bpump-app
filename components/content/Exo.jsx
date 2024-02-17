@@ -91,7 +91,7 @@ export default function Exo({ data, load, error }) {
             {load ? (
                 <ActivityIndicator size="large" color={COLORS.light.text} />
             ) : error ? (
-                <Text>Erreur lors du chargement des détails de l'exercice</Text>
+                <Text>{error}</Text>
             ) : (
                 <>
                     <View style={styles.headerContainer}>

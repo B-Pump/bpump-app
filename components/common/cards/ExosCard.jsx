@@ -10,7 +10,7 @@ export function ExosCard({ data, load, error }) {
             {load ? (
                 <ActivityIndicator size="large" color={COLORS.light.text} />
             ) : error ? (
-                <Text>Erreur lors du chargement de l'exercice</Text>
+                <Text>{error}</Text>
             ) : (
                 <>
                     <View style={styles.logoContainer}>

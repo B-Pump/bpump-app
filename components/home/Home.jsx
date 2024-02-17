@@ -7,7 +7,7 @@ import { COLORS, SIZES, icons } from "../../constants";
 import styles from "./style/home.style";
 
 export default function Home({ searchTerm, setSearchTerm, handleClick }) {
-    const { data, isLoading, error } = useFetch("GET", "exos/all", {});
+    const { data, isLoading, error } = useFetch("GET", "exos/all");
 
     return (
         <>
@@ -32,7 +32,7 @@ export default function Home({ searchTerm, setSearchTerm, handleClick }) {
                 {isLoading ? (
                     <ActivityIndicator size="large" color={COLORS.light.text} />
                 ) : error ? (
-                    <Text>Erreur lors du chargement des preset de recherche</Text>
+                    <Text>{error}</Text>
                 ) : (
                     <FlatList
                         showsHorizontalScrollIndicator={false}

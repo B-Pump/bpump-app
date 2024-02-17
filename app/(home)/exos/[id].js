@@ -10,7 +10,7 @@ import { SIZES, icons } from "../../../constants";
 import styles from "../../../style/exos.style";
 
 export default function ExosDetails() {
-    const { data, isLoading, error, refetch } = useFetch("GET", `exos/${useLocalSearchParams().id}`, {});
+    const { data, isLoading, error, refetch } = useFetch("GET", `exos/${useLocalSearchParams().id}`);
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);

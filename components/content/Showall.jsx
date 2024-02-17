@@ -29,7 +29,7 @@ export default function Showall({ data, load, error }) {
             {load ? (
                 <ActivityIndicator size="large" color={COLORS.light.text} />
             ) : error ? (
-                <Text>Erreur lors du chargement des détails de l'exercice</Text>
+                <Text>{error}</Text>
             ) : (
                 <>
                     <View style={styles.titleContainer}>
@@ -40,7 +40,7 @@ export default function Showall({ data, load, error }) {
                         {load ? (
                             <ActivityIndicator size="large" color={COLORS.light.text} />
                         ) : error ? (
-                            <Text>Erreur lors du chargement des exercices</Text>
+                            <Text>{error}</Text>
                         ) : (
                             <>
                                 <View style={styles.tabsContainer}>

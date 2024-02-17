@@ -21,7 +21,7 @@ export default function Search({ data, load, error, keyword }) {
                 {load ? (
                     <ActivityIndicator size="large" color={COLORS.light.text} />
                 ) : error ? (
-                    <Text>Erreur lors du chargement de votre recherche</Text>
+                    <Text>{error}</Text>
                 ) : filteredData.length > 0 ? (
                     filteredData?.map((item, index) => <ExosCard data={item} load={load} error={error} key={index} />)
                 ) : (
