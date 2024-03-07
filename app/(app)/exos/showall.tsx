@@ -40,8 +40,10 @@ export default function ShowallExos() {
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mt-3">
-                    <Text className="text-2xl text-foreground">Apprenez en plus sur notre projet !</Text>
-                    <Text className="text-3xl font-semibold leading-tight text-foreground">Qu'est-ce que B-Pump ?</Text>
+                    <Text className="text-2xl text-foreground">Tous les exercices</Text>
+                    <Text className="text-3xl font-semibold leading-tight text-foreground">
+                        Préparez vous à faire du sport !
+                    </Text>
                 </View>
                 {isLoading ? (
                     <ExosSkeleton />

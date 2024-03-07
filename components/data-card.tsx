@@ -2,18 +2,29 @@ import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 import { ExosSkeleton, ProgsSkeleton } from "@/components/data-skeleton";
+import { Image } from "expo-image";
 
 export function ExosCard({ data, load, error }: { data: Exos; load: boolean; error: string }) {
     return (
-        <TouchableOpacity onPress={() => router.push(`/exos/${data?.id}`)}>
+        <TouchableOpacity
+            onPress={() => {
+                !error && !load ? router.push(`/exos/${data?.id}`) : {};
+            }}
+        >
             {load ? (
                 <ExosSkeleton />
             ) : error ? (
                 <Text className="text-foreground">{error}</Text>
             ) : (
-                <View className="rounded-lg border border-border p-7">
-                    <View>{/* Image */}</View>
-                    <View className="mt-5">
+                <View className="flex-row rounded-lg border border-border p-7">
+                    <View className="items-center justify-between rounded-xl bg-secondary">
+                        <Image
+                            style={{ width: 50, height: 50, borderRadius: 10 }}
+                            source="https://a4.pbase.com/o6/02/1001402/1/149560233.6rKKlAVp.201302HKG_Lantau0005aa2.jpg"
+                            contentFit="fill"
+                        />
+                    </View>
+                    <View className="ml-7 justify-center">
                         <Text className="text-xl font-medium text-foreground" numberOfLines={1}>
                             {data?.sugar?.title || "Titre non trouvé"}
                         </Text>
@@ -30,7 +41,11 @@ export function ExosCard({ data, load, error }: { data: Exos; load: boolean; err
 
 export function ProgsCard({ data, load, error }: { data: Progs; load: boolean; error: string }) {
     return (
-        <TouchableOpacity onPress={() => router.push(`/progs/${data?.id}`)}>
+        <TouchableOpacity
+            onPress={() => {
+                !error && !load ? router.push(`/progs/${data?.id}`) : {};
+            }}
+        >
             {load ? (
                 <ProgsSkeleton />
             ) : error ? (
