@@ -40,8 +40,8 @@ export default function ShowallExos() {
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mt-3">
-                    <Text className="text-foreground text-2xl">Apprenez en plus sur notre projet !</Text>
-                    <Text className="text-foreground text-3xl font-semibold leading-tight">Qu'est-ce que B-Pump ?</Text>
+                    <Text className="text-2xl text-foreground">Apprenez en plus sur notre projet !</Text>
+                    <Text className="text-3xl font-semibold leading-tight text-foreground">Qu'est-ce que B-Pump ?</Text>
                 </View>
                 {isLoading ? (
                     <ExosSkeleton />
@@ -49,7 +49,7 @@ export default function ShowallExos() {
                     <Text className="text-foreground">{error}</Text>
                 ) : (
                     <>
-                        <View className="my-3 justify-center items-center">
+                        <View className="my-3 items-center justify-center">
                             <FlatList
                                 data={tabs as string[]}
                                 renderItem={({ item, index }) => (

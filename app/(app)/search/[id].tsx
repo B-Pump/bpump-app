@@ -44,8 +44,8 @@ export default function Search() {
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             >
                 <View className="mt-3">
-                    <Text className="text-foreground text-2xl">{id}</Text>
-                    <Text className="text-foreground text-3xl font-semibold leading-tight">
+                    <Text className="text-2xl text-foreground">{id}</Text>
+                    <Text className="text-3xl font-semibold leading-tight text-foreground">
                         Voici ce que nous avons trouvé pour vous :
                     </Text>
                 </View>

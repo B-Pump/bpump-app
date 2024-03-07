@@ -37,14 +37,14 @@ export default function Scan() {
 
     if (hasPermission === null) {
         return (
-            <View className="flex-1 bg-background items-center justify-center">
+            <View className="flex-1 items-center justify-center bg-background">
                 <Text className="text-foreground">Demander la permission d'accès à la caméra</Text>
             </View>
         );
     }
     if (hasPermission === false) {
         return (
-            <View className="flex-1 bg-background items-center justify-center">
+            <View className="flex-1 items-center justify-center bg-background">
                 <Text className="text-foreground">Aucun accès à la caméra</Text>
             </View>
         );
@@ -58,7 +58,7 @@ export default function Scan() {
                 style={StyleSheet.absoluteFillObject}
             />
             <View className="flex-1">
-                <Text className="text-white font-medium text-center mt-[50%] bg-[#00000094] rounded-lg p-2 mx-20">
+                <Text className="mx-20 mt-[50%] rounded-lg bg-[#00000094] p-2 text-center font-medium text-white">
                     Scannez le code QR de votre robot
                 </Text>
                 <View style={styles.frame} />

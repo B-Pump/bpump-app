@@ -5,8 +5,8 @@ export default function CreateProgs() {
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mt-3">
-                    <Text className="text-foreground text-2xl">Création de programme</Text>
-                    <Text className="text-foreground text-3xl font-semibold leading-tight">
+                    <Text className="text-2xl text-foreground">Création de programme</Text>
+                    <Text className="text-3xl font-semibold leading-tight text-foreground">
                         Élaborez votre propre programme dès maintenant !
                     </Text>
                 </View>

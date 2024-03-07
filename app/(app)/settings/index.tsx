@@ -35,14 +35,14 @@ export default function Settings() {
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mt-3">
-                    <Text className="text-foreground text-2xl">Paramètres généraux</Text>
-                    <Text className="text-foreground text-3xl font-semibold leading-tight">
+                    <Text className="text-2xl text-foreground">Paramètres généraux</Text>
+                    <Text className="text-3xl font-semibold leading-tight text-foreground">
                         Configurez dès maintenant pour utiliser votre B-Pump !
                     </Text>
                 </View>
                 <View className="my-3">
                     <Text className="mb-3 text-foreground">🤖​ Configuration du robot</Text>
-                    <View className="border border-border rounded-lg">
+                    <View className="rounded-lg border border-border">
                         <View className="p-4">
                             <Text className="mb-5 text-foreground">
                                 Connectez votre robot en scannant un code QR que vous pouvez retrouver sur la projection
@@ -52,13 +52,13 @@ export default function Settings() {
                                 <Text className="text-foreground">Scanner le code QR</Text>
                             </Button>
                         </View>
-                        <View className="p-4 border-t border-border">
+                        <View className="border-t border-border p-4">
                             <Text className="mb-5 text-foreground">
                                 Modifier la voix que votre robot B-Pump utilisera pour vous corriger lors de vos
                                 exercices. Notez que cela ne marchera que si vous êtes actuellement connecté à votre
                                 robot.
                             </Text>
-                            <View className="border border-border rounded-lg">
+                            <View className="rounded-lg border border-border">
                                 <Picker
                                     selectedValue={selectedLanguage}
                                     onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
@@ -76,15 +76,15 @@ export default function Settings() {
                 </View>
                 <View className="my-3">
                     <Text className="mb-3 text-foreground">🎨​ Thème de l'application</Text>
-                    <View className="border border-border rounded-lg">
+                    <View className="rounded-lg border border-border">
                         {theme.map((item, index) => (
                             <View className={`p-4 ${index === 0 ? "" : "border-t border-border"}`} key={index}>
                                 <TouchableOpacity onPress={() => setColorScheme(item.value)}>
                                     <View className="flex flex-row items-center justify-between">
                                         <Text className="text-foreground">{item.label}</Text>
-                                        <View className="rounded-full border border-border justify-center items-center">
+                                        <View className="items-center justify-center rounded-full border border-border">
                                             <View
-                                                className={`rounded-full size-5 ${
+                                                className={`size-5 rounded-full ${
                                                     colorScheme === item.value ? "bg-secondary" : ""
                                                 }`}
                                             />
@@ -97,7 +97,7 @@ export default function Settings() {
                 </View>
                 <View className="my-3">
                     <Text className="mb-3 text-foreground">📱​ Informations complémentaires</Text>
-                    <View className="border border-border rounded-lg">
+                    <View className="rounded-lg border border-border">
                         {info.map((item, index) => (
                             <View className={`p-4 ${index === 0 ? "" : "border-t border-border"}`} key={index}>
                                 <View className="flex flex-row items-center justify-between">
@@ -110,7 +110,7 @@ export default function Settings() {
                 </View>
                 <View className="my-3">
                     <Text className="mb-3 text-foreground">⚠️ Actions sur votre compte</Text>
-                    <View className="border border-border rounded-lg">
+                    <View className="rounded-lg border border-border">
                         <View className="p-4">
                             <Text className="mb-5 text-foreground">
                                 Vous déconnecter vous raménera à l'écran d'accueil. Vous pourrez toujours utiliser votre
@@ -120,7 +120,7 @@ export default function Settings() {
                                 <Text className="text-foreground">Vous déconnecter</Text>
                             </Button>
                         </View>
-                        <View className="p-4 border-t border-border">
+                        <View className="border-t border-border p-4">
                             <Text className="mb-5 text-foreground">
                                 Supprimer votre compte est une action irréversible. Cela supprimera vos programmes et
                                 votre activité.

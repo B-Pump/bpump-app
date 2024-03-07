@@ -27,15 +27,15 @@ export default function App() {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
                     <View className="mt-3">
-                        <Text className="text-foreground text-2xl">
+                        <Text className="text-2xl text-foreground">
                             Bonjour, {session ? session.charAt(0).toUpperCase() + session.slice(1) : "je suis B-Pump"} !
                         </Text>
-                        <Text className="text-foreground text-3xl font-semibold leading-tight">
+                        <Text className="text-3xl font-semibold leading-tight text-foreground">
                             Trouvez votre programme d'entraînement parfait !
                         </Text>
                     </View>
-                    <View className="my-3 flex flex-row justify-center items-center">
-                        <View className="flex-1 mr-3">
+                    <View className="my-3 flex flex-row items-center justify-center">
+                        <View className="mr-3 flex-1">
                             <Input
                                 value={searchTerm}
                                 onChangeText={(text) => setSearchTerm(text)}
@@ -85,10 +85,10 @@ export default function App() {
                     </View>
                 </View>
                 <View className="my-3">
-                    <View className="flex flex-row justify-between items-center">
-                        <Text className="text-foreground text-xl font-semibold">Programmes recommandés</Text>
+                    <View className="flex flex-row items-center justify-between">
+                        <Text className="text-xl font-semibold text-foreground">Programmes recommandés</Text>
                         <Button variant="ghost" onPress={() => router.push("/progs/create")}>
-                            <Text className="text-muted-foreground font-medium">Créer</Text>
+                            <Text className="font-medium text-muted-foreground">Créer</Text>
                         </Button>
                     </View>
                     <View>
@@ -111,10 +111,10 @@ export default function App() {
                     </View>
                 </View>
                 <View className="my-3">
-                    <View className="flex flex-row justify-between items-center">
-                        <Text className="text-foreground text-xl font-semibold">Exercices recommandés</Text>
+                    <View className="flex flex-row items-center justify-between">
+                        <Text className="text-xl font-semibold text-foreground">Exercices recommandés</Text>
                         <Button variant="ghost" onPress={() => router.push("/exos/showall")}>
-                            <Text className="text-muted-foreground font-medium">Afficher tout</Text>
+                            <Text className="font-medium text-muted-foreground">Afficher tout</Text>
                         </Button>
                     </View>
                     <View>

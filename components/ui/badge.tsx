@@ -10,7 +10,7 @@ export const badgeVariants = cva("flex flex-row items-center rounded-full px-3 p
             secondary: "bg-secondary",
             destructive: "bg-destructive",
             success: "bg-green-500 dark:bg-green-700",
-            outline: "dark:bg-secondary border border-solid border-border",
+            outline: "border border-solid border-border dark:bg-secondary",
         },
     },
     defaultVariants: {
@@ -18,7 +18,7 @@ export const badgeVariants = cva("flex flex-row items-center rounded-full px-3 p
     },
 });
 
-const badgeTextVariants = cva("font-medium text-center", {
+const badgeTextVariants = cva("text-center font-medium", {
     variants: {
         variant: {
             default: "text-primary-foreground",

@@ -34,7 +34,7 @@ export default function Progs() {
             case tabs[0]:
                 return (
                     <View className="my-3">
-                        <Text className="mb-3 text-foreground font-medium text-lg">
+                        <Text className="mb-3 text-lg font-medium text-foreground">
                             En savoir plus sur ce programme
                         </Text>
                         <View>
@@ -46,7 +46,7 @@ export default function Progs() {
             case tabs[1]:
                 return (
                     <View className="my-3">
-                        <Text className="mb-3 text-foreground font-medium text-lg">Catalogue de ce programme</Text>
+                        <Text className="mb-3 text-lg font-medium text-foreground">Catalogue de ce programme</Text>
                         <View>
                             {progData?.exercises?.map((item: string, index: number) => {
                                 const exoItem = exoData.find((exo: Exos) => exo.id === item);
@@ -94,22 +94,22 @@ export default function Progs() {
                     <Text className="text-foreground">{progError}</Text>
                 ) : (
                     <>
-                        <View className="justify-center items-center my-16">
+                        <View className="my-16 items-center justify-center">
                             <View>{/* Image */}</View>
                             <View className="mt-3">
-                                <Text className="text-foreground text-2xl font-medium text-center">
+                                <Text className="text-center text-2xl font-medium text-foreground">
                                     Programme - {progData?.title}
                                 </Text>
                             </View>
-                            <View className="mt-3 flex-row justify-center items-center">
-                                <Text className="text-foreground text-lg">{progData?.category} | </Text>
-                                <View className="flex-row justify-center items-center">
+                            <View className="mt-3 flex-row items-center justify-center">
+                                <Text className="text-lg text-foreground">{progData?.category} | </Text>
+                                <View className="flex-row items-center justify-center">
                                     <Star size={15} color={isDarkColorScheme ? "white" : "black"} />
-                                    <Text className="text-foreground ml-1">{progData?.difficulty}/5</Text>
+                                    <Text className="ml-1 text-foreground">{progData?.difficulty}/5</Text>
                                 </View>
                             </View>
                         </View>
-                        <View className="my-3 justify-center items-center">
+                        <View className="my-3 items-center justify-center">
                             <FlatList
                                 data={tabs}
                                 renderItem={({ item, index }) => (

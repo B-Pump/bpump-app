@@ -5,8 +5,8 @@ export default function About() {
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mt-3">
-                    <Text className="text-foreground text-2xl">Apprenez en plus sur notre projet !</Text>
-                    <Text className="text-foreground text-3xl font-semibold leading-tight">Qu'est-ce que B-Pump ?</Text>
+                    <Text className="text-2xl text-foreground">Apprenez en plus sur notre projet !</Text>
+                    <Text className="text-3xl font-semibold leading-tight text-foreground">Qu'est-ce que B-Pump ?</Text>
                 </View>
                 <View className="my-3">
                     <Text className="py-2 text-foreground">
@@ -43,7 +43,7 @@ export default function About() {
                     <Text className="py-2 text-foreground">
                         Vous pouvez contribuer à notre projet en partageant des retours constructifs. Rejoignez-nous
                         pour transformer ensemble la façon dont le monde perçoit la santé et le fitness. Merci de faire
-                        partie de notre aventure
+                        partie de notre aventure.
                     </Text>
                 </View>
             </ScrollView>

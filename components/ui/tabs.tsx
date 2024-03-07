@@ -12,7 +12,7 @@ export default function Tabs({ children, item }: { children: React.ReactNode; it
 
     return (
         <>
-            <View className="my-3 justify-center items-center">
+            <View className="my-3 items-center justify-center">
                 <FlatList
                     data={item as string[]}
                     renderItem={({ item, index }) => (

@@ -14,7 +14,7 @@ export function ExosCard({ data, load, error }: { data: Exos; load: boolean; err
                 <View className="rounded-lg border border-border p-7">
                     <View>{/* Image */}</View>
                     <View className="mt-5">
-                        <Text className="text-foreground text-xl font-medium" numberOfLines={1}>
+                        <Text className="text-xl font-medium text-foreground" numberOfLines={1}>
                             {data?.sugar?.title || "Titre non trouvé"}
                         </Text>
                         <Text className="text-sm text-muted-foreground" numberOfLines={1}>
@@ -42,7 +42,7 @@ export function ProgsCard({ data, load, error }: { data: Progs; load: boolean; e
                         {data?.description || "Description non trouvée"}
                     </Text>
                     <View className="mt-5">
-                        <Text className="text-foreground text-xl font-medium" numberOfLines={1}>
+                        <Text className="text-xl font-medium text-foreground" numberOfLines={1}>
                             {data?.title || "Titre non trouvé"}
                         </Text>
                         <Text className="text-sm text-muted-foreground" numberOfLines={1}>
