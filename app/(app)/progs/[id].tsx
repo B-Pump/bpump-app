@@ -59,13 +59,17 @@ export default function Progs() {
                                                 color={isDarkColorScheme ? "white" : "black"}
                                             />
                                         ) : exoError ? (
-                                            <Text>Erreur lors du chargement des détails de l'exercice</Text>
+                                            <Text className="text-foreground">
+                                                Erreur lors du chargement des détails de l'exercice
+                                            </Text>
                                         ) : exoItem ? (
                                             <View className="py-1">
                                                 <ExosCard data={exoItem} load={exoLoad} error={exoError} />
                                             </View>
                                         ) : (
-                                            <Text>Aucun détail trouvé pour l'exercice {item}</Text>
+                                            <Text className="text-foreground">
+                                                Aucun détail trouvé pour l'exercice {item}
+                                            </Text>
                                         )}
                                     </View>
                                 );
@@ -87,7 +91,7 @@ export default function Progs() {
                 {progLoad ? (
                     <ActivityIndicator size="large" color={isDarkColorScheme ? "white" : "black"} />
                 ) : progError ? (
-                    <Text>{progError}</Text>
+                    <Text className="text-foreground">{progError}</Text>
                 ) : (
                     <>
                         <View className="justify-center items-center my-16">

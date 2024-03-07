@@ -153,6 +153,19 @@ export default function AppLayout() {
                         title: "",
                     }}
                 />
+                <Stack.Screen
+                    name="search/[id]"
+                    options={{
+                        animation: "fade_from_bottom",
+                        headerLeft: () => (
+                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
+                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
+                            </Button>
+                        ),
+                        headerShadowVisible: false,
+                        title: "",
+                    }}
+                />
             </Stack>
         </ThemeProvider>
     );

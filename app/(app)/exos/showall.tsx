@@ -46,7 +46,7 @@ export default function ShowallExos() {
                 {isLoading ? (
                     <ExosSkeleton />
                 ) : error ? (
-                    <Text>{error}</Text>
+                    <Text className="text-foreground">{error}</Text>
                 ) : (
                     <>
                         <View className="my-3 justify-center items-center">

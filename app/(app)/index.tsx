@@ -1,5 +1,6 @@
 import { router } from "expo-router";
 import { Search } from "lucide-react-native";
+import { useState } from "react";
 import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ExosCard, ProgsCard } from "@/components/data-card";
@@ -15,6 +16,8 @@ import { useColorScheme } from "@/lib/color";
 export default function App() {
     const { session } = useSession();
     const { isDarkColorScheme } = useColorScheme();
+
+    const [searchTerm, setSearchTerm] = useState("");
 
     const { data: exosData, isLoading: exosLoad, error: exosError } = useFetch("GET", "exos/all");
     const { data: progsData, isLoading: progsLoad, error: progsError } = useFetch("GET", "progs/all?username=pierre");
@@ -33,9 +36,21 @@ export default function App() {
                     </View>
                     <View className="my-3 flex flex-row justify-center items-center">
                         <View className="flex-1 mr-3">
-                            <Input placeholder="Que recherchez vous ?" />
+                            <Input
+                                value={searchTerm}
+                                onChangeText={(text) => setSearchTerm(text)}
+                                placeholder="Que recherchez vous ?"
+                            />
                         </View>
-                        <Button variant="default" size="icon_lg">
+                        <Button
+                            variant="default"
+                            size="icon_lg"
+                            onPress={() => {
+                                if (searchTerm && /[a-zA-Z]/.test(searchTerm.trim()))
+                                    // check if this is not an empty search
+                                    router.push(`/search/${searchTerm}`);
+                            }}
+                        >
                             <Search color={isDarkColorScheme ? "black" : "white"} />
                         </Button>
                     </View>
@@ -43,17 +58,22 @@ export default function App() {
                         {exosLoad ? (
                             <CategorySkeleton />
                         ) : exosError ? (
-                            <Text>{exosError}</Text>
+                            <Text className="text-foreground">{exosError}</Text>
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
-                                data={
-                                    exosData
-                                        ? ([...new Set(exosData.map((item: Exos) => item.sugar.category))] as string[])
-                                        : []
-                                }
+                                data={[
+                                    "Quadriceps",
+                                    "Ischio-jambiers",
+                                    "Pectoraux",
+                                    "Deltoides",
+                                    "Abdominaux",
+                                    "Biceps",
+                                    "Triceps",
+                                    "Dos",
+                                ]}
                                 renderItem={({ item, index }) => (
-                                    <TouchableOpacity onPress={() => router.push(`search/${item}`)} key={index}>
+                                    <TouchableOpacity onPress={() => router.push(`/search/${item}`)} key={index}>
                                         <Badge label={item} variant="outline" />
                                     </TouchableOpacity>
                                 )}
@@ -75,7 +95,7 @@ export default function App() {
                         {progsLoad ? (
                             <ProgsSkeleton />
                         ) : progsError ? (
-                            <Text>{progsError}</Text>
+                            <Text className="text-foreground">{progsError}</Text>
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
@@ -101,7 +121,7 @@ export default function App() {
                         {exosLoad ? (
                             <ExosSkeleton />
                         ) : exosError ? (
-                            <Text>{exosError}</Text>
+                            <Text className="text-foreground">{exosError}</Text>
                         ) : (
                             exosData
                                 ?.sort(() => Math.random() - 0.5)

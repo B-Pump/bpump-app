@@ -9,7 +9,7 @@ export function ExosCard({ data, load, error }: { data: Exos; load: boolean; err
             {load ? (
                 <ExosSkeleton />
             ) : error ? (
-                <Text>{error}</Text>
+                <Text className="text-foreground">{error}</Text>
             ) : (
                 <View className="rounded-lg border border-border p-7">
                     <View>{/* Image */}</View>
@@ -34,7 +34,7 @@ export function ProgsCard({ data, load, error }: { data: Progs; load: boolean; e
             {load ? (
                 <ProgsSkeleton />
             ) : error ? (
-                <Text>{error}</Text>
+                <Text className="text-foreground">{error}</Text>
             ) : (
                 <View className="rounded-lg border border-border p-7">
                     <View>{/* Image */}</View>

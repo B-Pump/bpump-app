@@ -7,7 +7,7 @@ export default function Tabs({ children, item }: { children: React.ReactNode; it
     const [activeTab, setActiveTab] = useState(item[0]);
 
     const displayTabContent = () => {
-        return <Text>Salut : {activeTab}</Text>;
+        return <Text className="text-foreground">Salut : {activeTab}</Text>;
     };
 
     return (
