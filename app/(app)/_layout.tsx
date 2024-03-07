@@ -127,6 +127,32 @@ export default function AppLayout() {
                         title: "",
                     }}
                 />
+                <Stack.Screen
+                    name="progs/[id]"
+                    options={{
+                        animation: "fade_from_bottom",
+                        headerLeft: () => (
+                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
+                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
+                            </Button>
+                        ),
+                        headerShadowVisible: false,
+                        title: "",
+                    }}
+                />
+                <Stack.Screen
+                    name="progs/create"
+                    options={{
+                        animation: "fade_from_bottom",
+                        headerLeft: () => (
+                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
+                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
+                            </Button>
+                        ),
+                        headerShadowVisible: false,
+                        title: "",
+                    }}
+                />
             </Stack>
         </ThemeProvider>
     );
