@@ -1,4 +1,5 @@
 import { Theme, ThemeProvider } from "@react-navigation/native";
+import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { Redirect, Stack, router } from "expo-router";
 import { ArrowLeft, Info, Settings, Share2 } from "lucide-react-native";
 import { Share, Text } from "react-native";
@@ -27,6 +28,17 @@ export default function AppLayout() {
         colors: globals.dark,
     };
 
+    const defaultStack: NativeStackNavigationOptions = {
+        animation: "fade_from_bottom",
+        headerLeft: () => (
+            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
+                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
+            </Button>
+        ),
+        headerShadowVisible: false,
+        title: "",
+    };
+
     return (
         <ThemeProvider value={isDarkColorScheme ? darkTheme : lightTheme}>
             <Stack>
@@ -50,12 +62,7 @@ export default function AppLayout() {
                 <Stack.Screen
                     name="about"
                     options={{
-                        animation: "fade_from_bottom",
-                        headerLeft: () => (
-                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
-                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
-                            </Button>
-                        ),
+                        ...defaultStack,
                         headerRight: () => (
                             <Button
                                 variant="secondary"
@@ -70,102 +77,21 @@ export default function AppLayout() {
                                 <Share2 color={isDarkColorScheme ? "white" : "black"} />
                             </Button>
                         ),
-                        headerShadowVisible: false,
-                        title: "",
-                    }}
-                />
-                <Stack.Screen
-                    name="settings/index"
-                    options={{
-                        animation: "fade_from_bottom",
-                        headerLeft: () => (
-                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
-                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
-                            </Button>
-                        ),
-                        headerShadowVisible: false,
-                        title: "",
                     }}
                 />
                 <Stack.Screen
                     name="settings/scan"
                     options={{
-                        animation: "fade_from_bottom",
+                        ...defaultStack,
                         headerTransparent: true,
-                        headerLeft: () => (
-                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
-                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
-                            </Button>
-                        ),
-                        headerShadowVisible: false,
-                        title: "",
                     }}
                 />
-                <Stack.Screen
-                    name="exos/[id]"
-                    options={{
-                        animation: "fade_from_bottom",
-                        headerLeft: () => (
-                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
-                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
-                            </Button>
-                        ),
-                        headerShadowVisible: false,
-                        title: "",
-                    }}
-                />
-                <Stack.Screen
-                    name="exos/showall"
-                    options={{
-                        animation: "fade_from_bottom",
-                        headerLeft: () => (
-                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
-                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
-                            </Button>
-                        ),
-                        headerShadowVisible: false,
-                        title: "",
-                    }}
-                />
-                <Stack.Screen
-                    name="progs/[id]"
-                    options={{
-                        animation: "fade_from_bottom",
-                        headerLeft: () => (
-                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
-                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
-                            </Button>
-                        ),
-                        headerShadowVisible: false,
-                        title: "",
-                    }}
-                />
-                <Stack.Screen
-                    name="progs/create"
-                    options={{
-                        animation: "fade_from_bottom",
-                        headerLeft: () => (
-                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
-                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
-                            </Button>
-                        ),
-                        headerShadowVisible: false,
-                        title: "",
-                    }}
-                />
-                <Stack.Screen
-                    name="search/[id]"
-                    options={{
-                        animation: "fade_from_bottom",
-                        headerLeft: () => (
-                            <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
-                                <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
-                            </Button>
-                        ),
-                        headerShadowVisible: false,
-                        title: "",
-                    }}
-                />
+                <Stack.Screen name="settings/index" options={defaultStack} />
+                <Stack.Screen name="exos/[id]" options={defaultStack} />
+                <Stack.Screen name="exos/showall" options={defaultStack} />
+                <Stack.Screen name="progs/[id]" options={defaultStack} />
+                <Stack.Screen name="progs/create" options={defaultStack} />
+                <Stack.Screen name="search/[id]" options={defaultStack} />
             </Stack>
         </ThemeProvider>
     );
