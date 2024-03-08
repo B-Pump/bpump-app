@@ -16,7 +16,10 @@ export default function Progs() {
         isLoading: progLoad,
         error: progError,
         refetch,
-    } = useFetch("GET", `progs/${useLocalSearchParams().id}?username=pierre`);
+    }: { data: Progs; isLoading: boolean; error: string; refetch: () => void } = useFetch(
+        "GET",
+        `progs/${useLocalSearchParams().id}?username=pierre`,
+    );
     const { data: exoData, isLoading: exoLoad, error: exoError } = useFetch("GET", "exos/all");
 
     const [refreshing, setRefreshing] = useState(false);
@@ -39,7 +42,7 @@ export default function Progs() {
                         </Text>
                         <View>
                             <Text className="mb-3 text-foreground">📜​ Description :</Text>
-                            <Text className="text-foreground">{progData?.description ?? "Aucune données"}</Text>
+                            <Text className="text-muted-foreground">{progData?.description ?? "Aucune données"}</Text>
                         </View>
                     </View>
                 );

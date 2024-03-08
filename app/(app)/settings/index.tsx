@@ -64,6 +64,7 @@ export default function Settings() {
                                     onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
                                     mode="dropdown"
                                     numberOfLines={1}
+                                    dropdownIconColor={isDarkColorScheme ? "white" : "black"}
                                     style={{ color: isDarkColorScheme ? "white" : "black" }}
                                 >
                                     {voice.map((item, index) => (
@@ -85,7 +86,7 @@ export default function Settings() {
                                         <View className="items-center justify-center rounded-full border border-border">
                                             <View
                                                 className={`size-5 rounded-full ${
-                                                    colorScheme === item.value ? "bg-secondary" : ""
+                                                    colorScheme === item.value ? "bg-muted-foreground" : ""
                                                 }`}
                                             />
                                         </View>
