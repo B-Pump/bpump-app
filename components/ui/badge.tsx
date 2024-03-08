@@ -33,7 +33,7 @@ const badgeTextVariants = cva("text-center font-medium", {
     },
 });
 
-export interface BadgeProps extends React.ComponentPropsWithoutRef<typeof View>, VariantProps<typeof badgeVariants> {
+interface BadgeProps extends React.ComponentPropsWithoutRef<typeof View>, VariantProps<typeof badgeVariants> {
     label: string;
     labelClasses?: string;
 }

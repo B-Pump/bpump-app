@@ -3,7 +3,7 @@ import { FlatList, Text, View } from "react-native";
 
 import { Button } from "@/components/ui/button";
 
-export default function Tabs({ children, item }: { children: React.ReactNode; item: string[] }) {
+export function Tabs({ children, item }: { children: React.ReactNode; item: string[] }) {
     const [activeTab, setActiveTab] = useState(item[0]);
 
     const displayTabContent = () => {

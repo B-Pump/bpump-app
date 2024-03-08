@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 import { globals } from "@/styles/globals";
 
-export interface InputProps extends React.ComponentPropsWithoutRef<typeof TextInput> {
+interface InputProps extends React.ComponentPropsWithoutRef<typeof TextInput> {
     label?: string;
     labelClasses?: string;
     inputClasses?: string;
