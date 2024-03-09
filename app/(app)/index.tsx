@@ -99,7 +99,7 @@ export default function App() {
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
-                                data={progsData?.sort(() => Math.random() - 0.5).slice(0, 3)}
+                                data={progsData}
                                 renderItem={({ item, index }: { item: Progs; index: number }) => (
                                     <ProgsCard data={item} load={progsLoad} error={progsError} key={index} />
                                 )}
