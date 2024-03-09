@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FlatList, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import { ExosCard } from "@/components/data-card";
-import { ExosSkeleton } from "@/components/data-skeleton";
+import { ExosSkeletonList } from "@/components/data-skeleton";
 
 import { Button } from "@/components/ui/button";
 import useFetch from "@/lib/api";
@@ -46,7 +46,7 @@ export default function ShowallExos() {
                     </Text>
                 </View>
                 {isLoading ? (
-                    <ExosSkeleton />
+                    <ExosSkeletonList count={6} />
                 ) : error ? (
                     <Text className="text-foreground">{error}</Text>
                 ) : (

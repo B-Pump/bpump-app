@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ExosCard, ProgsCard } from "@/components/data-card";
-import { CategorySkeleton, ExosSkeleton, ProgsSkeleton } from "@/components/data-skeleton";
+import { CategorySkeletonList, ExosSkeletonList, ProgsSkeletonList } from "@/components/data-skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,7 +56,14 @@ export default function App() {
                     </View>
                     <View className="my-3">
                         {exosLoad ? (
-                            <CategorySkeleton />
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                data={[1, 2, 3, 4]}
+                                renderItem={() => <CategorySkeletonList count={4} />}
+                                keyExtractor={(item) => item.toString()}
+                                contentContainerStyle={{ columnGap: 10 }}
+                                horizontal
+                            />
                         ) : exosError ? (
                             <Text className="text-foreground">{exosError}</Text>
                         ) : (
@@ -93,7 +100,14 @@ export default function App() {
                     </View>
                     <View>
                         {progsLoad ? (
-                            <ProgsSkeleton />
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                data={[1, 2]}
+                                renderItem={() => <ProgsSkeletonList count={1} />}
+                                keyExtractor={(item) => item.toString()}
+                                contentContainerStyle={{ columnGap: 7 }}
+                                horizontal
+                            />
                         ) : progsError ? (
                             <Text className="text-foreground">{progsError}</Text>
                         ) : (
@@ -119,7 +133,7 @@ export default function App() {
                     </View>
                     <View>
                         {exosLoad ? (
-                            <ExosSkeleton />
+                            <ExosSkeletonList count={2} />
                         ) : exosError ? (
                             <Text className="text-foreground">{exosError}</Text>
                         ) : (

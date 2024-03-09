@@ -2,7 +2,7 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
-import { ExosSkeleton, ProgsSkeleton } from "@/components/data-skeleton";
+import { ExosSkeletonList, ProgsSkeletonList } from "@/components/data-skeleton";
 
 export function ExosCard({ data, load, error }: { data: Exos; load: boolean; error: string }) {
     return (
@@ -12,7 +12,7 @@ export function ExosCard({ data, load, error }: { data: Exos; load: boolean; err
             }}
         >
             {load ? (
-                <ExosSkeleton />
+                <ExosSkeletonList count={1} />
             ) : error ? (
                 <Text className="text-foreground">{error}</Text>
             ) : (
@@ -47,7 +47,7 @@ export function ProgsCard({ data, load, error }: { data: Progs; load: boolean; e
             }}
         >
             {load ? (
-                <ProgsSkeleton />
+                <ProgsSkeletonList count={1} />
             ) : error ? (
                 <Text className="text-foreground">{error}</Text>
             ) : (

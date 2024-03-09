@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import { ExosCard } from "@/components/data-card";
-import { ExosSkeleton } from "@/components/data-skeleton";
+import { ExosSkeletonList } from "@/components/data-skeleton";
 
 import useFetch from "@/lib/api";
 
@@ -51,7 +51,7 @@ export default function Search() {
                 </View>
                 <View className="my-3">
                     {isLoading ? (
-                        <ExosSkeleton />
+                        <ExosSkeletonList count={6} />
                     ) : error ? (
                         <Text className="text-foreground">{error}</Text>
                     ) : filteredData && filteredData.length > 0 ? (

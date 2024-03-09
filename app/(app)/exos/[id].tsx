@@ -130,7 +130,7 @@ export default function Exos() {
                         <View className="my-16 items-center justify-center">
                             <View className="items-center justify-between rounded-xl">
                                 <Image
-                                    style={{ width: 50, height: 50, borderRadius: 10 }}
+                                    style={{ width: 70, height: 70, borderRadius: 10 }}
                                     source="https://cdn.pixabay.com/photo/2017/05/25/15/08/jogging-2343558_1280.jpg"
                                     contentFit="fill"
                                 />
