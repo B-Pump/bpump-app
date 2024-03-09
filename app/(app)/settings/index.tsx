@@ -1,5 +1,5 @@
 import { Picker } from "@react-native-picker/picker";
-import { brand, osInternalBuildId } from "expo-device";
+import { deviceName, osInternalBuildId } from "expo-device";
 import { router } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -26,7 +26,7 @@ export default function Settings() {
     ];
 
     const info = [
-        { value: brand, label: "Nom de l'appareil" },
+        { value: deviceName, label: "Nom de l'appareil" },
         { value: osInternalBuildId, label: "ID de l'appareil" },
         { value: cfV.version, label: "Version du client" },
     ];
