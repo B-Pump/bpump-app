@@ -2,7 +2,7 @@
     "expo": {
         "name": "Robot B-Pump",
         "description": "Application of the B-Pump robot, your 100% Robotic sports coach !",
-        "slug": "bpump",
+        "slug": "bpump-app",
         "version": "2.0.0",
         "owner": "wiizz",
         "githubUrl": "https://github.com/B-Pump/bpump-app",
@@ -18,14 +18,24 @@
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.wiizz.bpumpapp"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
-            }
+            },
+            "package": "com.wiizz.bpumpapp"
         },
-        "plugins": ["expo-router", "expo-font", "expo-secure-store"]
+        "plugins": ["expo-router", "expo-font", "expo-secure-store"],
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "c21561c8-d4c5-4922-8490-7ded40513502"
+            }
+        }
     }
 }
