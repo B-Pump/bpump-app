@@ -1,3 +1,4 @@
+import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { Star } from "lucide-react-native";
 import { useCallback, useState } from "react";
@@ -98,7 +99,13 @@ export default function Progs() {
                 ) : (
                     <>
                         <View className="my-16 items-center justify-center">
-                            <View>{/* Image */}</View>
+                            <View className="items-center justify-between rounded-xl">
+                                <Image
+                                    style={{ width: 50, height: 50, borderRadius: 10 }}
+                                    source="https://cdn.pixabay.com/photo/2014/11/17/13/17/crossfit-534615_1280.jpg"
+                                    contentFit="fill"
+                                />
+                            </View>
                             <View className="mt-3">
                                 <Text className="text-center text-2xl font-medium text-foreground">
                                     Programme - {progData?.title}

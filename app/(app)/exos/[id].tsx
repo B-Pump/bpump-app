@@ -1,4 +1,5 @@
 import { ResizeMode, Video } from "expo-av";
+import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { Star } from "lucide-react-native";
 import { useCallback, useRef, useState } from "react";
@@ -127,7 +128,13 @@ export default function Exos() {
                 ) : (
                     <>
                         <View className="my-16 items-center justify-center">
-                            <View>{/* Image */}</View>
+                            <View className="items-center justify-between rounded-xl">
+                                <Image
+                                    style={{ width: 50, height: 50, borderRadius: 10 }}
+                                    source="https://cdn.pixabay.com/photo/2017/05/25/15/08/jogging-2343558_1280.jpg"
+                                    contentFit="fill"
+                                />
+                            </View>
                             <View className="mt-3">
                                 <Text className="text-center text-2xl font-medium text-foreground">
                                     Exercice - {data?.sugar?.title}
