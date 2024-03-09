@@ -42,7 +42,7 @@ export default function Exos() {
             alignSelf: "center",
             width: "100%",
             height: 200,
-            borderRadius: 30,
+            borderRadius: 15,
         },
     });
 
@@ -106,7 +106,7 @@ export default function Exos() {
                                 }}
                                 style={styles.video}
                                 useNativeControls
-                                resizeMode={ResizeMode.CONTAIN}
+                                resizeMode={ResizeMode.COVER}
                                 onPlaybackStatusUpdate={(status) => setVideo(() => status)}
                             />
                         </View>
