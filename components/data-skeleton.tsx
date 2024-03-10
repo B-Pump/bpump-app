@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function ProgsSkeleton() {
     return (
-        <View className="my-1">
+        <View className="mr-2">
             <View className="w-[300px] rounded-lg border border-border p-6">
                 <View className="justify-between rounded-xl">
                     <Skeleton className="size-14" />
@@ -29,7 +29,7 @@ function ExosSkeleton() {
                     <Skeleton className="size-14" />
                 </View>
                 <View className="ml-7 justify-center">
-                    <Skeleton className="h-5 w-[120px]" />
+                    <Skeleton className="mb-3 h-5 w-[120px]" />
                     <Skeleton className="h-5 w-[100px]" />
                 </View>
             </View>
@@ -39,7 +39,7 @@ function ExosSkeleton() {
 
 export const CategorySkeletonList = ({ count }) => {
     const categorySkeletons = [];
-    for (let i = 0; i < count; i++) categorySkeletons.push(<Skeleton className="h-8 w-28 rounded-full" key={i} />);
+    for (let i = 0; i < count; i++) categorySkeletons.push(<Skeleton className="mr-2 h-8 w-28 rounded-full" key={i} />);
 
     return <>{categorySkeletons}</>;
 };

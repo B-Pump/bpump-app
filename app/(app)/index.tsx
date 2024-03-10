@@ -56,14 +56,9 @@ export default function App() {
                     </View>
                     <View className="my-3">
                         {exosLoad ? (
-                            <FlatList
-                                showsHorizontalScrollIndicator={false}
-                                data={[1, 2, 3, 4]}
-                                renderItem={() => <CategorySkeletonList count={4} />}
-                                keyExtractor={(item) => item.toString()}
-                                contentContainerStyle={{ columnGap: 10 }}
-                                horizontal
-                            />
+                            <View className="flex-row">
+                                <CategorySkeletonList count={4} />
+                            </View>
                         ) : exosError ? (
                             <Text className="text-foreground">{exosError}</Text>
                         ) : (
@@ -100,14 +95,9 @@ export default function App() {
                     </View>
                     <View>
                         {progsLoad ? (
-                            <FlatList
-                                showsHorizontalScrollIndicator={false}
-                                data={[1, 2]}
-                                renderItem={() => <ProgsSkeletonList count={1} />}
-                                keyExtractor={(item) => item.toString()}
-                                contentContainerStyle={{ columnGap: 7 }}
-                                horizontal
-                            />
+                            <View className="flex-row">
+                                <ProgsSkeletonList count={2} />
+                            </View>
                         ) : progsError ? (
                             <Text className="text-foreground">{progsError}</Text>
                         ) : (
