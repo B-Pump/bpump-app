@@ -1,40 +1,14 @@
-import { useState } from "react";
-import { FlatList, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import { ExosCard } from "@/components/data-card";
 import { ExosSkeletonList } from "@/components/data-skeleton";
+import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
-import { Button } from "@/components/ui/button";
 import useFetch from "@/lib/api";
 
 export default function ShowallExos() {
     const { data, isLoading, error } = useFetch("GET", "exos/all");
-
     const tabs = ["Tout", ...(data ? [...new Set(data.map((item: Exos) => item?.sugar?.category))] : [])];
-    const [activeTab, setActiveTab] = useState(tabs[0]);
-
-    const displayTabContent = () => {
-        switch (activeTab) {
-            case tabs[0]:
-                return data?.map((item: Exos, index: number) => (
-                    <View className="py-1" key={index}>
-                        <ExosCard data={item} load={isLoading} error={error} />
-                    </View>
-                ));
-
-            default:
-                return data?.map((item: Exos, index: number) => {
-                    if (item?.sugar?.category === activeTab)
-                        return (
-                            <View className="py-1" key={index}>
-                                <ExosCard data={item} load={isLoading} error={error} />
-                            </View>
-                        );
-
-                    return null;
-                });
-        }
-    };
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
@@ -50,30 +24,34 @@ export default function ShowallExos() {
                 ) : error ? (
                     <Text className="text-foreground">{error}</Text>
                 ) : (
-                    <>
-                        <View className="my-3 items-center justify-center">
-                            <FlatList
-                                data={tabs as string[]}
-                                renderItem={({ item, index }) => (
-                                    <Button
-                                        className={activeTab === item ? "bg-primary" : "bg-secondary"}
-                                        variant="ghost"
-                                        onPress={() => setActiveTab(item)}
-                                        key={index}
-                                    >
-                                        <Text className={activeTab === item ? "text-accent" : "text-foreground"}>
-                                            {item}
-                                        </Text>
-                                    </Button>
+                    <Tabs defaultValue={tabs[0] as string}>
+                        <TabsTrigger data={tabs} />
+                        {tabs.map((tab, index) => (
+                            <TabsContent value={tab} key={index}>
+                                {tab === "Tout" ? (
+                                    <>
+                                        {data?.map((item: Exos, index: number) => (
+                                            <View className="py-1" key={index}>
+                                                <ExosCard data={item} load={isLoading} error={error} />
+                                            </View>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <>
+                                        {data?.map((item: Exos, index: number) => {
+                                            if (item?.sugar?.category === tab) {
+                                                return (
+                                                    <View className="py-1" key={index}>
+                                                        <ExosCard data={item} load={isLoading} error={error} />
+                                                    </View>
+                                                );
+                                            }
+                                        })}
+                                    </>
                                 )}
-                                showsHorizontalScrollIndicator={false}
-                                keyExtractor={(item) => item}
-                                contentContainerStyle={{ columnGap: 12 }}
-                                horizontal
-                            />
-                        </View>
-                        <View className="my-3">{displayTabContent()}</View>
-                    </>
+                            </TabsContent>
+                        ))}
+                    </Tabs>
                 )}
             </ScrollView>
         </SafeAreaView>

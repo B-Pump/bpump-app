@@ -3,18 +3,10 @@ import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { Star } from "lucide-react-native";
 import { useCallback, useRef, useState } from "react";
-import {
-    ActivityIndicator,
-    FlatList,
-    RefreshControl,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-} from "react-native";
+import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
 import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
@@ -32,7 +24,6 @@ export default function Exos() {
     }, [setRefreshing, refetch]);
 
     const tabs = ["Informations", "Démonstration"];
-    const [activeTab, setActiveTab] = useState(tabs[0]);
 
     const videoRef = useRef(null);
     const [video, setVideo] = useState({});
@@ -45,75 +36,6 @@ export default function Exos() {
             borderRadius: 15,
         },
     });
-
-    const displayTabContent = () => {
-        switch (activeTab) {
-            case tabs[0]:
-                return (
-                    <View className="my-3">
-                        <Text className="mb-3 text-lg font-medium text-foreground">
-                            En savoir plus sur ce programme
-                        </Text>
-                        <View className="my-2">
-                            <Text className="mb-3 text-foreground">📜​ Description :</Text>
-                            <Text className="text-muted-foreground">{data?.sugar.description ?? "Aucune données"}</Text>
-                        </View>
-                        <View className="my-2">
-                            <Text className="mb-3 text-foreground">💪🏻​​ Muscles sollicités :</Text>
-                            {data?.sugar?.muscles?.map((item, index) => (
-                                <Text className="text-muted-foreground" key={index}>
-                                    {"\u2022 "}
-                                    {item ?? "Aucune données"}
-                                </Text>
-                            ))}
-                        </View>
-                        <View className="my-2">
-                            <Text className="mb-3 text-foreground">🔐​ Consignes de sécurité :</Text>
-                            {data?.sugar?.security?.map((item, index) => (
-                                <Text className="text-muted-foreground" key={index}>
-                                    {"\u2022 "}
-                                    {item ?? "Aucune données"}
-                                </Text>
-                            ))}
-                        </View>
-                        <View className="my-2">
-                            <Text className="mb-3 text-foreground">🏋️ Préréquis :</Text>
-                            {data?.sugar?.needed?.map((item, index) => (
-                                <Text className="text-muted-foreground" key={index}>
-                                    {"\u2022 "}
-                                    {item ?? "Aucune données"}
-                                </Text>
-                            ))}
-                        </View>
-                        <View className="my-2">
-                            <Text className="mb-3 text-foreground">🤸​ Dépenses énergétiques :</Text>
-                            <Text className="text-muted-foreground">
-                                Calories brulées pour 10 reps : {data?.sugar.energetic.calories ?? "Aucune donnée"} kcal
-                            </Text>
-                        </View>
-                    </View>
-                );
-            case tabs[1]:
-                return (
-                    <View className="my-3">
-                        <Text className="mb-3 text-lg font-medium text-foreground">Comment faire cet exercice</Text>
-                        <View className="my-2">
-                            <Text className="mb-3 text-foreground">📹​ Vidéo :</Text>
-                            <Video
-                                ref={videoRef}
-                                source={{
-                                    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-                                }}
-                                style={styles.video}
-                                useNativeControls
-                                resizeMode={ResizeMode.COVER}
-                                onPlaybackStatusUpdate={(status) => setVideo(() => status)}
-                            />
-                        </View>
-                    </View>
-                );
-        }
-    };
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
@@ -148,28 +70,83 @@ export default function Exos() {
                                 </View>
                             </View>
                         </View>
-                        <View className="my-3 items-center justify-center">
-                            <FlatList
-                                data={tabs}
-                                renderItem={({ item, index }) => (
-                                    <Button
-                                        className={activeTab === item ? "bg-primary" : "bg-secondary"}
-                                        variant="ghost"
-                                        onPress={() => setActiveTab(item)}
-                                        key={index}
-                                    >
-                                        <Text className={activeTab === item ? "text-accent" : "text-foreground"}>
-                                            {item}
-                                        </Text>
-                                    </Button>
-                                )}
-                                showsHorizontalScrollIndicator={false}
-                                keyExtractor={(item) => item}
-                                contentContainerStyle={{ columnGap: 12 }}
-                                horizontal
-                            />
-                        </View>
-                        {displayTabContent()}
+                        <Tabs defaultValue={tabs[0]}>
+                            <TabsTrigger data={tabs} />
+                            {tabs.map((tab, index) => (
+                                <TabsContent value={tab} key={index}>
+                                    {tab === tabs[0] ? (
+                                        <View className="my-3">
+                                            <Text className="mb-3 text-lg font-medium text-foreground">
+                                                En savoir plus sur ce programme
+                                            </Text>
+                                            <View className="my-2">
+                                                <Text className="mb-3 text-foreground">📜​ Description :</Text>
+                                                <Text className="text-muted-foreground">
+                                                    {data?.sugar.description ?? "Aucune données"}
+                                                </Text>
+                                            </View>
+                                            <View className="my-2">
+                                                <Text className="mb-3 text-foreground">💪🏻​​ Muscles sollicités :</Text>
+                                                {data?.sugar?.muscles?.map((item, index) => (
+                                                    <Text className="text-muted-foreground" key={index}>
+                                                        {"\u2022 "}
+                                                        {item ?? "Aucune données"}
+                                                    </Text>
+                                                ))}
+                                            </View>
+                                            <View className="my-2">
+                                                <Text className="mb-3 text-foreground">
+                                                    🔐​ Consignes de sécurité :
+                                                </Text>
+                                                {data?.sugar?.security?.map((item, index) => (
+                                                    <Text className="text-muted-foreground" key={index}>
+                                                        {"\u2022 "}
+                                                        {item ?? "Aucune données"}
+                                                    </Text>
+                                                ))}
+                                            </View>
+                                            <View className="my-2">
+                                                <Text className="mb-3 text-foreground">🏋️ Préréquis :</Text>
+                                                {data?.sugar?.needed?.map((item, index) => (
+                                                    <Text className="text-muted-foreground" key={index}>
+                                                        {"\u2022 "}
+                                                        {item ?? "Aucune données"}
+                                                    </Text>
+                                                ))}
+                                            </View>
+                                            <View className="my-2">
+                                                <Text className="mb-3 text-foreground">
+                                                    🤸​ Dépenses énergétiques :
+                                                </Text>
+                                                <Text className="text-muted-foreground">
+                                                    Calories brulées pour 10 reps :{" "}
+                                                    {data?.sugar.energetic.calories ?? "Aucune donnée"} kcal
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    ) : tab === tabs[1] ? (
+                                        <View className="my-3">
+                                            <Text className="mb-3 text-lg font-medium text-foreground">
+                                                Comment faire cet exercice
+                                            </Text>
+                                            <View className="my-2">
+                                                <Text className="mb-3 text-foreground">📹​ Vidéo :</Text>
+                                                <Video
+                                                    ref={videoRef}
+                                                    source={{
+                                                        uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+                                                    }}
+                                                    style={styles.video}
+                                                    useNativeControls
+                                                    resizeMode={ResizeMode.COVER}
+                                                    onPlaybackStatusUpdate={(status) => setVideo(() => status)}
+                                                />
+                                            </View>
+                                        </View>
+                                    ) : null}
+                                </TabsContent>
+                            ))}
+                        </Tabs>
                     </>
                 )}
             </ScrollView>

@@ -2,10 +2,11 @@ import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { Star } from "lucide-react-native";
 import { useCallback, useState } from "react";
-import { ActivityIndicator, FlatList, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import { ExosCard } from "@/components/data-card";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
 import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
@@ -31,60 +32,6 @@ export default function Progs() {
     }, [setRefreshing, refetch]);
 
     const tabs = ["Informations", "Liste des exercices"];
-    const [activeTab, setActiveTab] = useState(tabs[0]);
-
-    const displayTabContent = () => {
-        switch (activeTab) {
-            case tabs[0]:
-                return (
-                    <View className="my-3">
-                        <Text className="mb-3 text-lg font-medium text-foreground">
-                            En savoir plus sur ce programme
-                        </Text>
-                        <View>
-                            <Text className="mb-3 text-foreground">📜​ Description :</Text>
-                            <Text className="text-muted-foreground">{progData?.description ?? "Aucune données"}</Text>
-                        </View>
-                    </View>
-                );
-            case tabs[1]:
-                return (
-                    <View className="my-3">
-                        <Text className="mb-3 text-lg font-medium text-foreground">Catalogue de ce programme</Text>
-                        <View>
-                            {progData?.exercises?.map((item: string, index: number) => {
-                                const exoItem = exoData.find((exo: Exos) => exo.id === item);
-
-                                return (
-                                    <View key={index}>
-                                        {exoLoad ? (
-                                            <ActivityIndicator
-                                                size="large"
-                                                color={isDarkColorScheme ? "white" : "black"}
-                                            />
-                                        ) : exoError ? (
-                                            <Text className="text-foreground">
-                                                Erreur lors du chargement des détails de l'exercice
-                                            </Text>
-                                        ) : exoItem ? (
-                                            <View className="py-1">
-                                                <ExosCard data={exoItem} load={exoLoad} error={exoError} />
-                                            </View>
-                                        ) : (
-                                            <Text className="text-foreground">
-                                                Aucun détail trouvé pour l'exercice {item}
-                                            </Text>
-                                        )}
-                                    </View>
-                                );
-                            })}
-                        </View>
-                    </View>
-                );
-            default:
-                break;
-        }
-    };
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
@@ -119,28 +66,67 @@ export default function Progs() {
                                 </View>
                             </View>
                         </View>
-                        <View className="my-3 items-center justify-center">
-                            <FlatList
-                                data={tabs}
-                                renderItem={({ item, index }) => (
-                                    <Button
-                                        className={activeTab === item ? "bg-primary" : "bg-secondary"}
-                                        variant="ghost"
-                                        onPress={() => setActiveTab(item)}
-                                        key={index}
-                                    >
-                                        <Text className={activeTab === item ? "text-accent" : "text-foreground"}>
-                                            {item}
-                                        </Text>
-                                    </Button>
-                                )}
-                                showsHorizontalScrollIndicator={false}
-                                keyExtractor={(item) => item}
-                                contentContainerStyle={{ columnGap: 12 }}
-                                horizontal
-                            />
-                        </View>
-                        {displayTabContent()}
+                        <Tabs defaultValue={tabs[0]}>
+                            <TabsTrigger data={tabs} />
+                            {tabs.map((tab, index) => (
+                                <TabsContent value={tab} key={index}>
+                                    {tab === tabs[0] ? (
+                                        <View className="my-3">
+                                            <Text className="mb-3 text-lg font-medium text-foreground">
+                                                En savoir plus sur ce programme
+                                            </Text>
+                                            <View>
+                                                <Text className="mb-3 text-foreground">📜​ Description :</Text>
+                                                <Text className="text-muted-foreground">
+                                                    {progData?.description ?? "Aucune données"}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    ) : tab === tabs[1] ? (
+                                        <View className="my-3">
+                                            <Text className="mb-3 text-lg font-medium text-foreground">
+                                                Catalogue de ce programme
+                                            </Text>
+                                            <View>
+                                                {progData?.exercises?.map((item, index) => {
+                                                    if (exoData) {
+                                                        const exoItem = exoData.find((exo: Exos) => exo.id === item);
+
+                                                        return (
+                                                            <View key={index}>
+                                                                {exoLoad ? (
+                                                                    <ActivityIndicator
+                                                                        size="large"
+                                                                        color={isDarkColorScheme ? "white" : "black"}
+                                                                    />
+                                                                ) : exoError ? (
+                                                                    <Text className="text-foreground">
+                                                                        Erreur lors du chargement des détails de
+                                                                        l'exercice
+                                                                    </Text>
+                                                                ) : exoItem ? (
+                                                                    <View className="py-1">
+                                                                        <ExosCard
+                                                                            data={exoItem}
+                                                                            load={exoLoad}
+                                                                            error={exoError}
+                                                                        />
+                                                                    </View>
+                                                                ) : (
+                                                                    <Text className="text-foreground">
+                                                                        Aucun détail trouvé pour l'exercice "{item}"...
+                                                                    </Text>
+                                                                )}
+                                                            </View>
+                                                        );
+                                                    }
+                                                })}
+                                            </View>
+                                        </View>
+                                    ) : null}
+                                </TabsContent>
+                            ))}
+                        </Tabs>
                     </>
                 )}
             </ScrollView>
