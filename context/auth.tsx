@@ -1,17 +1,18 @@
 import { PropsWithChildren, createContext, useContext } from "react";
 
+import useFetch from "@/lib/api";
 import { useStorageState } from "@/lib/storage";
 
 const AuthContext = createContext<{
     signIn: () => void;
     signOut: () => void;
     session?: string | null;
-    isLoading: boolean;
+    load: boolean;
 }>({
     signIn: () => null,
     signOut: () => null,
     session: null,
-    isLoading: false,
+    load: false,
 });
 
 export function useSession() {
@@ -19,7 +20,9 @@ export function useSession() {
 }
 
 export function SessionProvider(props: PropsWithChildren) {
-    const [[isLoading, session], setSession] = useStorageState("session");
+    const [[load, session], setSession] = useStorageState("session");
+
+    const { data, isLoading, error } = useFetch("GET", "exos/all");
 
     return (
         <AuthContext.Provider
@@ -30,7 +33,7 @@ export function SessionProvider(props: PropsWithChildren) {
                 },
                 signOut: () => setSession(null),
                 session,
-                isLoading,
+                load,
             }}
         >
             {props.children}
