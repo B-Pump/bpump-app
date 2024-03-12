@@ -13,7 +13,7 @@ function ProgsSkeleton() {
                     <Skeleton className="h-5 w-[250px]" />
                 </View>
                 <View className="mt-5">
-                    <Skeleton className="h-5 w-[120px]" />
+                    <Skeleton className="mb-3 h-5 w-[120px]" />
                     <Skeleton className="h-5 w-[100px]" />
                 </View>
             </View>
