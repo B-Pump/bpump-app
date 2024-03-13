@@ -9,13 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { useSession } from "@/context/auth";
+import { useAuth } from "@/context/auth";
 import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
 export default function App() {
-    const { session } = useSession();
     const { isDarkColorScheme } = useColorScheme();
+    const { authState } = useAuth();
 
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -24,7 +24,7 @@ export default function App() {
         data: progsData,
         isLoading: progsLoad,
         error: progsError,
-    } = useFetch("GET", `progs/all?username=${session}`);
+    } = useFetch("GET", `progs/all?username=${authState.token}`);
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
@@ -32,7 +32,7 @@ export default function App() {
                 <View>
                     <View className="mt-3">
                         <Text className="text-2xl text-foreground">
-                            Bonjour, {session ? session.charAt(0).toUpperCase() + session.slice(1) : "je suis B-Pump"} !
+                            Bonjour, {authState.token.charAt(0).toUpperCase() + authState.token.slice(1)} !
                         </Text>
                         <Text className="text-3xl font-semibold leading-tight text-foreground">
                             Trouvez votre programme d'entraînement parfait !

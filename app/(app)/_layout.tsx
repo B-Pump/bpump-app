@@ -2,21 +2,20 @@ import { Theme, ThemeProvider } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { Redirect, Stack, router } from "expo-router";
 import { ArrowLeft, Info, Settings, Share2 } from "lucide-react-native";
-import { Share, Text } from "react-native";
+import { Share } from "react-native";
 
 import { useColorScheme } from "@/lib/color";
 import { globals } from "@/styles/globals";
 
 import { Button } from "@/components/ui/button";
 
-import { useSession } from "@/context/auth";
+import { useAuth } from "@/context/auth";
 
 export default function AppLayout() {
     const { isDarkColorScheme } = useColorScheme();
-    const { session, load } = useSession();
+    const { authState } = useAuth();
 
-    if (load) return <Text className="text-foreground">Chargement...</Text>;
-    if (!session) return <Redirect href="/auth/" />;
+    if (!authState?.authenticated) return <Redirect href="/auth/" />;
 
     const lightTheme: Theme = {
         dark: false,

@@ -1,42 +1,91 @@
-import { PropsWithChildren, createContext, useContext } from "react";
+import axios from "axios";
+import { deleteItemAsync, getItemAsync, setItemAsync } from "expo-secure-store";
+import { createContext, useContext, useEffect, useState } from "react";
 
-import useFetch from "@/lib/api";
-import { useStorageState } from "@/lib/storage";
+import { API_URL } from "@/lib/api";
 
-const AuthContext = createContext<{
-    signIn: () => void;
-    signOut: () => void;
-    session?: string | null;
-    load: boolean;
-}>({
-    signIn: () => null,
-    signOut: () => null,
-    session: null,
-    load: false,
-});
+interface AuthProps {
+    authState?: { token: string | null; authenticated: boolean | null };
+    onRegister?: (username: string, password: string) => Promise<any>;
+    onLogin?: (username: string, password: string) => Promise<any>;
+    onLogout?: () => Promise<any>;
+}
 
-export function useSession() {
+const TOKEN_KEY = "auth_jwt";
+
+const AuthContext = createContext<AuthProps>({});
+
+export function useAuth() {
     return useContext(AuthContext);
 }
 
-export function SessionProvider(props: PropsWithChildren) {
-    const [[load, session], setSession] = useStorageState("session");
+export const AuthProvider = ({ children }: any) => {
+    const [authState, setAuthState] = useState<{
+        token: string | null;
+        authenticated: boolean | null;
+    }>({
+        token: null,
+        authenticated: null,
+    });
 
-    const { data, isLoading, error } = useFetch("GET", "exos/all");
+    useEffect(() => {
+        const loadToken = async () => {
+            const token = await getItemAsync(TOKEN_KEY);
+            if (token) {
+                axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+                setAuthState({
+                    token: token,
+                    authenticated: true,
+                });
+            }
+        };
+        loadToken();
+    }, []);
 
-    return (
-        <AuthContext.Provider
-            value={{
-                signIn: () => {
-                    // TODO: sign-in logic
-                    setSession("pierre");
-                },
-                signOut: () => setSession(null),
-                session,
-                load,
-            }}
-        >
-            {props.children}
-        </AuthContext.Provider>
-    );
-}
+    const register = async (username: string, password: string) => {
+        try {
+            return await axios.post(`${API_URL}/register`, { username, password });
+        } catch (error) {
+            return { error: true, msg: error };
+        }
+    };
+
+    const login = async (username: string, password: string) => {
+        try {
+            const result = await axios.post(`${API_URL}/login?username=${username}&password=${password}`);
+
+            setAuthState({
+                token: username,
+                authenticated: true,
+            });
+
+            axios.defaults.headers.common["Authorization"] = `Bearer ${username}`;
+
+            await setItemAsync(TOKEN_KEY, username);
+
+            return result;
+        } catch (error) {
+            return { error: true, msg: error };
+        }
+    };
+
+    const logout = async () => {
+        await deleteItemAsync(TOKEN_KEY);
+
+        axios.defaults.headers.common["Authorization"] = "";
+
+        setAuthState({
+            token: null,
+            authenticated: false,
+        });
+    };
+
+    const value = {
+        onRegister: register,
+        onLogin: login,
+        onLogout: logout,
+        authState,
+    };
+
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

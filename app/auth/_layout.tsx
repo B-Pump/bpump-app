@@ -1,13 +1,17 @@
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { Stack, router } from "expo-router";
+import { Redirect, Stack, router } from "expo-router";
 import { ArrowLeft } from "lucide-react-native";
 
 import { Button } from "@/components/ui/button";
 
+import { useAuth } from "@/context/auth";
 import { useColorScheme } from "@/lib/color";
 
 export default function AppLayout() {
     const { isDarkColorScheme, setColorScheme } = useColorScheme();
+    const { authState } = useAuth();
+
+    if (authState.authenticated) return <Redirect href="/" />;
     setColorScheme("light");
 
     const defaultStack: NativeStackNavigationOptions = {

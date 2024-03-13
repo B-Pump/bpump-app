@@ -1,6 +1,8 @@
 import axios, { Method } from "axios";
 import { useEffect, useState } from "react";
 
+export const API_URL = "https://bpump-api.onrender.com";
+
 export default function useFetch(method: Method, endpoint: string, body: any = {}) {
     const [data, setData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -8,7 +10,7 @@ export default function useFetch(method: Method, endpoint: string, body: any = {
 
     const options = {
         method,
-        url: `https://bpump-api.onrender.com/${endpoint}`,
+        url: `${API_URL}/${endpoint}`,
         data: body,
     };
 

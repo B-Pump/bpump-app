@@ -7,11 +7,11 @@ import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-na
 import { Button } from "@/components/ui/button";
 
 import { expo as cfV } from "@/app.json";
-import { useSession } from "@/context/auth";
+import { useAuth } from "@/context/auth";
 import { useColorScheme } from "@/lib/color";
 
 export default function Settings() {
-    const { signOut } = useSession();
+    const { onLogout } = useAuth();
     const { setColorScheme, colorScheme, isDarkColorScheme } = useColorScheme();
 
     const [selectedLanguage, setSelectedLanguage] = useState("male");
@@ -117,7 +117,7 @@ export default function Settings() {
                                 Vous déconnecter vous raménera à l'écran d'accueil. Vous pourrez toujours utiliser votre
                                 compte et vos programmes seront sauvegardés.
                             </Text>
-                            <Button variant="outline" onPress={() => signOut()}>
+                            <Button variant="outline" onPress={onLogout}>
                                 <Text className="text-foreground">Vous déconnecter</Text>
                             </Button>
                         </View>

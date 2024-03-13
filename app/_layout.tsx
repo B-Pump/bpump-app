@@ -5,7 +5,7 @@ import { Slot, SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
-import { SessionProvider } from "@/context/auth";
+import { AuthProvider } from "@/context/auth";
 import { useColorScheme } from "@/lib/color";
 
 SplashScreen.preventAutoHideAsync();
@@ -26,9 +26,9 @@ export default function RootLayout() {
     if (!fontsLoaded && !fontError) return null;
 
     return (
-        <SessionProvider>
+        <AuthProvider>
             <Slot />
             <StatusBar style={isDarkColorScheme ? "dark" : "light"} />
-        </SessionProvider>
+        </AuthProvider>
     );
 }

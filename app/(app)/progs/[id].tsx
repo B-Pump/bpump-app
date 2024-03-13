@@ -8,13 +8,13 @@ import { ExosCard } from "@/components/data-card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
-import { useSession } from "@/context/auth";
+import { useAuth } from "@/context/auth";
 import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
 export default function Progs() {
     const { isDarkColorScheme } = useColorScheme();
-    const { session } = useSession();
+    const { authState } = useAuth();
 
     const {
         data: progData,
@@ -23,7 +23,7 @@ export default function Progs() {
         refetch,
     }: { data: Progs; isLoading: boolean; error: string; refetch: () => void } = useFetch(
         "GET",
-        `progs/${useLocalSearchParams().id}?username=${session}`,
+        `progs/${useLocalSearchParams().id}?username=${authState.token}`,
     );
     const { data: exoData, isLoading: exoLoad, error: exoError } = useFetch("GET", "exos/all");
 
