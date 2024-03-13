@@ -11,7 +11,7 @@ export default function Home() {
             </View>
             <View className="flex-1 items-center justify-end">
                 <Button onPress={() => router.push("/auth/login/")}>
-                    <Text className="text-white">Démarrer votre aventure sportive</Text>
+                    <Text className="text-accent">Démarrer votre aventure sportive</Text>
                 </Button>
                 <Button variant="ghost" onPress={() => router.push("/auth/register/")}>
                     <Text className="text-muted-foreground underline">Vous n'avez pas de compte ?</Text>

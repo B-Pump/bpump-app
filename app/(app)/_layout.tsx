@@ -13,9 +13,9 @@ import { useSession } from "@/context/auth";
 
 export default function AppLayout() {
     const { isDarkColorScheme } = useColorScheme();
-    const { session, isLoading } = useSession();
+    const { session, load } = useSession();
 
-    if (isLoading) return <Text className="text-foreground">Chargement...</Text>;
+    if (load) return <Text className="text-foreground">Chargement...</Text>;
     if (!session) return <Redirect href="/auth/" />;
 
     const lightTheme: Theme = {

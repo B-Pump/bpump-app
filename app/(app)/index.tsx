@@ -20,7 +20,11 @@ export default function App() {
     const [searchTerm, setSearchTerm] = useState("");
 
     const { data: exosData, isLoading: exosLoad, error: exosError } = useFetch("GET", "exos/all");
-    const { data: progsData, isLoading: progsLoad, error: progsError } = useFetch("GET", "progs/all?username=pierre");
+    const {
+        data: progsData,
+        isLoading: progsLoad,
+        error: progsError,
+    } = useFetch("GET", `progs/all?username=${session}`);
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">

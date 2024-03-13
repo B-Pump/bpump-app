@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { useColorScheme } from "@/lib/color";
 
 export default function AppLayout() {
-    const { isDarkColorScheme } = useColorScheme();
+    const { isDarkColorScheme, setColorScheme } = useColorScheme();
+    setColorScheme("light");
 
     const defaultStack: NativeStackNavigationOptions = {
         animation: "fade_from_bottom",
