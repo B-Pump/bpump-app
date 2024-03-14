@@ -103,10 +103,7 @@ export default function Progs() {
                                                                         color={isDarkColorScheme ? "white" : "black"}
                                                                     />
                                                                 ) : exoError ? (
-                                                                    <Text className="text-foreground">
-                                                                        Erreur lors du chargement des détails de
-                                                                        l'exercice
-                                                                    </Text>
+                                                                    <Text className="text-foreground">{exoError}</Text>
                                                                 ) : exoItem ? (
                                                                     <View className="py-1">
                                                                         <ExosCard

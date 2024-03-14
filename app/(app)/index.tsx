@@ -26,13 +26,18 @@ export default function App() {
         error: progsError,
     } = useFetch("GET", `progs/all?username=${authState.token}`);
 
+    const sayHello = () => {
+        const hour = new Date().getHours();
+        return hour >= 6 && hour < 18 ? "Bonjour" : "Bonsoir";
+    };
+
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
                     <View className="mt-3">
                         <Text className="text-2xl text-foreground">
-                            Bonjour, {authState.token.charAt(0).toUpperCase() + authState.token.slice(1)} !
+                            {sayHello()} {authState.token.charAt(0).toUpperCase() + authState.token.slice(1)} !
                         </Text>
                         <Text className="text-3xl font-semibold leading-tight text-foreground">
                             Trouvez votre programme d'entraînement parfait !
