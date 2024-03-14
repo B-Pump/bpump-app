@@ -1,7 +1,7 @@
 import axios, { Method } from "axios";
 import { useEffect, useState } from "react";
 
-export const API_URL = "https://bpump-api.onrender.com";
+export const API_URL = "https://bpump-api-glki.onrender.com"; // WARNING : do not put any "/" at the end of this url
 
 export default function useFetch(method: Method, endpoint: string, body: any = {}) {
     const [data, setData] = useState<any>(null);

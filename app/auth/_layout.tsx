@@ -11,8 +11,10 @@ export default function AppLayout() {
     const { isDarkColorScheme, setColorScheme } = useColorScheme();
     const { authState } = useAuth();
 
-    if (authState.authenticated) return <Redirect href="/" />;
-    setColorScheme("light");
+    if (authState.authenticated) {
+        setColorScheme("system");
+        return <Redirect href="/" />;
+    } else setColorScheme("light");
 
     const defaultStack: NativeStackNavigationOptions = {
         animation: "fade_from_bottom",

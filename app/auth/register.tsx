@@ -19,10 +19,7 @@ export default function Register() {
         const result = await onLogin!(username, password);
         if (result && result.error) {
             Alert.alert("Authentification", "Identifiants invalides");
-        } else {
-            router.replace("/");
-            setColorScheme("system");
-        }
+        } else router.replace("/");
     };
 
     const register = async () => {
