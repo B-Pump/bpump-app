@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { Search } from "lucide-react-native";
-import { useState } from "react";
-import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useCallback, useState } from "react";
+import { FlatList, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ExosCard, ProgsCard } from "@/components/data-card";
 import { CategorySkeletonList, ExosSkeletonList, ProgsSkeletonList } from "@/components/data-skeleton";
@@ -19,12 +19,21 @@ export default function App() {
 
     const [searchTerm, setSearchTerm] = useState("");
 
-    const { data: exosData, isLoading: exosLoad, error: exosError } = useFetch("GET", "exos/all");
+    const { data: exosData, isLoading: exosLoad, error: exosError, refetch: exosRefetch } = useFetch("GET", "exos/all");
     const {
         data: progsData,
         isLoading: progsLoad,
         error: progsError,
+        refetch: progsRefetch,
     } = useFetch("GET", `progs/all?username=${authState.token}`);
+
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        exosRefetch();
+        progsRefetch();
+        setRefreshing(false);
+    }, [setRefreshing, exosRefetch]);
 
     const sayHello = () => {
         const hour = new Date().getHours();
@@ -33,7 +42,10 @@ export default function App() {
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            >
                 <View>
                     <View className="mt-3">
                         <Text className="text-2xl text-foreground">

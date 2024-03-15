@@ -1,4 +1,5 @@
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { useCallback, useState } from "react";
+import { RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import { ExosCard } from "@/components/data-card";
 import { ExosSkeletonList } from "@/components/data-skeleton";
@@ -7,12 +8,22 @@ import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import useFetch from "@/lib/api";
 
 export default function ShowallExos() {
-    const { data, isLoading, error } = useFetch("GET", "exos/all");
+    const { data, isLoading, error, refetch } = useFetch("GET", "exos/all");
     const tabs = ["Tout", ...(data ? [...new Set(data.map((item: Exos) => item?.sugar?.category))] : [])];
+
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        refetch();
+        setRefreshing(false);
+    }, [setRefreshing, refetch]);
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            >
                 <View className="mt-3">
                     <Text className="text-2xl text-foreground">Tous les exercices</Text>
                     <Text className="text-3xl font-semibold leading-tight text-foreground">
