@@ -1,17 +1,13 @@
 interface Exos {
     id: string;
-    sugar: {
-        title: string;
-        description: string;
-        category: string;
-        difficulty: number;
-        muscles: string[];
-        security: string[];
-        needed: string[];
-        energetic: {
-            calories: number;
-        };
-    };
+    title: string;
+    description: string;
+    category: string;
+    difficulty: number;
+    muscles: string[];
+    security: string[];
+    needed: string[];
+    calories: number;
 }
 
 interface Progs {

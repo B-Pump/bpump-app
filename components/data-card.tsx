@@ -26,11 +26,11 @@ export function ExosCard({ data, load, error }: { data: Exos; load: boolean; err
                     </View>
                     <View className="ml-7 justify-center">
                         <Text className="text-xl font-medium text-foreground" numberOfLines={1}>
-                            {data?.sugar?.title || "Titre non trouvé"}
+                            {data?.title || "Titre non trouvé"}
                         </Text>
                         <Text className="text-sm text-muted-foreground" numberOfLines={1}>
-                            {data?.sugar?.category || "Catégorie non trouvée"} - Niveau{" "}
-                            {data?.sugar?.difficulty || "Difficultée non trouvée"}
+                            {data?.category || "Catégorie non trouvée"} - Niveau{" "}
+                            {data?.difficulty || "Difficultée non trouvée"}
                         </Text>
                     </View>
                 </View>

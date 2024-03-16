@@ -59,14 +59,14 @@ export default function Exos() {
                             </View>
                             <View className="mt-3">
                                 <Text className="text-center text-2xl font-medium text-foreground">
-                                    Exercice - {data?.sugar?.title}
+                                    Exercice - {data?.title}
                                 </Text>
                             </View>
                             <View className="mt-3 flex-row items-center justify-center">
-                                <Text className="text-lg text-foreground">{data?.sugar?.category} | </Text>
+                                <Text className="text-lg text-foreground">{data?.category} | </Text>
                                 <View className="flex-row items-center justify-center">
                                     <Star size={15} color={isDarkColorScheme ? "white" : "black"} />
-                                    <Text className="ml-1 text-foreground">{data?.sugar?.difficulty}/5</Text>
+                                    <Text className="ml-1 text-foreground">{data?.difficulty}/5</Text>
                                 </View>
                             </View>
                         </View>
@@ -82,12 +82,12 @@ export default function Exos() {
                                             <View className="my-2">
                                                 <Text className="mb-3 text-foreground">📜​ Description :</Text>
                                                 <Text className="text-muted-foreground">
-                                                    {data?.sugar.description ?? "Aucune données"}
+                                                    {data?.description ?? "Aucune données"}
                                                 </Text>
                                             </View>
                                             <View className="my-2">
                                                 <Text className="mb-3 text-foreground">💪🏻​​ Muscles sollicités :</Text>
-                                                {data?.sugar?.muscles?.map((item, index) => (
+                                                {data?.muscles?.map((item, index) => (
                                                     <Text className="text-muted-foreground" key={index}>
                                                         {"\u2022 "}
                                                         {item ?? "Aucune données"}
@@ -98,7 +98,7 @@ export default function Exos() {
                                                 <Text className="mb-3 text-foreground">
                                                     🔐​ Consignes de sécurité :
                                                 </Text>
-                                                {data?.sugar?.security?.map((item, index) => (
+                                                {data?.security?.map((item, index) => (
                                                     <Text className="text-muted-foreground" key={index}>
                                                         {"\u2022 "}
                                                         {item ?? "Aucune données"}
@@ -107,7 +107,7 @@ export default function Exos() {
                                             </View>
                                             <View className="my-2">
                                                 <Text className="mb-3 text-foreground">🏋️ Préréquis :</Text>
-                                                {data?.sugar?.needed?.map((item, index) => (
+                                                {data?.needed?.map((item, index) => (
                                                     <Text className="text-muted-foreground" key={index}>
                                                         {"\u2022 "}
                                                         {item ?? "Aucune données"}
@@ -119,8 +119,8 @@ export default function Exos() {
                                                     🤸​ Dépenses énergétiques :
                                                 </Text>
                                                 <Text className="text-muted-foreground">
-                                                    Calories brulées pour 10 reps :{" "}
-                                                    {data?.sugar.energetic.calories ?? "Aucune donnée"} kcal
+                                                    Calories brulées pour 10 reps : {data?.calories ?? "Aucune donnée"}{" "}
+                                                    kcal
                                                 </Text>
                                             </View>
                                         </View>
