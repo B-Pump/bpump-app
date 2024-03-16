@@ -9,7 +9,7 @@ import useFetch from "@/lib/api";
 
 export default function ShowallExos() {
     const { data, isLoading, error, refetch } = useFetch("GET", "exos/all");
-    const tabs = ["Tout", ...(data ? [...new Set(data.map((item: Exos) => item?.sugar?.category))] : [])];
+    const tabs = ["Tout", ...(data ? [...new Set(data.map((item: Exos) => item?.category))] : [])];
 
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = useCallback(() => {
@@ -50,7 +50,7 @@ export default function ShowallExos() {
                                 ) : (
                                     <>
                                         {data?.map((item: Exos, index: number) => {
-                                            if (item?.sugar?.category === tab) {
+                                            if (item?.category === tab) {
                                                 return (
                                                     <View className="py-1" key={index}>
                                                         <ExosCard data={item} load={isLoading} error={error} />

@@ -18,9 +18,9 @@ export default function Search() {
             .toLowerCase();
     };
     const filteredData = data?.filter((item: Exos) => {
-        const title = item?.sugar?.title || "";
-        const description = item?.sugar?.description || "";
-        const category = item?.sugar?.category || "";
+        const title = item?.title || "";
+        const description = item?.description || "";
+        const category = item?.category || "";
 
         const matchKeyword = (field: string): boolean => {
             const keywordsArray = Array.isArray(id) ? id : [id];
