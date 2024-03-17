@@ -9,6 +9,7 @@ interface AuthProps {
     onRegister?: (username: string, password: string) => Promise<any>;
     onLogin?: (username: string, password: string) => Promise<any>;
     onLogout?: () => Promise<any>;
+    onDelete?: (username: string) => Promise<any>;
 }
 
 const TOKEN_KEY = "auth_jwt";
@@ -80,10 +81,23 @@ export const AuthProvider = ({ children }: any) => {
         });
     };
 
+    const remove = async (username: string) => {
+        try {
+            const result = await axios.post(`${API_URL}/delete?username=${username}`);
+
+            logout();
+
+            return result;
+        } catch (error) {
+            return { error: true, msg: error };
+        }
+    };
+
     const value = {
         onRegister: register,
         onLogin: login,
         onLogout: logout,
+        onDelete: remove,
         authState,
     };
 

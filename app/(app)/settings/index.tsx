@@ -2,7 +2,7 @@ import { Picker } from "@react-native-picker/picker";
 import { deviceName, osInternalBuildId } from "expo-device";
 import { router } from "expo-router";
 import { useState } from "react";
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +11,7 @@ import { useAuth } from "@/context/auth";
 import { useColorScheme } from "@/lib/color";
 
 export default function Settings() {
-    const { onLogout } = useAuth();
+    const { onLogout, onDelete, authState } = useAuth();
     const { setColorScheme, colorScheme, isDarkColorScheme } = useColorScheme();
 
     const [selectedLanguage, setSelectedLanguage] = useState("male");
@@ -126,7 +126,27 @@ export default function Settings() {
                                 Supprimer votre compte est une action irréversible. Cela supprimera vos programmes et
                                 votre activité.
                             </Text>
-                            <Button variant="destructive">
+                            <Button
+                                variant="destructive"
+                                onPress={() => {
+                                    Alert.alert(
+                                        "Suppression de compte",
+                                        "Cette action est irréversible. Vous perdrez toutes vos données.",
+                                        [
+                                            {
+                                                text: "Annuler",
+                                                style: "cancel",
+                                            },
+                                            {
+                                                text: "Confirmer",
+                                                onPress: () => onDelete(authState.token),
+                                                style: "destructive",
+                                            },
+                                        ],
+                                        { cancelable: false },
+                                    );
+                                }}
+                            >
                                 <Text className="text-destructive-foreground">Supprimer votre compte</Text>
                             </Button>
                         </View>
