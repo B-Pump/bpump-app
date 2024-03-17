@@ -77,7 +77,7 @@ export default function Exos() {
                                     {tab === tabs[0] ? (
                                         <View className="my-3">
                                             <Text className="mb-3 text-lg font-medium text-foreground">
-                                                En savoir plus sur ce programme
+                                                En savoir plus sur cet exercice
                                             </Text>
                                             <View className="my-2">
                                                 <Text className="mb-3 text-foreground">📜​ Description :</Text>

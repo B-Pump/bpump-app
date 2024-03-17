@@ -4,10 +4,10 @@ import { Star } from "lucide-react-native";
 import { useCallback, useState } from "react";
 import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
-import { ExosCard } from "@/components/data-card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
+import { ExosCard } from "@/components/data-card";
 import { useAuth } from "@/context/auth";
 import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
@@ -78,11 +78,20 @@ export default function Progs() {
                                             <Text className="mb-3 text-lg font-medium text-foreground">
                                                 En savoir plus sur ce programme
                                             </Text>
-                                            <View>
+                                            <View className="my-2">
                                                 <Text className="mb-3 text-foreground">📜​ Description :</Text>
                                                 <Text className="text-muted-foreground">
                                                     {progData?.description ?? "Aucune données"}
                                                 </Text>
+                                            </View>
+                                            <View className="my-2">
+                                                <Text className="mb-3 text-foreground">🔎 Conseils :</Text>
+                                                {progData?.hint?.map((item, index) => (
+                                                    <Text className="text-muted-foreground" key={index}>
+                                                        {"\u2022 "}
+                                                        {item ?? "Aucune données"}
+                                                    </Text>
+                                                ))}
                                             </View>
                                         </View>
                                     ) : tab === tabs[1] ? (
