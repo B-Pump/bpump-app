@@ -1,18 +1,20 @@
+import axios from "axios";
 import { Image } from "expo-image";
-import { useLocalSearchParams } from "expo-router";
-import { Star } from "lucide-react-native";
+import { Stack, router, useLocalSearchParams } from "expo-router";
+import { ArrowLeft, Settings2, Star } from "lucide-react-native";
 import { useCallback, useState } from "react";
-import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Alert, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
+import { ExosCard } from "@/components/data-card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
-import { ExosCard } from "@/components/data-card";
 import { useAuth } from "@/context/auth";
-import useFetch from "@/lib/api";
+import useFetch, { API_URL } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
 export default function Progs() {
+    const { id } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
     const { authState } = useAuth();
 
@@ -23,7 +25,7 @@ export default function Progs() {
         refetch,
     }: { data: Progs; isLoading: boolean; error: string; refetch: () => void } = useFetch(
         "GET",
-        `progs/${useLocalSearchParams().id}?username=${authState.token}`,
+        `progs/${id}?username=${authState.token}`,
     );
     const { data: exoData, isLoading: exoLoad, error: exoError } = useFetch("GET", "exos/all");
 
@@ -36,8 +38,58 @@ export default function Progs() {
 
     const tabs = ["Informations", "Liste des exercices"];
 
+    const removeProg = async () => {
+        try {
+            router.back();
+            await axios.post(`${API_URL}/remove_program?username=${authState.token}&id=${id}`);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
+            <Stack.Screen
+                options={{
+                    animation: "fade_from_bottom",
+                    headerLeft: () => (
+                        <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
+                            <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
+                        </Button>
+                    ),
+                    headerRight:
+                        id !== "renfo-corps" && id !== "cardio-intense"
+                            ? () => (
+                                  <Button
+                                      variant="secondary"
+                                      size="icon_sm"
+                                      onPress={() => {
+                                          Alert.alert(
+                                              "Supprimer ce programme ?",
+                                              "Vous devrez par la suite rafraîchir la page.",
+                                              [
+                                                  {
+                                                      text: "Annuler",
+                                                      style: "cancel",
+                                                  },
+                                                  {
+                                                      text: "Confirmer",
+                                                      onPress: removeProg,
+                                                      style: "destructive",
+                                                  },
+                                              ],
+                                              { cancelable: false },
+                                          );
+                                      }}
+                                  >
+                                      <Settings2 color={isDarkColorScheme ? "white" : "black"} />
+                                  </Button>
+                              )
+                            : null,
+                    headerShadowVisible: false,
+                    title: "",
+                }}
+            />
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}

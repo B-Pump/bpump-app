@@ -1,15 +1,15 @@
+import { globals } from "@/styles/globals";
+
 import { Theme, ThemeProvider } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { Redirect, Stack, router } from "expo-router";
 import { ArrowLeft, Info, Settings, Share2 } from "lucide-react-native";
 import { Share } from "react-native";
 
-import { useColorScheme } from "@/lib/color";
-import { globals } from "@/styles/globals";
-
 import { Button } from "@/components/ui/button";
 
 import { useAuth } from "@/context/auth";
+import { useColorScheme } from "@/lib/color";
 
 export default function AppLayout() {
     const { isDarkColorScheme } = useColorScheme();
@@ -88,7 +88,6 @@ export default function AppLayout() {
                 <Stack.Screen name="settings/index" options={defaultStack} />
                 <Stack.Screen name="exos/[id]" options={defaultStack} />
                 <Stack.Screen name="exos/showall" options={defaultStack} />
-                <Stack.Screen name="progs/[id]" options={defaultStack} />
                 <Stack.Screen name="progs/create" options={defaultStack} />
                 <Stack.Screen name="search/[id]" options={defaultStack} />
             </Stack>
