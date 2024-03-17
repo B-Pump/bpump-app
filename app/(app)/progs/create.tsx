@@ -1,13 +1,15 @@
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import axios from "axios";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Alert, SafeAreaView, ScrollView, Text, View } from "react-native";
 
+import { Sheet } from "@/components/data-sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "@/context/auth";
-import { API_URL } from "@/lib/api";
+import useFetch, { API_URL } from "@/lib/api";
 
 export default function CreateProgs() {
     const { authState } = useAuth();
@@ -16,8 +18,24 @@ export default function CreateProgs() {
 
     const [title, setTitle] = useState("");
     const [description, setDesc] = useState("");
-    const [category, setCategory] = useState("");
     const [difficulty, setDiff] = useState("");
+
+    const categoryRef = useRef<BottomSheetModal>(null);
+    const exoRef = useRef<BottomSheetModal>(null);
+
+    const { data, isLoading, error } = useFetch("GET", "exos/all");
+
+    let category = [];
+    if (Array.isArray(data) && !isLoading && !error) {
+        const uniqueCategories = new Set(data.map((item) => item.category));
+        category = [...uniqueCategories];
+    }
+
+    let exos = [];
+    if (Array.isArray(data) && !isLoading && !error) {
+        const uniqueExos = new Set(data.map((item) => item.title));
+        exos = [...uniqueExos];
+    }
 
     const addProg = async () => {
         try {
@@ -25,6 +43,7 @@ export default function CreateProgs() {
                 const newDiff = parseInt(difficulty);
                 if (newDiff >= 1 && newDiff <= 5) {
                     setLoading(true);
+
                     await axios.post(`${API_URL}/add_program?username=${authState.token}`, {
                         id: title.toLowerCase(),
                         title: title,
@@ -34,6 +53,7 @@ export default function CreateProgs() {
                         hint: [""],
                         exercises: [""],
                     });
+
                     router.back();
                     setLoading(false);
                 } else Alert.alert("Erreur", "La difficulté doit être un nombre entre 1 et 5");
@@ -56,13 +76,6 @@ export default function CreateProgs() {
                     <View className="mb-5 gap-3">
                         <Input value={title} onChangeText={(text) => setTitle(text)} placeholder="Titre" />
                         <Input value={description} onChangeText={(text) => setDesc(text)} placeholder="Description" />
-                        <Button
-                            variant="outline"
-                            className="justify-start p-3.5"
-                            onPress={() => router.push("/progs/create/category")}
-                        >
-                            <Text className="text-muted-foreground">Catégorie</Text>
-                        </Button>
                         <Input
                             value={difficulty}
                             onChangeText={(text) => setDiff(text)}
@@ -73,7 +86,14 @@ export default function CreateProgs() {
                         <Button
                             variant="outline"
                             className="justify-start p-3.5"
-                            onPress={() => router.push("/progs/create/exos")}
+                            onPress={() => categoryRef.current?.present()}
+                        >
+                            <Text className="text-muted-foreground">Catégorie</Text>
+                        </Button>
+                        <Button
+                            variant="outline"
+                            className="justify-start p-3.5"
+                            onPress={() => exoRef.current?.present()}
                         >
                             <Text className="text-muted-foreground">Exercices</Text>
                         </Button>
@@ -85,6 +105,8 @@ export default function CreateProgs() {
                     <Text className="text-accent">Créer ce programme</Text>
                 </Button>
             </View>
+            <Sheet ref={categoryRef} title="Veuillez sélectionner une catégorie" data={category} />
+            <Sheet ref={exoRef} title="Veuillez sélectionner des exercices" data={exos} />
         </SafeAreaView>
     );
 }
