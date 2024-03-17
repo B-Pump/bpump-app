@@ -6,20 +6,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "@/context/auth";
-import { useColorScheme } from "@/lib/color";
 
 export default function Login() {
-    const { setColorScheme } = useColorScheme();
-    const { onLogin, authState } = useAuth();
+    const { onLogin } = useAuth();
+
+    const [loading, setLoading] = useState(false);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const login = async () => {
-        const result = await onLogin!(username, password);
-        if (result && result.error) {
-            Alert.alert("Authentification", "Identifiants invalides");
-        } else router.replace("/");
+        if (username.trim() && password.trim()) {
+            setLoading(true);
+
+            const result = await onLogin!(username, password);
+            if (result && result.error) {
+                Alert.alert("Erreur", "Identifiants invalides");
+            } else {
+                router.replace("/");
+                setLoading(false);
+            }
+        } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
     };
 
     return (
@@ -48,7 +55,7 @@ export default function Login() {
                             />
                         </View>
                         <View>
-                            <Button variant="secondary" onPress={login}>
+                            <Button variant="secondary" onPress={login} disabled={loading}>
                                 <Text className="text-foreground">Vous connecter</Text>
                             </Button>
                         </View>

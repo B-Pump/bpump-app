@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "@/context/auth";
-import { useColorScheme } from "@/lib/color";
 
 export default function Register() {
     const { onRegister, onLogin } = useAuth();
-    const { setColorScheme } = useColorScheme();
+
+    const [loading, setLoading] = useState(false);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -18,18 +18,31 @@ export default function Register() {
     const login = async () => {
         const result = await onLogin!(username, password);
         if (result && result.error) {
-            Alert.alert("Authentification", "Identifiants invalides");
-        } else router.replace("/");
+            Alert.alert("Erreur", "Veuillez réessayer");
+        } else {
+            router.replace("/");
+            setLoading(false);
+        }
     };
 
     const register = async () => {
-        const result = await onRegister!(username, password);
-        if (result && result.error) {
-            Alert.alert("Authentification", result.msg);
-        } else {
-            login();
-        }
+        if (username.trim() && password.trim()) {
+            setLoading(true);
+
+            const usernameRegex = /^[a-zA-Z0-9_\-]+$/;
+            const passwordRegex = /^[a-zA-Z0-9@#$%^&*]+$/;
+
+            if (usernameRegex.test(username.trim()) && passwordRegex.test(password.trim())) {
+                const result = await onRegister!(username, password);
+                if (result && result.error) {
+                    Alert.alert("Erreur", result.msg);
+                } else login();
+            } else {
+                Alert.alert("Erreur", "Le nom d'utilisateur ou le mot de passe contient des caractères non autorisés");
+            }
+        } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
     };
+
     return (
         <SafeAreaView className="flex-1 bg-background py-5">
             <View className="flex-1 justify-center">
@@ -54,7 +67,7 @@ export default function Register() {
                             />
                         </View>
                         <View>
-                            <Button variant="secondary" onPress={register}>
+                            <Button variant="secondary" onPress={register} disabled={loading}>
                                 <Text className="text-foreground">Créer un compte</Text>
                             </Button>
                         </View>
