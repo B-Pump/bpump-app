@@ -22,10 +22,8 @@ export default function Login() {
             const result = await onLogin!(username, password);
             if (result && result.error) {
                 Alert.alert("Erreur", "Identifiants invalides");
-            } else {
-                router.replace("/");
-                setLoading(false);
-            }
+            } else router.replace("/");
+            setLoading(false);
         } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
     };
 
