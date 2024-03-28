@@ -2,9 +2,10 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import axios from "axios";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
-import { Alert, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { Sheet } from "@/components/data-sheet";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -105,8 +106,28 @@ export default function CreateProgs() {
                     <Text className="text-accent">Créer ce programme</Text>
                 </Button>
             </View>
-            <Sheet ref={categoryRef} title="Veuillez sélectionner une catégorie" data={category} />
-            <Sheet ref={exoRef} title="Veuillez sélectionner des exercices" data={exos} />
+            <Sheet ref={categoryRef} title="Veuillez sélectionner une catégorie" data={category}>
+                <View className="items-center">
+                    {category.map((item, index) => (
+                        <View className="m-1" key={index}>
+                            <TouchableOpacity onPress={() => {}}>
+                                <Badge variant="outline" label={item} />
+                            </TouchableOpacity>
+                        </View>
+                    ))}
+                </View>
+            </Sheet>
+            <Sheet ref={exoRef} title="Veuillez sélectionner des exercices" data={exos}>
+                <View className="items-center">
+                    {exos.map((item, index) => (
+                        <View className="m-1" key={index}>
+                            <TouchableOpacity onPress={() => {}}>
+                                <Badge variant="outline" label={item} />
+                            </TouchableOpacity>
+                        </View>
+                    ))}
+                </View>
+            </Sheet>
         </SafeAreaView>
     );
 }

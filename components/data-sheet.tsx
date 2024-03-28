@@ -1,16 +1,16 @@
-import { Badge } from "@/components/ui/badge";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useMemo } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 
 type Ref = BottomSheetModal;
 interface SheetProps {
     title: string;
     data: string[];
+    children: React.ReactNode;
 }
 
 export const Sheet = forwardRef<Ref, SheetProps>((props, ref) => {
-    const snapPoints = useMemo(() => ["78%"], []);
+    const snapPoints = useMemo(() => ["75%"], []);
 
     return (
         <BottomSheetModal
@@ -25,15 +25,7 @@ export const Sheet = forwardRef<Ref, SheetProps>((props, ref) => {
                 <View className="mb-4 items-center">
                     <Text className="text-xl font-bold">{props.title}</Text>
                 </View>
-                <View className="items-center">
-                    {props.data.map((item, index) => (
-                        <View className="m-1" key={index}>
-                            <TouchableOpacity onPress={() => {}}>
-                                <Badge variant="outline" label={item} />
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-                </View>
+                {props.children}
             </View>
         </BottomSheetModal>
     );
