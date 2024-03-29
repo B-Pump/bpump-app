@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { setItemAsync } from "expo-secure-store";
 import { useState } from "react";
 import { Alert, SafeAreaView, Text, View } from "react-native";
 
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "@/context/auth";
+import { DEFAULT_THEME, THEME_KEY } from "@/lib/color";
 
 export default function Login() {
     const { onLogin } = useAuth();
@@ -22,7 +24,10 @@ export default function Login() {
             const result = await onLogin!(username, password);
             if (result && result.error) {
                 Alert.alert("Erreur", "Identifiants invalides");
-            } else router.replace("/");
+            } else {
+                setItemAsync(THEME_KEY, DEFAULT_THEME);
+                router.replace("/");
+            }
 
             setLoading(false);
         } else Alert.alert("Erreur", "Veuillez remplir tous les champs");

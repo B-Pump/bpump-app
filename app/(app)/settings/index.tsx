@@ -1,14 +1,16 @@
 import { Picker } from "@react-native-picker/picker";
 import { deviceName, osInternalBuildId } from "expo-device";
 import { router } from "expo-router";
+import { deleteItemAsync, setItemAsync } from "expo-secure-store";
 import { useState } from "react";
 import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { Button } from "@/components/ui/button";
 
-import { expo as cfV } from "@/app.json";
 import { useAuth } from "@/context/auth";
-import { useColorScheme } from "@/lib/color";
+import { THEME_KEY, useColorScheme } from "@/lib/color";
+
+import { expo as cfV } from "@/app.json";
 
 export default function Settings() {
     const { onLogout, onDelete, authState } = useAuth();
@@ -80,7 +82,12 @@ export default function Settings() {
                     <View className="rounded-lg border border-border">
                         {theme.map((item, index) => (
                             <View className={`p-4 ${index === 0 ? "" : "border-t border-border"}`} key={index}>
-                                <TouchableOpacity onPress={() => setColorScheme(item.value)}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        setColorScheme(item.value);
+                                        setItemAsync(THEME_KEY, item.value);
+                                    }}
+                                >
                                     <View className="flex flex-row items-center justify-between">
                                         <Text className="text-foreground">{item.label}</Text>
                                         <View className="items-center justify-center rounded-full border border-border">
@@ -117,7 +124,13 @@ export default function Settings() {
                                 Vous déconnecter vous raménera à l'écran d'accueil. Vous pourrez toujours utiliser votre
                                 compte et vos programmes seront sauvegardés.
                             </Text>
-                            <Button variant="outline" onPress={onLogout}>
+                            <Button
+                                variant="outline"
+                                onPress={() => {
+                                    deleteItemAsync(THEME_KEY);
+                                    onLogout();
+                                }}
+                            >
                                 <Text className="text-foreground">Vous déconnecter</Text>
                             </Button>
                         </View>
@@ -139,7 +152,10 @@ export default function Settings() {
                                             },
                                             {
                                                 text: "Confirmer",
-                                                onPress: () => onDelete(authState.token),
+                                                onPress: () => {
+                                                    deleteItemAsync(THEME_KEY);
+                                                    onDelete(authState.token);
+                                                },
                                                 style: "destructive",
                                             },
                                         ],

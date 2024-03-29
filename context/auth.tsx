@@ -12,7 +12,7 @@ interface AuthProps {
     onDelete?: (username: string) => Promise<any>;
 }
 
-const TOKEN_KEY = "auth_jwt";
+export const AUTH_KEY = "auth_jwt";
 
 const AuthContext = createContext<AuthProps>({});
 
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: any) => {
 
     useEffect(() => {
         const loadToken = async () => {
-            const token = await getItemAsync(TOKEN_KEY);
+            const token = await getItemAsync(AUTH_KEY);
             if (token) {
                 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                 setAuthState({
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: any) => {
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${username}`;
 
-            await setItemAsync(TOKEN_KEY, username);
+            await setItemAsync(AUTH_KEY, username);
 
             return result;
         } catch (error) {
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }: any) => {
     };
 
     const logout = async () => {
-        await deleteItemAsync(TOKEN_KEY);
+        await deleteItemAsync(AUTH_KEY);
 
         axios.defaults.headers.common["Authorization"] = "";
 

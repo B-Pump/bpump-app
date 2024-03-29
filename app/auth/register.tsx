@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { setItemAsync } from "expo-secure-store";
 import { useState } from "react";
 import { Alert, SafeAreaView, Text, View } from "react-native";
 
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "@/context/auth";
+import { DEFAULT_THEME, THEME_KEY } from "@/lib/color";
 
 export default function Register() {
     const { onRegister, onLogin } = useAuth();
@@ -14,13 +16,6 @@ export default function Register() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
-    const login = async () => {
-        const result = await onLogin!(username, password);
-        if (result && result.error) {
-            Alert.alert("Erreur", "Veuillez réessayer");
-        } else router.replace("/");
-    };
 
     const register = async () => {
         if (username.trim() && password.trim()) {
@@ -33,7 +28,16 @@ export default function Register() {
                 const result = await onRegister!(username, password);
                 if (result && result.error) {
                     Alert.alert("Erreur", result.msg);
-                } else login();
+                } else {
+                    const result = await onLogin!(username, password);
+
+                    if (result && result.error) {
+                        Alert.alert("Erreur", "Veuillez réessayer");
+                    } else {
+                        setItemAsync(THEME_KEY, DEFAULT_THEME);
+                        router.replace("/");
+                    }
+                }
             } else {
                 Alert.alert("Erreur", "Le nom d'utilisateur ou le mot de passe contient des caractères non autorisés");
             }

@@ -1,5 +1,8 @@
 import { useColorScheme as useNativewindColorScheme } from "nativewind";
 
+export const THEME_KEY = "theme_jwt";
+export const DEFAULT_THEME = "light";
+
 export function useColorScheme() {
     const { colorScheme, setColorScheme, toggleColorScheme } = useNativewindColorScheme();
 
