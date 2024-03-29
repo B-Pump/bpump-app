@@ -134,7 +134,7 @@ export default function Exos() {
                                                 <Video
                                                     ref={videoRef}
                                                     source={{
-                                                        uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+                                                        uri: data?.video || "https://urlz.fr/q5e8",
                                                     }}
                                                     style={styles.video}
                                                     useNativeControls

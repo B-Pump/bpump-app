@@ -4,6 +4,7 @@ interface Exos {
     description: string;
     category: string;
     difficulty: number;
+    video: string;
     muscles: string[];
     security: string[];
     needed: string[];
