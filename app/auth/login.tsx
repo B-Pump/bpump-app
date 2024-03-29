@@ -23,6 +23,7 @@ export default function Login() {
             if (result && result.error) {
                 Alert.alert("Erreur", "Identifiants invalides");
             } else router.replace("/");
+
             setLoading(false);
         } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
     };

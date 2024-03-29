@@ -19,10 +19,7 @@ export default function Register() {
         const result = await onLogin!(username, password);
         if (result && result.error) {
             Alert.alert("Erreur", "Veuillez réessayer");
-        } else {
-            router.replace("/");
-            setLoading(false);
-        }
+        } else router.replace("/");
     };
 
     const register = async () => {
@@ -40,6 +37,8 @@ export default function Register() {
             } else {
                 Alert.alert("Erreur", "Le nom d'utilisateur ou le mot de passe contient des caractères non autorisés");
             }
+
+            setLoading(false);
         } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
     };
 
