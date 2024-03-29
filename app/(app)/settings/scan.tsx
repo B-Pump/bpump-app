@@ -1,9 +1,11 @@
 import { Camera, CameraView } from "expo-camera/next";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
 
 export default function Scan() {
+    const mode = useLocalSearchParams();
+
     const { width, height } = Dimensions.get("window");
     const qrSize = Math.min(width, height) * 0.7 + 50;
     const styles = StyleSheet.create({
@@ -26,13 +28,30 @@ export default function Scan() {
             const { status } = await Camera.requestCameraPermissionsAsync();
             setHasPermission(status === "granted");
         };
+
         getCameraPermissions();
     }, [setHasPermission]);
 
     const handleBarCodeScanned = ({ type, data }) => {
         router.back();
-        console.info(`QR Code scanné : ${type} - ${data}`);
-        Alert.alert("Scanneur", `${data}`);
+
+        if (mode.value === "bluetooth") {
+            const regex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+            if (regex.test(data)) {
+                // TODO: connexion via bluetooth
+
+                Alert.alert("Scanneur", `${data}`);
+            } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une adresse MAC");
+        } else if (mode.value === "wifi") {
+            const regex = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}$/;
+            if (regex.test(data)) {
+                // TODO: connexion via wifi
+
+                Alert.alert("Scanneur", `${data}`);
+            } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une adresse IP");
+        }
+
+        console.info(`QR code scanned : ${type} - ${data}`);
     };
 
     if (hasPermission === null) {

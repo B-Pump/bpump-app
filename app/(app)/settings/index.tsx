@@ -16,10 +16,10 @@ export default function Settings() {
     const { onLogout, onDelete, authState } = useAuth();
     const { setColorScheme, colorScheme, isDarkColorScheme } = useColorScheme();
 
-    const [selectedLanguage, setSelectedLanguage] = useState("male");
-    const voice = [
-        { value: "male", label: "Homme" },
-        { value: "female", label: "Femme" },
+    const [selectedMode, setSelectedMode] = useState("bluetooth");
+    const mode = [
+        { value: "bluetooth", label: "Bluetooth" },
+        { value: "wifi", label: "WiFi" },
     ];
 
     const theme: { value: "dark" | "system" | "light"; label: string }[] = [
@@ -50,26 +50,30 @@ export default function Settings() {
                                 Connectez votre robot en scannant un code QR que vous pouvez retrouver sur la projection
                                 à l'allumage du robot.
                             </Text>
-                            <Button variant="outline" onPress={() => router.push("/settings/scan")}>
+                            <Button
+                                variant="outline"
+                                onPress={() =>
+                                    router.push({ pathname: "/settings/scan", params: { value: selectedMode } })
+                                }
+                            >
                                 <Text className="text-foreground">Scanner le code QR</Text>
                             </Button>
                         </View>
                         <View className="border-t border-border p-4">
                             <Text className="mb-5 text-foreground">
-                                Modifier la voix que votre robot B-Pump utilisera pour vous corriger lors de vos
-                                exercices. Notez que cela ne marchera que si vous êtes actuellement connecté à votre
+                                Choisissez le type de connexion à utiliser pour la liaison entre l'application et votre
                                 robot.
                             </Text>
                             <View className="rounded-lg border border-border">
                                 <Picker
-                                    selectedValue={selectedLanguage}
-                                    onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
+                                    selectedValue={selectedMode}
+                                    onValueChange={(itemValue) => setSelectedMode(itemValue)}
                                     mode="dropdown"
                                     numberOfLines={1}
                                     dropdownIconColor={isDarkColorScheme ? "white" : "black"}
                                     style={{ color: isDarkColorScheme ? "white" : "black" }}
                                 >
-                                    {voice.map((item, index) => (
+                                    {mode.map((item, index) => (
                                         <Picker.Item label={item.label} value={item.value} key={index} />
                                     ))}
                                 </Picker>
