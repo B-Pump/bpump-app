@@ -17,7 +17,7 @@ export const Sheet = forwardRef<Ref, SheetProps>((props, ref) => {
 
     const snapPoints = useMemo(() => ["25%", "75%"], []);
     const renderBackdrop = useCallback(
-        (props: any) => <BottomSheetBackdrop opacity={0.15} appearsOnIndex={0} disappearsOnIndex={-1} {...props} />,
+        (props: any) => <BottomSheetBackdrop opacity={0.4} appearsOnIndex={0} disappearsOnIndex={-1} {...props} />,
         [],
     );
 

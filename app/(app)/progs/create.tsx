@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
-import { Sheet } from "@/components/data-sheet";
+import { Sheet } from "@/components/progs-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,7 +60,7 @@ export default function CreateProgs() {
                 } else Alert.alert("Erreur", "La difficulté doit être un nombre entre 1 et 5");
             } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
         } catch (error) {
-            console.error(error);
+            console.error("Error while creating program :", error);
         }
     };
 
