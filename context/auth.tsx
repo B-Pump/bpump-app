@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }: any) => {
 
     const remove = async (username: string) => {
         try {
-            const result = await axios.post(`${API_URL}/delete?username=${username}`);
+            const result = await axios.delete(`${API_URL}/delete?username=${username}`);
 
             logout();
 

@@ -41,7 +41,7 @@ export default function Progs() {
     const removeProg = async () => {
         try {
             router.back();
-            await axios.post(`${API_URL}/remove_program?username=${authState.token}&id=${id}`);
+            await axios.delete(`${API_URL}/remove_program?username=${authState.token}&id=${id}`);
         } catch (error) {
             console.error(error);
         }
