@@ -20,7 +20,7 @@ export function ExosCard({ data, load, error }: { data: Exos; load: boolean; err
                     <View className="items-center justify-between rounded-xl">
                         <Image
                             style={{ width: 50, height: 50, borderRadius: 10 }}
-                            source="https://cdn.pixabay.com/photo/2017/05/25/15/08/jogging-2343558_1280.jpg"
+                            source={data?.icon || "https://urlz.fr/q5qm"}
                             contentFit="fill"
                         />
                     </View>
@@ -55,7 +55,7 @@ export function ProgsCard({ data, load, error }: { data: Progs; load: boolean; e
                     <View className="justify-between rounded-xl">
                         <Image
                             style={{ width: 50, height: 50, borderRadius: 10 }}
-                            source="https://cdn.pixabay.com/photo/2014/11/17/13/17/crossfit-534615_1280.jpg"
+                            source={data?.icon || "https://urlz.fr/q5qt"}
                             contentFit="fill"
                         />
                     </View>

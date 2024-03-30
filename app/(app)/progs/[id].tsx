@@ -104,7 +104,7 @@ export default function Progs() {
                             <View className="items-center justify-between rounded-xl">
                                 <Image
                                     style={{ width: 70, height: 70, borderRadius: 10 }}
-                                    source="https://cdn.pixabay.com/photo/2014/11/17/13/17/crossfit-534615_1280.jpg"
+                                    source={progData?.icon || "https://urlz.fr/q5qt"}
                                     contentFit="fill"
                                 />
                             </View>

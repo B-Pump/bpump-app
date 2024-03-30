@@ -53,7 +53,7 @@ export default function Exos() {
                             <View className="items-center justify-between rounded-xl">
                                 <Image
                                     style={{ width: 70, height: 70, borderRadius: 10 }}
-                                    source="https://cdn.pixabay.com/photo/2017/05/25/15/08/jogging-2343558_1280.jpg"
+                                    source={data?.icon || "https://urlz.fr/q5qm"}
                                     contentFit="fill"
                                 />
                             </View>
