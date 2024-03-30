@@ -40,8 +40,8 @@ export default function Progs() {
 
     const removeProg = async () => {
         try {
-            router.back();
             await axios.delete(`${API_URL}/remove_program?username=${authState.token}&id=${id}`);
+            router.back();
         } catch (error) {
             console.error(error);
         }
@@ -58,7 +58,7 @@ export default function Progs() {
                         </Button>
                     ),
                     headerRight:
-                        id !== "renfo-corps" && id !== "cardio-intense"
+                        id !== "default_1" && id !== "default_2"
                             ? () => (
                                   <Button
                                       variant="secondary"
