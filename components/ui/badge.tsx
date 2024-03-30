@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 
 import { cn } from "@/lib/utils";
 
-export const badgeVariants = cva("flex flex-row items-center rounded-full px-3 py-2 font-semibold", {
+export const badgeVariants = cva("flex rounded-full px-3 py-2 font-semibold", {
     variants: {
         variant: {
             default: "bg-primary",

@@ -17,42 +17,49 @@ export default function CreateProgs() {
 
     const [loading, setLoading] = useState(false);
 
-    const [title, setTitle] = useState("");
-    const [description, setDesc] = useState("");
-    const [difficulty, setDiff] = useState("");
+    const [icon, setIcon] = useState<string>(null);
+    const [title, setTitle] = useState<string>(null);
+    const [description, setDesc] = useState<string>(null);
+    const [difficulty, setDiff] = useState<string>(null);
+    const [category, setCategory] = useState<string>(null);
+    const [exercises, setExercices] = useState([]);
 
     const categoryRef = useRef<BottomSheetModal>(null);
     const exoRef = useRef<BottomSheetModal>(null);
 
     const { data, isLoading, error } = useFetch("GET", "exos/all");
 
-    let category = [];
+    let categoryData = [];
     if (Array.isArray(data) && !isLoading && !error) {
         const uniqueCategories = new Set(data.map((item) => item.category));
-        category = [...uniqueCategories];
-    }
-
-    let exos = [];
-    if (Array.isArray(data) && !isLoading && !error) {
-        const uniqueExos = new Set(data.map((item) => item.title));
-        exos = [...uniqueExos];
+        categoryData = [...uniqueCategories];
     }
 
     const addProg = async () => {
         try {
-            if (title && description && category && difficulty) {
+            if (title && description && categoryData && difficulty) {
                 const newDiff = parseInt(difficulty);
                 if (newDiff >= 1 && newDiff <= 5) {
                     setLoading(true);
 
                     await axios.post(`${API_URL}/add_program?username=${authState.token}`, {
                         id: title.toLowerCase(),
+                        owner: authState.token,
+                        icon: icon,
                         title: title,
                         description: description,
                         category: category,
                         difficulty: newDiff,
-                        hint: [""],
-                        exercises: [""],
+                        hint: [
+                            "Hydratez-vous régulièrement",
+                            "Portez des vêtements adaptés à votre activité physique",
+                            "N'oubliez pas de respirer correctement pendant les exercices",
+                            "Écoutez votre corps et reposez-vous en cas de douleur ou de fatigue excessive",
+                            "Faites des étirements après chaque séance pour améliorer votre souplesse et prévenir les courbatures",
+                            "Soyez patient et persévérant, les résultats viendront avec le temps et l'effort",
+                            "Entraînez-vous dans un environnement sûr et adapté à votre activité",
+                        ],
+                        exercises: exercises.map((exercise) => exercise.id),
                     });
 
                     router.back();
@@ -63,6 +70,24 @@ export default function CreateProgs() {
             console.error("Error while creating program :", error);
         }
     };
+
+    // const moveExerciseUp = (index) => {
+    //     if (index === 0) return;
+    //     const newOrder = [...exercises];
+    //     const temp = newOrder[index];
+    //     newOrder[index] = newOrder[index - 1];
+    //     newOrder[index - 1] = temp;
+    //     setExercices(newOrder);
+    // };
+
+    // const moveExerciseDown = (index) => {
+    //     if (index === exercises.length - 1) return;
+    //     const newOrder = [...exercises];
+    //     const temp = newOrder[index];
+    //     newOrder[index] = newOrder[index + 1];
+    //     newOrder[index + 1] = temp;
+    //     setExercices(newOrder);
+    // };
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
@@ -75,8 +100,19 @@ export default function CreateProgs() {
                 </View>
                 <View className="my-3">
                     <View className="mb-5 gap-3">
-                        <Input value={title} onChangeText={(text) => setTitle(text)} placeholder="Titre" />
+                        <Input
+                            value={title}
+                            onChangeText={(text) => setTitle(text)}
+                            maxLength={10}
+                            placeholder="Titre"
+                        />
                         <Input value={description} onChangeText={(text) => setDesc(text)} placeholder="Description" />
+                        <Input
+                            value={icon}
+                            onChangeText={(text) => setIcon(text)}
+                            keyboardType="url"
+                            placeholder="Icône (lien)"
+                        />
                         <Input
                             value={difficulty}
                             onChangeText={(text) => setDiff(text)}
@@ -89,14 +125,20 @@ export default function CreateProgs() {
                             className="justify-start p-3.5"
                             onPress={() => categoryRef.current?.present()}
                         >
-                            <Text className="text-muted-foreground">Catégorie</Text>
+                            <Text className={category ? "text-foreground" : "text-muted-foreground"}>
+                                {category || "Catégorie"}
+                            </Text>
                         </Button>
                         <Button
                             variant="outline"
                             className="justify-start p-3.5"
                             onPress={() => exoRef.current?.present()}
                         >
-                            <Text className="text-muted-foreground">Exercices</Text>
+                            <Text className={exercises.length > 0 ? "text-foreground" : "text-muted-foreground"}>
+                                {exercises.length > 0
+                                    ? exercises.map((exercise) => exercise.title).join(", ")
+                                    : "Exercices"}
+                            </Text>
                         </Button>
                     </View>
                 </View>
@@ -106,27 +148,68 @@ export default function CreateProgs() {
                     <Text className="text-accent">Créer ce programme</Text>
                 </Button>
             </View>
-            <Sheet ref={categoryRef} title="Veuillez sélectionner une catégorie" data={category}>
-                <View className="items-center">
-                    {category.map((item, index) => (
-                        <View className="m-1" key={index}>
-                            <TouchableOpacity onPress={() => {}}>
-                                <Badge variant="outline" label={item} />
-                            </TouchableOpacity>
-                        </View>
-                    ))}
+            <Sheet ref={categoryRef} snap={["25%", "35%"]}>
+                <View className="mb-4 items-center">
+                    <Text className="text-xl font-bold text-foreground">Veuillez sélectionner une catégorie</Text>
+                </View>
+                <View className="flex flex-row flex-wrap justify-center">
+                    {data &&
+                        categoryData.map((item: string, index: number) => (
+                            <View className="m-1" key={index}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        if (category === item) {
+                                            setCategory(null);
+                                        } else setCategory(item);
+                                    }}
+                                >
+                                    <Badge variant={category === item ? "success" : "outline"} label={item} />
+                                </TouchableOpacity>
+                            </View>
+                        ))}
                 </View>
             </Sheet>
-            <Sheet ref={exoRef} title="Veuillez sélectionner des exercices" data={exos}>
-                <View className="items-center">
-                    {exos.map((item, index) => (
-                        <View className="m-1" key={index}>
-                            <TouchableOpacity onPress={() => {}}>
-                                <Badge variant="outline" label={item} />
+            <Sheet ref={exoRef} snap={["35%", "60%"]}>
+                <View className="mb-4 items-center">
+                    <Text className="text-xl font-bold text-foreground">Veuillez sélectionner des exercices</Text>
+                </View>
+                <View className="flex flex-row flex-wrap justify-center">
+                    {data &&
+                        data.map((item: Exos, index: number) => (
+                            <View className="m-1" key={index}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        if (exercises.some((exercise) => exercise.id === item.id)) {
+                                            setExercices(exercises.filter((exercise) => exercise.id !== item.id));
+                                        } else setExercices([...exercises, { id: item.id, title: item.title }]);
+                                    }}
+                                >
+                                    <Badge
+                                        variant={
+                                            exercises.some((exercise) => exercise.id === item.id)
+                                                ? "success"
+                                                : "outline"
+                                        }
+                                        label={item.title}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                </View>
+                {/* TODO: Drag & drop to change exos order */}
+                {/* <View className="mt-5 flex-row justify-center">
+                    {exercises.map((item: { id: string; title: string }, index: number) => (
+                        <View className="flex-col items-center gap-6" key={index}>
+                            <TouchableOpacity onPress={() => moveExerciseUp(index)}>
+                                <Text>HAUT</Text>
+                            </TouchableOpacity>
+                            <Text>{item.title}</Text>
+                            <TouchableOpacity onPress={() => moveExerciseDown(index)}>
+                                <Text>BAS</Text>
                             </TouchableOpacity>
                         </View>
                     ))}
-                </View>
+                </View> */}
             </Sheet>
         </SafeAreaView>
     );
