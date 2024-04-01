@@ -12,22 +12,35 @@ import { THEME_KEY, useColorScheme } from "@/lib/color";
 
 import { expo as cfV } from "@/app.json";
 
+interface Mode {
+    value: string;
+    label: string;
+}
+interface Theme {
+    value: "dark" | "system" | "light";
+    label: string;
+}
+interface Info {
+    value: string;
+    label: string;
+}
+
 export default function Settings() {
     const { onLogout, onDelete, authState } = useAuth();
     const { setColorScheme, colorScheme, isDarkColorScheme } = useColorScheme();
 
-    const [selectedMode, setSelectedMode] = useState("bluetooth");
-    const mode = [
+    const [selectedMode, setSelectedMode] = useState<string>("bluetooth");
+    const mode: Mode[] = [
         { value: "bluetooth", label: "Bluetooth" },
         { value: "wifi", label: "WiFi" },
     ];
 
-    const theme: { value: "dark" | "system" | "light"; label: string }[] = [
+    const theme: Theme[] = [
         { value: "light", label: "Clair" },
         { value: "dark", label: "Sombre" },
     ];
 
-    const info = [
+    const info: Info[] = [
         { value: deviceName, label: "Nom de l'appareil" },
         { value: osInternalBuildId, label: "ID de l'appareil" },
         { value: cfV.version, label: "Version du client" },
@@ -73,7 +86,7 @@ export default function Settings() {
                                     dropdownIconColor={isDarkColorScheme ? "white" : "black"}
                                     style={{ color: isDarkColorScheme ? "white" : "black" }}
                                 >
-                                    {mode.map((item, index) => (
+                                    {mode.map((item: Mode, index: number) => (
                                         <Picker.Item label={item.label} value={item.value} key={index} />
                                     ))}
                                 </Picker>
@@ -84,12 +97,12 @@ export default function Settings() {
                 <View className="my-3">
                     <Text className="mb-3 text-foreground">🎨​ Thème de l'application</Text>
                     <View className="rounded-lg border border-border">
-                        {theme.map((item, index) => (
-                            <View className={`p-4 ${index === 0 ? "" : "border-t border-border"}`} key={index}>
+                        {theme.map((item: Theme, index: number) => (
+                            <View className={`p-4 ${index !== 0 && "border-t border-border"}`} key={index}>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        setColorScheme(item.value);
                                         setItemAsync(THEME_KEY, item.value);
+                                        setColorScheme(item.value);
                                     }}
                                 >
                                     <View className="flex flex-row items-center justify-between">
@@ -97,7 +110,7 @@ export default function Settings() {
                                         <View className="items-center justify-center rounded-full border border-border">
                                             <View
                                                 className={`size-5 rounded-full ${
-                                                    colorScheme === item.value ? "bg-muted-foreground" : ""
+                                                    colorScheme === item.value && "bg-muted-foreground"
                                                 }`}
                                             />
                                         </View>
@@ -110,8 +123,8 @@ export default function Settings() {
                 <View className="my-3">
                     <Text className="mb-3 text-foreground">📱​ Informations complémentaires</Text>
                     <View className="rounded-lg border border-border">
-                        {info.map((item, index) => (
-                            <View className={`p-4 ${index === 0 ? "" : "border-t border-border"}`} key={index}>
+                        {info.map((item: Info, index: number) => (
+                            <View className={`p-4 ${index !== 0 && "border-t border-border"}`} key={index}>
                                 <View className="flex flex-row items-center justify-between">
                                     <Text className="text-foreground">{item.label} :</Text>
                                     <Text className="text-foreground">{item.value}</Text>

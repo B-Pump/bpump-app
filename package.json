@@ -4,8 +4,6 @@
     "main": "expo-router/entry",
     "scripts": {
         "start": "expo start -c",
-        "android": "expo start -c --android",
-        "ios": "expo start -c --ios",
         "eas-build-post-install": "tailwindcss -i ./styles/globals.css -o ./node_modules/.cache/nativewind/styles/globals.css.native.css",
         "lint": "eslint ."
     },

@@ -8,10 +8,11 @@ import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import useFetch from "@/lib/api";
 
 export default function ShowallExos() {
-    const { data, isLoading, error, refetch } = useFetch("GET", "exos/all");
-    const tabs = ["Tout", ...(data ? [...new Set(data.map((item: Exos) => item?.category))] : [])];
+    const { data, isLoading, error, refetch }: ExosData = useFetch("GET", "exos/all");
 
-    const [refreshing, setRefreshing] = useState(false);
+    const tabs: string[] = ["Tout", ...(data ? [...new Set(data.map((item: Exos) => item?.category))] : [])];
+
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         refetch();
@@ -37,13 +38,13 @@ export default function ShowallExos() {
                 ) : (
                     <Tabs defaultValue={tabs[0] as string}>
                         <TabsTrigger data={tabs} />
-                        {tabs.map((tab, index) => (
+                        {tabs.map((tab: string, index: number) => (
                             <TabsContent value={tab} key={index}>
                                 {tab === "Tout" ? (
                                     <>
                                         {data?.map((item: Exos, index: number) => (
                                             <View className="py-1" key={index}>
-                                                <ExosCard data={item} load={isLoading} error={error} />
+                                                <ExosCard data={item} isLoading={isLoading} error={error} />
                                             </View>
                                         ))}
                                     </>
@@ -53,7 +54,7 @@ export default function ShowallExos() {
                                             if (item?.category === tab) {
                                                 return (
                                                     <View className="py-1" key={index}>
-                                                        <ExosCard data={item} load={isLoading} error={error} />
+                                                        <ExosCard data={item} isLoading={isLoading} error={error} />
                                                     </View>
                                                 );
                                             }

@@ -11,19 +11,25 @@ import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
+interface UniqueExo {
+    data: Exos;
+    isLoading: boolean;
+    error: boolean;
+    refetch: () => void;
+}
+
 export default function Exos() {
     const { isDarkColorScheme } = useColorScheme();
-    const { data, isLoading, error, refetch }: { data: Exos; isLoading: boolean; error: string; refetch: () => void } =
-        useFetch("GET", `exos/${useLocalSearchParams().id}`);
+    const { data, isLoading, error, refetch }: UniqueExo = useFetch("GET", `exos/${useLocalSearchParams().id}`);
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         refetch();
         setRefreshing(false);
     }, [setRefreshing, refetch]);
 
-    const tabs = ["Informations", "Démonstration"];
+    const tabs: string[] = ["Informations", "Démonstration"];
 
     const videoRef = useRef(null);
     const [video, setVideo] = useState({});
@@ -46,7 +52,7 @@ export default function Exos() {
                 {isLoading ? (
                     <ActivityIndicator size="large" color={isDarkColorScheme ? "white" : "black"} />
                 ) : error ? (
-                    <Text className="text-foreground">{error}</Text>
+                    <Text className="text-foreground">Erreur lors du chargement des détails de cet exercice</Text>
                 ) : (
                     <>
                         <View className="my-16 items-center justify-center">
@@ -72,7 +78,7 @@ export default function Exos() {
                         </View>
                         <Tabs defaultValue={tabs[0]}>
                             <TabsTrigger data={tabs} />
-                            {tabs.map((tab, index) => (
+                            {tabs.map((tab: string, index: number) => (
                                 <TabsContent value={tab} key={index}>
                                     {tab === tabs[0] ? (
                                         <View className="my-3">
@@ -87,7 +93,7 @@ export default function Exos() {
                                             </View>
                                             <View className="my-2">
                                                 <Text className="mb-3 text-foreground">💪🏻​​ Muscles sollicités :</Text>
-                                                {data?.muscles?.map((item, index) => (
+                                                {data?.muscles?.map((item: string, index: number) => (
                                                     <Text className="text-muted-foreground" key={index}>
                                                         {"\u2022 "}
                                                         {item ?? "Aucune données"}
@@ -98,7 +104,7 @@ export default function Exos() {
                                                 <Text className="mb-3 text-foreground">
                                                     🔐​ Consignes de sécurité :
                                                 </Text>
-                                                {data?.security?.map((item, index) => (
+                                                {data?.security?.map((item: string, index: number) => (
                                                     <Text className="text-muted-foreground" key={index}>
                                                         {"\u2022 "}
                                                         {item ?? "Aucune données"}
@@ -107,7 +113,7 @@ export default function Exos() {
                                             </View>
                                             <View className="my-2">
                                                 <Text className="mb-3 text-foreground">🏋️ Préréquis :</Text>
-                                                {data?.needed?.map((item, index) => (
+                                                {data?.needed?.map((item: string, index: number) => (
                                                     <Text className="text-muted-foreground" key={index}>
                                                         {"\u2022 "}
                                                         {item ?? "Aucune données"}

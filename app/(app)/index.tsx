@@ -17,17 +17,22 @@ export default function App() {
     const { isDarkColorScheme } = useColorScheme();
     const { authState } = useAuth();
 
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState<string>(null);
 
-    const { data: exosData, isLoading: exosLoad, error: exosError, refetch: exosRefetch } = useFetch("GET", "exos/all");
+    const {
+        data: exosData,
+        isLoading: exosLoad,
+        error: exosError,
+        refetch: exosRefetch,
+    }: ExosData = useFetch("GET", "exos/all");
     const {
         data: progsData,
         isLoading: progsLoad,
         error: progsError,
         refetch: progsRefetch,
-    } = useFetch("GET", `progs/all?username=${authState.token}`);
+    }: ProgsData = useFetch("GET", `progs/all?username=${authState.token}`);
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         exosRefetch();
@@ -67,9 +72,7 @@ export default function App() {
                             variant="default"
                             size="icon_lg"
                             onPress={() => {
-                                if (searchTerm && /[a-zA-Z]/.test(searchTerm.trim()))
-                                    // check if this is not an empty search
-                                    router.push(`/search/${searchTerm}`);
+                                if (searchTerm) router.push(`/search/${searchTerm}`);
                             }}
                         >
                             <Search color={isDarkColorScheme ? "black" : "white"} />
@@ -81,7 +84,7 @@ export default function App() {
                                 <CategorySkeletonList count={4} />
                             </View>
                         ) : exosError ? (
-                            <Text className="text-foreground">{exosError}</Text>
+                            <Text className="text-foreground">Erreur lors du chargement des badges</Text>
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
@@ -95,12 +98,12 @@ export default function App() {
                                     "Triceps",
                                     "Dos",
                                 ]}
-                                renderItem={({ item, index }) => (
+                                renderItem={({ item, index }: { item: string; index: number }) => (
                                     <TouchableOpacity onPress={() => router.push(`/search/${item}`)} key={index}>
                                         <Badge label={item} variant="outline" />
                                     </TouchableOpacity>
                                 )}
-                                keyExtractor={(item) => item.toString()}
+                                keyExtractor={(item) => item.toLowerCase()}
                                 contentContainerStyle={{ columnGap: 10 }}
                                 horizontal
                             />
@@ -120,13 +123,13 @@ export default function App() {
                                 <ProgsSkeletonList count={2} />
                             </View>
                         ) : progsError ? (
-                            <Text className="text-foreground">{progsError}</Text>
+                            <Text className="text-foreground">Erreur lors du chargement des programmes</Text>
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
                                 data={progsData}
                                 renderItem={({ item, index }: { item: Progs; index: number }) => (
-                                    <ProgsCard data={item} load={progsLoad} error={progsError} key={index} />
+                                    <ProgsCard data={item} isLoading={progsLoad} error={progsError} key={index} />
                                 )}
                                 keyExtractor={(item) => item.id.toString()}
                                 contentContainerStyle={{ columnGap: 7 }}
@@ -153,7 +156,7 @@ export default function App() {
                                 .slice(0, 3)
                                 .map((item: Exos, index: number) => (
                                     <View className="py-1" key={index}>
-                                        <ExosCard data={item} load={exosLoad} error={exosError} />
+                                        <ExosCard data={item} isLoading={exosLoad} error={exosError} />
                                     </View>
                                 ))
                         )}

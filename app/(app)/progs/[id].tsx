@@ -13,6 +13,13 @@ import { useAuth } from "@/context/auth";
 import useFetch, { API_URL } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
+interface UniqueProg {
+    data: Progs;
+    isLoading: boolean;
+    error: boolean;
+    refetch: () => void;
+}
+
 export default function Progs() {
     const { id } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
@@ -23,20 +30,17 @@ export default function Progs() {
         isLoading: progLoad,
         error: progError,
         refetch,
-    }: { data: Progs; isLoading: boolean; error: string; refetch: () => void } = useFetch(
-        "GET",
-        `progs/${id}?username=${authState.token}`,
-    );
-    const { data: exoData, isLoading: exoLoad, error: exoError } = useFetch("GET", "exos/all");
+    }: UniqueProg = useFetch("GET", `progs/${id}?username=${authState.token}`);
+    const { data: exoData, isLoading: exoLoad, error: exoError }: ExosData = useFetch("GET", "exos/all");
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         refetch();
         setRefreshing(false);
     }, [setRefreshing, refetch]);
 
-    const tabs = ["Informations", "Liste des exercices"];
+    const tabs: string[] = ["Informations", "Liste des exercices"];
 
     const removeProg = async () => {
         try {
@@ -97,7 +101,7 @@ export default function Progs() {
                 {progLoad ? (
                     <ActivityIndicator size="large" color={isDarkColorScheme ? "white" : "black"} />
                 ) : progError ? (
-                    <Text className="text-foreground">{progError}</Text>
+                    <Text className="text-foreground">Erreur lors du chargement des détails de ce programme</Text>
                 ) : (
                     <>
                         <View className="my-16 items-center justify-center">
@@ -123,7 +127,7 @@ export default function Progs() {
                         </View>
                         <Tabs defaultValue={tabs[0]}>
                             <TabsTrigger data={tabs} />
-                            {tabs.map((tab, index) => (
+                            {tabs.map((tab: string, index: number) => (
                                 <TabsContent value={tab} key={index}>
                                     {tab === tabs[0] ? (
                                         <View className="my-3">
@@ -138,7 +142,7 @@ export default function Progs() {
                                             </View>
                                             <View className="my-2">
                                                 <Text className="mb-3 text-foreground">🔎 Conseils :</Text>
-                                                {progData?.hint?.map((item, index) => (
+                                                {progData?.hint?.map((item: string, index: number) => (
                                                     <Text className="text-muted-foreground" key={index}>
                                                         {"\u2022 "}
                                                         {item ?? "Aucune données"}
@@ -152,7 +156,7 @@ export default function Progs() {
                                                 Catalogue de ce programme
                                             </Text>
                                             <View>
-                                                {progData?.exercises?.map((item, index) => {
+                                                {progData?.exercises?.map((item: string, index: number) => {
                                                     if (exoData) {
                                                         const exoItem = exoData.find((exo: Exos) => exo.id === item);
 
@@ -164,12 +168,14 @@ export default function Progs() {
                                                                         color={isDarkColorScheme ? "white" : "black"}
                                                                     />
                                                                 ) : exoError ? (
-                                                                    <Text className="text-foreground">{exoError}</Text>
+                                                                    <Text className="text-foreground">
+                                                                        Erreur lors du chargement de l'exercice
+                                                                    </Text>
                                                                 ) : exoItem ? (
                                                                     <View className="py-1">
                                                                         <ExosCard
                                                                             data={exoItem}
-                                                                            load={exoLoad}
+                                                                            isLoading={exoLoad}
                                                                             error={exoError}
                                                                         />
                                                                     </View>

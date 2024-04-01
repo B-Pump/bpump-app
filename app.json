@@ -7,7 +7,7 @@
         "owner": "wiizz",
         "githubUrl": "https://github.com/B-Pump/bpump-app",
         "scheme": "bpump",
-        "orientation": "portrait",
+        "orientation": "default",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
         "platforms": ["android", "ios"],

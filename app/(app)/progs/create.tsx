@@ -12,22 +12,26 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/auth";
 import useFetch, { API_URL } from "@/lib/api";
 
+interface ExosList {
+    id: string;
+    title: string;
+}
+
 export default function CreateProgs() {
     const { authState } = useAuth();
+    const { data, isLoading, error }: ExosData = useFetch("GET", "exos/all");
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const [icon, setIcon] = useState<string>(null);
     const [title, setTitle] = useState<string>(null);
     const [description, setDesc] = useState<string>(null);
     const [difficulty, setDiff] = useState<string>(null);
     const [category, setCategory] = useState<string>(null);
-    const [exercises, setExercices] = useState([]);
+    const [exercises, setExercices] = useState<ExosList[]>([]);
 
     const categoryRef = useRef<BottomSheetModal>(null);
     const exoRef = useRef<BottomSheetModal>(null);
-
-    const { data, isLoading, error } = useFetch("GET", "exos/all");
 
     let categoryData = [];
     if (Array.isArray(data) && !isLoading && !error) {
@@ -37,7 +41,7 @@ export default function CreateProgs() {
 
     const addProg = async () => {
         try {
-            if (title && description && categoryData && difficulty) {
+            if (icon && title && description && difficulty && categoryData && exercises) {
                 const newDiff = parseInt(difficulty);
                 if (newDiff >= 1 && newDiff <= 5) {
                     setLoading(true);
@@ -67,7 +71,7 @@ export default function CreateProgs() {
                 } else Alert.alert("Erreur", "La difficulté doit être un nombre entre 1 et 5");
             } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
         } catch (error) {
-            console.error("Error while creating program :", error);
+            console.log("Error while creating program :", error);
         }
     };
 
@@ -136,7 +140,7 @@ export default function CreateProgs() {
                         >
                             <Text className={exercises.length > 0 ? "text-foreground" : "text-muted-foreground"}>
                                 {exercises.length > 0
-                                    ? exercises.map((exercise) => exercise.title).join(", ")
+                                    ? exercises.map((exercise: ExosList) => exercise.title).join(", ")
                                     : "Exercices"}
                             </Text>
                         </Button>
@@ -179,14 +183,16 @@ export default function CreateProgs() {
                             <View className="m-1" key={index}>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        if (exercises.some((exercise) => exercise.id === item.id)) {
-                                            setExercices(exercises.filter((exercise) => exercise.id !== item.id));
+                                        if (exercises.some((exercise: ExosList) => exercise.id === item.id)) {
+                                            setExercices(
+                                                exercises.filter((exercise: ExosList) => exercise.id !== item.id),
+                                            );
                                         } else setExercices([...exercises, { id: item.id, title: item.title }]);
                                     }}
                                 >
                                     <Badge
                                         variant={
-                                            exercises.some((exercise) => exercise.id === item.id)
+                                            exercises.some((exercise: ExosList) => exercise.id === item.id)
                                                 ? "success"
                                                 : "outline"
                                         }

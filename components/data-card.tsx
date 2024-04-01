@@ -4,17 +4,28 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 import { ExosSkeletonList, ProgsSkeletonList } from "@/components/data-skeleton";
 
-export function ExosCard({ data, load, error }: { data: Exos; load: boolean; error: string }) {
+interface ExosCard {
+    data: Exos;
+    isLoading: boolean;
+    error: boolean;
+}
+interface ProgsCard {
+    data: Progs;
+    isLoading: boolean;
+    error: boolean;
+}
+
+export function ExosCard({ data, isLoading, error }: ExosCard) {
     return (
         <TouchableOpacity
             onPress={() => {
-                !error && !load ? router.push(`/exos/${data?.id}`) : {};
+                !error && !isLoading && router.push(`/exos/${data?.id}`);
             }}
         >
-            {load ? (
+            {isLoading ? (
                 <ExosSkeletonList count={1} />
             ) : error ? (
-                <Text className="text-foreground">{error}</Text>
+                <Text className="text-foreground">Erreur lors du chargement de l'exercice</Text>
             ) : (
                 <View className="flex-row rounded-lg border border-border p-6">
                     <View className="items-center justify-between rounded-xl">
@@ -39,17 +50,17 @@ export function ExosCard({ data, load, error }: { data: Exos; load: boolean; err
     );
 }
 
-export function ProgsCard({ data, load, error }: { data: Progs; load: boolean; error: string }) {
+export function ProgsCard({ data, isLoading, error }: ProgsCard) {
     return (
         <TouchableOpacity
             onPress={() => {
-                !error && !load ? router.push(`/progs/${data?.id}`) : {};
+                !error && !isLoading && router.push(`/progs/${data?.id}`);
             }}
         >
-            {load ? (
+            {isLoading ? (
                 <ProgsSkeletonList count={1} />
             ) : error ? (
-                <Text className="text-foreground">{error}</Text>
+                <Text className="text-foreground">Erreur lors du chargement du programme</Text>
             ) : (
                 <View className="w-[300px] rounded-lg border border-border p-6">
                     <View className="justify-between rounded-xl">

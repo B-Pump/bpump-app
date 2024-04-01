@@ -25,3 +25,17 @@ interface Progs {
     hint: string[];
     exercises: string[];
 }
+
+interface ExosData {
+    data: Exos[];
+    isLoading: boolean;
+    error: boolean;
+    refetch: () => void;
+}
+
+interface ProgsData {
+    data: Progs[];
+    isLoading: boolean;
+    error: boolean;
+    refetch: () => void;
+}

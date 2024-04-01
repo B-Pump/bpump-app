@@ -9,7 +9,7 @@ import useFetch from "@/lib/api";
 
 export default function Search() {
     const { id } = useLocalSearchParams();
-    const { data, isLoading, error, refetch } = useFetch("GET", "exos/all");
+    const { data, isLoading, error, refetch }: ExosData = useFetch("GET", "exos/all");
 
     const normalizeString = (str: string): string => {
         return str
@@ -17,6 +17,7 @@ export default function Search() {
             .replace(/[\u0300-\u036f]/g, "") // remove diacritics (accents) from the string using a regular expression
             .toLowerCase();
     };
+
     const filteredData = data?.filter((item: Exos) => {
         const title = item?.title || "";
         const description = item?.description || "";
@@ -30,7 +31,7 @@ export default function Search() {
         return matchKeyword(title) || matchKeyword(description) || matchKeyword(category);
     });
 
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         refetch();
@@ -53,11 +54,11 @@ export default function Search() {
                     {isLoading ? (
                         <ExosSkeletonList count={6} />
                     ) : error ? (
-                        <Text className="text-foreground">{error}</Text>
+                        <Text className="text-foreground">Erreur lors du chargement du contenu de votre recherche</Text>
                     ) : filteredData && filteredData.length > 0 ? (
                         filteredData?.map((item: Exos, index: number) => (
                             <View className="py-1" key={index}>
-                                <ExosCard data={item} load={isLoading} error={error} />
+                                <ExosCard data={item} isLoading={isLoading} error={error} />
                             </View>
                         ))
                     ) : (

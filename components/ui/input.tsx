@@ -1,10 +1,10 @@
+import { globals } from "@/styles/globals";
+
 import { forwardRef } from "react";
 import { Text, TextInput, View } from "react-native";
 
 import { useColorScheme } from "@/lib/color";
 import { cn } from "@/lib/utils";
-
-import { globals } from "@/styles/globals";
 
 interface InputProps extends React.ComponentPropsWithoutRef<typeof TextInput> {
     label?: string;

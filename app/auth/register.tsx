@@ -12,10 +12,10 @@ import { DEFAULT_THEME, THEME_KEY } from "@/lib/color";
 export default function Register() {
     const { onRegister, onLogin } = useAuth();
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState<string>(null);
+    const [password, setPassword] = useState<string>(null);
 
     const register = async () => {
         if (username.trim() && password.trim()) {
