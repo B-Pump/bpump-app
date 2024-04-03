@@ -12,9 +12,9 @@ export default function About() {
                     <Text className="py-2 text-foreground">
                         B-Pump est une initiative{" "}
                         <Text className="text-primary">passionnée par la santé et le bien-être</Text> pour tous. Nous
-                        sommes une équipe de quatres personnes, composée de trois développeurs junior et une designer,
-                        unis par <Text className="text-primary">notre amour pour la technologie</Text> depuis notre plus
-                        jeune âge.
+                        sommes une équipe de cinq personnes, composée de quatres développeurs junior et d'une
+                        designeuse, unis par <Text className="text-primary">notre amour pour la technologie</Text>{" "}
+                        depuis notre plus jeune âge.
                     </Text>
                     <Text className="py-2 text-foreground">
                         Notre motivation a pris forme devant le défi commun : comment rendre le sport{" "}
