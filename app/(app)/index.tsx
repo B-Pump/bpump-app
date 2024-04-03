@@ -149,7 +149,7 @@ export default function App() {
                         {exosLoad ? (
                             <ExosSkeletonList count={2} />
                         ) : exosError ? (
-                            <Text className="text-foreground">{exosError}</Text>
+                            <Text className="text-foreground">Erreur lors du chargement des exercices</Text>
                         ) : (
                             exosData
                                 ?.sort(() => Math.random() - 0.5)

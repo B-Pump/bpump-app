@@ -21,7 +21,7 @@ export default function useFetch(method: Method, endpoint: string, body: any = {
             const response = await axios.request(options);
             setData(response.data);
         } catch (error) {
-            console.log("Error while fetching API :", endpoint, error);
+            console.warn("Error while fetching API :", endpoint, error);
             setError(true);
         } finally {
             setIsLoading(false);

@@ -34,7 +34,7 @@ export default function ShowallExos() {
                 {isLoading ? (
                     <ExosSkeletonList count={6} />
                 ) : error ? (
-                    <Text className="text-foreground">{error}</Text>
+                    <Text className="text-foreground">Erreur lors du chargement des exercices</Text>
                 ) : (
                     <Tabs defaultValue={tabs[0] as string}>
                         <TabsTrigger data={tabs} />

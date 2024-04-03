@@ -47,7 +47,7 @@ export default function Progs() {
             await axios.delete(`${API_URL}/remove_program?username=${authState.token}&id=${id}`);
             router.back();
         } catch (error) {
-            console.log("Error while deleting program :", error);
+            console.warn("Error while deleting program :", error);
         }
     };
 
