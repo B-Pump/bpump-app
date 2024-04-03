@@ -1,9 +1,12 @@
 import "@/styles/globals.css";
 
 import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold, useFonts } from "@expo-google-fonts/dm-sans";
+import NetInfo from "@react-native-community/netinfo";
 import { Slot, SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { Wifi } from "lucide-react-native";
+import { useEffect, useState } from "react";
+import { SafeAreaView, Text, View } from "react-native";
 
 import { AuthProvider } from "@/context/auth";
 import { useColorScheme } from "@/lib/color";
@@ -12,12 +15,18 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const { isDarkColorScheme } = useColorScheme();
-
+    const [isConnected, setIsConnected] = useState<boolean>(false);
     const [fontsLoaded, fontError] = useFonts({
         DMSans_700Bold,
         DMSans_500Medium,
         DMSans_400Regular,
     });
+
+    useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener((state) => setIsConnected(state.isConnected));
+
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         if (fontsLoaded || fontError) SplashScreen.hideAsync();
@@ -27,7 +36,26 @@ export default function RootLayout() {
 
     return (
         <AuthProvider>
-            <Slot />
+            {isConnected ? (
+                <Slot />
+            ) : (
+                <SafeAreaView className="flex-1 bg-background px-3">
+                    <View className="flex-1 items-center justify-center">
+                        <View className="flex-row gap-3">
+                            <Wifi color={isDarkColorScheme ? "white" : "black"} />
+                            <Text className="mb-4 text-lg font-bold text-foreground">Connexion au WiFi requise</Text>
+                        </View>
+                        <View>
+                            <Text className="text-center text-sm text-muted-foreground">
+                                Veuillez vous connecter à un réseau WiFi pour continuer...
+                            </Text>
+                            <Text className="text-center text-sm text-muted-foreground">
+                                Redémarrez l'application si vous êtes actuellement connecté.
+                            </Text>
+                        </View>
+                    </View>
+                </SafeAreaView>
+            )}
             <StatusBar style={isDarkColorScheme ? "dark" : "light"} />
         </AuthProvider>
     );
