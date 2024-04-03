@@ -43,13 +43,13 @@ export default function RootLayout() {
                     <View className="flex-1 items-center justify-center">
                         <View className="flex-row gap-3">
                             <Wifi color={isDarkColorScheme ? "white" : "black"} />
-                            <Text className="mb-4 text-lg font-bold text-foreground">Connexion au WiFi requise</Text>
+                            <Text className="mb-4 text-lg font-bold">Connexion au WiFi requise</Text>
                         </View>
-                        <View>
-                            <Text className="text-center text-sm text-muted-foreground">
+                        <View className="items-center">
+                            <Text className="text-sm text-muted-foreground">
                                 Veuillez vous connecter à un réseau WiFi pour continuer...
                             </Text>
-                            <Text className="text-center text-sm text-muted-foreground">
+                            <Text className="text-sm text-muted-foreground">
                                 Redémarrez l'application si vous êtes actuellement connecté.
                             </Text>
                         </View>

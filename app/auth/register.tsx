@@ -1,3 +1,4 @@
+import { Image } from "expo-image";
 import { router } from "expo-router";
 import { setItemAsync } from "expo-secure-store";
 import { useState } from "react";
@@ -18,7 +19,7 @@ export default function Register() {
     const [password, setPassword] = useState<string>(null);
 
     const register = async () => {
-        if (username.trim() && password.trim()) {
+        if (username && password) {
             setLoading(true);
 
             const usernameRegex = /^[a-zA-Z0-9_\-]+$/;
@@ -47,35 +48,36 @@ export default function Register() {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-background py-5">
-            <View className="flex-1 justify-center">
-                <View className="px-8">
-                    <View className="mb-5 items-center">
-                        <Text className="text-3xl font-semibold">Register form</Text>
-                    </View>
-                    <View>
-                        <View className="mb-5 gap-3">
-                            <Input
-                                value={username}
-                                onChangeText={(text) => setUsername(text)}
-                                placeholder="Identifiant"
-                                autoComplete="username"
-                            />
-                            <Input
-                                value={password}
-                                onChangeText={(text) => setPassword(text)}
-                                placeholder="Mot de passe"
-                                secureTextEntry
-                                autoComplete="password"
-                            />
-                        </View>
-                        <View>
-                            <Button variant="secondary" onPress={register} disabled={loading}>
-                                <Text className="text-foreground">Créer un compte</Text>
-                            </Button>
-                        </View>
+        <SafeAreaView className="flex-1 bg-white px-3">
+            <View>
+                <View className="mb-5 items-center">
+                    <Text className="text-3xl font-bold">Oh ! Un nouveau sportif ?</Text>
+                </View>
+                <View className="py-5">
+                    <View className="mb-5 gap-3">
+                        <Input
+                            value={username}
+                            onChangeText={(text) => setUsername(text)}
+                            placeholder="Identifiant"
+                            autoComplete="username"
+                        />
+                        <Input
+                            value={password}
+                            onChangeText={(text) => setPassword(text)}
+                            placeholder="Mot de passe"
+                            secureTextEntry
+                            autoComplete="password"
+                        />
                     </View>
                 </View>
+            </View>
+            <View className="flex-1">
+                <Image source="https://i.ibb.co/GVMtQbx/1.png" style={{ width: "100%", height: 500 }} />
+            </View>
+            <View className="py-3">
+                <Button onPress={register} disabled={loading}>
+                    <Text className="text-accent">Créer un compte</Text>
+                </Button>
             </View>
         </SafeAreaView>
     );
