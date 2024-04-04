@@ -15,11 +15,11 @@ export default function Home() {
             </View>
             <Image source="https://i.ibb.co/80c35G6/2.png" style={{ width: "100%", height: 500 }} />
             <View className="py-3">
-                <Button onPress={() => router.push("/auth/login/")}>
+                <Button onPress={() => router.push("/auth/register/")}>
                     <Text className="text-white">Démarrer votre aventure sportive</Text>
                 </Button>
-                <Button variant="ghost" onPress={() => router.push("/auth/register/")}>
-                    <Text className="text-muted-foreground underline">Vous n'avez pas de compte ?</Text>
+                <Button variant="ghost" onPress={() => router.push("/auth/login/")}>
+                    <Text className="text-muted-foreground underline">Vous avez déjà un compte ?</Text>
                 </Button>
             </View>
         </SafeAreaView>
