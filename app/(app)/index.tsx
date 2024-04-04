@@ -1,7 +1,16 @@
 import { router } from "expo-router";
 import { Search } from "lucide-react-native";
 import { useCallback, useState } from "react";
-import { FlatList, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+    FlatList,
+    ImageBackground,
+    RefreshControl,
+    SafeAreaView,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 import { ExosCard, ProgsCard } from "@/components/data-card";
 import { CategorySkeletonList, ExosSkeletonList, ProgsSkeletonList } from "@/components/data-skeleton";
@@ -118,24 +127,30 @@ export default function App() {
                         </Button>
                     </View>
                     <View>
-                        {progsLoad ? (
-                            <View className="flex-row">
-                                <ProgsSkeletonList count={2} />
-                            </View>
-                        ) : progsError ? (
-                            <Text className="text-foreground">Erreur lors du chargement des programmes</Text>
-                        ) : (
-                            <FlatList
-                                showsHorizontalScrollIndicator={false}
-                                data={progsData}
-                                renderItem={({ item, index }: { item: Progs; index: number }) => (
-                                    <ProgsCard data={item} isLoading={progsLoad} error={progsError} key={index} />
-                                )}
-                                keyExtractor={(item) => item.id.toString()}
-                                contentContainerStyle={{ columnGap: 7 }}
-                                horizontal
-                            />
-                        )}
+                        <ImageBackground
+                            source={
+                                isDarkColorScheme ? require("assets/text-white.png") : require("assets/text-black.png")
+                            }
+                        >
+                            {progsLoad ? (
+                                <View className="flex-row">
+                                    <ProgsSkeletonList count={2} />
+                                </View>
+                            ) : progsError ? (
+                                <Text className="text-foreground">Erreur lors du chargement des programmes</Text>
+                            ) : (
+                                <FlatList
+                                    showsHorizontalScrollIndicator={false}
+                                    data={progsData}
+                                    renderItem={({ item, index }: { item: Progs; index: number }) => (
+                                        <ProgsCard data={item} isLoading={progsLoad} error={progsError} key={index} />
+                                    )}
+                                    keyExtractor={(item) => item.id.toString()}
+                                    contentContainerStyle={{ columnGap: 7 }}
+                                    horizontal
+                                />
+                            )}
+                        </ImageBackground>
                     </View>
                 </View>
                 <View className="my-3 flex-1">

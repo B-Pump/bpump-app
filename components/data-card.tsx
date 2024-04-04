@@ -27,7 +27,7 @@ export function ExosCard({ data, isLoading, error }: ExosCard) {
             ) : error ? (
                 <Text className="text-foreground">Erreur lors du chargement de l'exercice</Text>
             ) : (
-                <View className="flex-row rounded-lg border border-border p-6">
+                <View className="flex-row rounded-lg border border-border bg-background p-6">
                     <View className="items-center justify-between rounded-xl">
                         <Image
                             style={{ width: 50, height: 50, borderRadius: 10 }}
@@ -62,7 +62,7 @@ export function ProgsCard({ data, isLoading, error }: ProgsCard) {
             ) : error ? (
                 <Text className="text-foreground">Erreur lors du chargement du programme</Text>
             ) : (
-                <View className="w-[300px] rounded-lg border border-border p-6">
+                <View className="w-[300px] rounded-lg border border-border bg-background p-6">
                     <View className="justify-between rounded-xl">
                         <Image
                             style={{ width: 50, height: 50, borderRadius: 10 }}
