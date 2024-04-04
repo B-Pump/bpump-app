@@ -39,10 +39,10 @@ export default function RootLayout() {
             {isConnected ? (
                 <Slot />
             ) : (
-                <SafeAreaView className="flex-1 bg-background px-3">
+                <SafeAreaView className="flex-1 bg-white px-3">
                     <View className="flex-1 items-center justify-center">
-                        <View className="flex-row gap-3">
-                            <Wifi color={isDarkColorScheme ? "white" : "black"} />
+                        <View className="flex-row gap-2.5">
+                            <Wifi color="black" />
                             <Text className="mb-4 text-lg font-bold">Connexion au WiFi requise</Text>
                         </View>
                         <View className="items-center">
