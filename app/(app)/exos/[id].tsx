@@ -1,6 +1,6 @@
 import { ResizeMode, Video } from "expo-av";
 import { Image } from "expo-image";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Star } from "lucide-react-native";
 import { useCallback, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
@@ -8,6 +8,7 @@ import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, StyleSheet
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
+import { useRobot } from "@/context/robot";
 import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
@@ -19,7 +20,9 @@ interface UniqueExo {
 }
 
 export default function Exos() {
+    const { robotState } = useRobot();
     const { isDarkColorScheme } = useColorScheme();
+
     const { data, isLoading, error, refetch }: UniqueExo = useFetch("GET", `exos/${useLocalSearchParams().id}`);
 
     const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -157,7 +160,13 @@ export default function Exos() {
                 )}
             </ScrollView>
             <View className="py-3">
-                <Button>
+                <Button
+                    onPress={() => {
+                        if (robotState.connected) {
+                            // TODO: Start exo
+                        } else router.push("/settings/scan");
+                    }}
+                >
                     <Text className="text-accent">Démarrer l'exercice</Text>
                 </Button>
             </View>

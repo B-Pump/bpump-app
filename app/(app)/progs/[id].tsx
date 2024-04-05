@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
 import { useAuth } from "@/context/auth";
+import { useRobot } from "@/context/robot";
 import useFetch, { API_URL } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
@@ -21,9 +22,10 @@ interface UniqueProg {
 }
 
 export default function Progs() {
+    const { authState } = useAuth();
+    const { robotState } = useRobot();
     const { id } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
-    const { authState } = useAuth();
 
     const {
         data: progData,
@@ -198,7 +200,13 @@ export default function Progs() {
                 )}
             </ScrollView>
             <View className="py-3">
-                <Button>
+                <Button
+                    onPress={() => {
+                        if (robotState.connected) {
+                            // TODO: start prog
+                        } else router.push("/settings/scan");
+                    }}
+                >
                     <Text className="text-accent">Démarrer le programme</Text>
                 </Button>
             </View>

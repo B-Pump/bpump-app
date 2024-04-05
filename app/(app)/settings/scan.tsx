@@ -3,7 +3,11 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
 
+import { useRobot } from "@/context/robot";
+
 export default function Scan() {
+    const { onConnect, robotState } = useRobot();
+
     const mode = useLocalSearchParams();
 
     const { width, height } = Dimensions.get("window");
@@ -33,25 +37,22 @@ export default function Scan() {
     }, [setHasPermission]);
 
     const handleBarCodeScanned = ({ type, data }) => {
+        if (!robotState.connected && typeof data === "string") {
+            if (mode.value === "bluetooth") {
+                const regex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+                if (regex.test(data)) {
+                    onConnect(data);
+                    console.info("Code QR scanné :", data);
+                } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une adresse MAC");
+            } else if (mode.value === "wifi") {
+                const regex = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}$/;
+                if (regex.test(data)) {
+                    onConnect(data);
+                    console.info("Code QR scanné :", data);
+                } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une adresse IP");
+            }
+        } else Alert.alert("Erreur", "Merci de réessayer");
         router.back();
-
-        if (mode.value === "bluetooth") {
-            const regex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
-            if (regex.test(data)) {
-                // TODO: connexion via bluetooth
-
-                Alert.alert("Scanneur", `${data}`);
-            } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une adresse MAC");
-        } else if (mode.value === "wifi") {
-            const regex = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}$/;
-            if (regex.test(data)) {
-                // TODO: connexion via wifi
-
-                Alert.alert("Scanneur", `${data}`);
-            } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une adresse IP");
-        }
-
-        console.info(`QR code scanned : ${type} - ${data}`);
     };
 
     if (hasPermission === null) {

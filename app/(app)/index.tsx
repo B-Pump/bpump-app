@@ -1,16 +1,7 @@
 import { router } from "expo-router";
 import { Search } from "lucide-react-native";
 import { useCallback, useState } from "react";
-import {
-    FlatList,
-    ImageBackground,
-    RefreshControl,
-    SafeAreaView,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { FlatList, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ExosCard, ProgsCard } from "@/components/data-card";
 import { CategorySkeletonList, ExosSkeletonList, ProgsSkeletonList } from "@/components/data-skeleton";
@@ -23,8 +14,8 @@ import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
 export default function App() {
-    const { isDarkColorScheme } = useColorScheme();
     const { authState } = useAuth();
+    const { isDarkColorScheme } = useColorScheme();
 
     const [searchTerm, setSearchTerm] = useState<string>(null);
 
@@ -93,7 +84,7 @@ export default function App() {
                                 <CategorySkeletonList count={4} />
                             </View>
                         ) : exosError ? (
-                            <Text className="text-foreground">Erreur lors du chargement des badges</Text>
+                            <Text className="text-foreground">Erreur lors du chargement des badges de recherche</Text>
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
@@ -121,36 +112,30 @@ export default function App() {
                 </View>
                 <View className="my-3">
                     <View className="flex flex-row items-center justify-between">
-                        <Text className="text-xl font-semibold text-foreground">Programmes recommandés</Text>
+                        <Text className="text-xl font-semibold text-foreground">Vos programmes</Text>
                         <Button variant="ghost" onPress={() => router.push("/progs/create")}>
                             <Text className="font-medium text-muted-foreground">Créer</Text>
                         </Button>
                     </View>
                     <View>
-                        <ImageBackground
-                            source={
-                                isDarkColorScheme ? require("assets/text-white.png") : require("assets/text-black.png")
-                            }
-                        >
-                            {progsLoad ? (
-                                <View className="flex-row">
-                                    <ProgsSkeletonList count={2} />
-                                </View>
-                            ) : progsError ? (
-                                <Text className="text-foreground">Erreur lors du chargement des programmes</Text>
-                            ) : (
-                                <FlatList
-                                    showsHorizontalScrollIndicator={false}
-                                    data={progsData}
-                                    renderItem={({ item, index }: { item: Progs; index: number }) => (
-                                        <ProgsCard data={item} isLoading={progsLoad} error={progsError} key={index} />
-                                    )}
-                                    keyExtractor={(item) => item.id.toString()}
-                                    contentContainerStyle={{ columnGap: 7 }}
-                                    horizontal
-                                />
-                            )}
-                        </ImageBackground>
+                        {progsLoad ? (
+                            <View className="flex-row">
+                                <ProgsSkeletonList count={2} />
+                            </View>
+                        ) : progsError ? (
+                            <Text className="text-foreground">Erreur lors du chargement des programmes</Text>
+                        ) : (
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                data={progsData}
+                                renderItem={({ item, index }: { item: Progs; index: number }) => (
+                                    <ProgsCard data={item} isLoading={progsLoad} error={progsError} key={index} />
+                                )}
+                                keyExtractor={(item) => item.id.toString()}
+                                contentContainerStyle={{ columnGap: 7 }}
+                                horizontal
+                            />
+                        )}
                     </View>
                 </View>
                 <View className="my-3 flex-1">

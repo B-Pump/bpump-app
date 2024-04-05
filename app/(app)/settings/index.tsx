@@ -11,6 +11,7 @@ import { useAuth } from "@/context/auth";
 import { THEME_KEY, useColorScheme } from "@/lib/color";
 
 import { expo as cfV } from "@/app.json";
+import { useRobot } from "@/context/robot";
 
 interface Mode {
     value: string;
@@ -27,6 +28,8 @@ interface Info {
 
 export default function Settings() {
     const { onLogout, onDelete, authState } = useAuth();
+    const { onConnect, onDisconnect, robotState } = useRobot();
+
     const { setColorScheme, colorScheme, isDarkColorScheme } = useColorScheme();
 
     const [selectedMode, setSelectedMode] = useState<string>("bluetooth");
@@ -59,18 +62,39 @@ export default function Settings() {
                     <Text className="mb-3 text-foreground">🤖​ Configuration du robot</Text>
                     <View className="rounded-lg border border-border">
                         <View className="p-4">
-                            <Text className="mb-5 text-foreground">
-                                Connectez votre robot en scannant un code QR que vous pouvez retrouver sur la projection
-                                à l'allumage du robot.
-                            </Text>
-                            <Button
-                                variant="outline"
-                                onPress={() =>
-                                    router.push({ pathname: "/settings/scan", params: { value: selectedMode } })
-                                }
-                            >
-                                <Text className="text-foreground">Scanner le code QR</Text>
-                            </Button>
+                            {robotState.connected ? (
+                                <>
+                                    <Text className="mb-5 text-foreground">
+                                        Vous êtes actuellement connecté à votre robot. Si vous rencontrez des problèmes,
+                                        vous pouvez essayer de vous déconnecter et de vous reconnecter pour résoudre
+                                        tout dysfonctionnement éventuel.
+                                    </Text>
+                                    <Button
+                                        variant="outline"
+                                        onPress={() => {
+                                            onDisconnect();
+                                            // TODO: remove bluetooth or wifi connection
+                                        }}
+                                    >
+                                        <Text className="text-foreground">Déconnexion</Text>
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Text className="mb-5 text-foreground">
+                                        Connectez votre robot en scannant un code QR que vous pouvez retrouver sur la
+                                        projection à l'allumage du robot.
+                                    </Text>
+                                    <Button
+                                        variant="outline"
+                                        onPress={() =>
+                                            router.push({ pathname: "/settings/scan", params: { value: selectedMode } })
+                                        }
+                                    >
+                                        <Text className="text-foreground">Scanner le code QR</Text>
+                                    </Button>
+                                </>
+                            )}
                         </View>
                         <View className="border-t border-border p-4">
                             <Text className="mb-5 text-foreground">
