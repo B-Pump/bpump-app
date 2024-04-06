@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import io from "socket.io-client";
+import { createContext, useContext, useState } from "react";
 
 interface SocketProps {
     socketState?: { address: string | null; connected: boolean | null };
@@ -21,26 +20,6 @@ export const SocketProvider = ({ children }: any) => {
         address: null,
         connected: null,
     });
-
-    useEffect(() => {
-        if (!socketState.address) return;
-
-        const socket = io(`http://${socketState.address}`, {
-            transports: ["websocket"],
-        });
-
-        socket.on("open", () => {
-            console.log("Open");
-        });
-        socket.on("close", () => {
-            console.log("Close");
-        });
-
-        return () => {
-            socket.disconnect();
-            socket.removeAllListeners();
-        };
-    }, [socketState]);
 
     const connect = (address: string) => {
         setSocketState({ address: address, connected: true });
