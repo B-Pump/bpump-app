@@ -35,7 +35,6 @@ export default function Exos() {
     const tabs: string[] = ["Informations", "Démonstration"];
 
     const videoRef = useRef(null);
-    const [video, setVideo] = useState({});
 
     const styles = StyleSheet.create({
         video: {
@@ -147,8 +146,7 @@ export default function Exos() {
                                                     }}
                                                     style={styles.video}
                                                     useNativeControls
-                                                    resizeMode={ResizeMode.COVER}
-                                                    onPlaybackStatusUpdate={(status) => setVideo(() => status)}
+                                                    resizeMode={ResizeMode.COVER} // TODO: update mode to CONTAiN on fullscreen
                                                 />
                                             </View>
                                         </View>

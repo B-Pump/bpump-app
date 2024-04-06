@@ -1,10 +1,11 @@
 import { deleteItemAsync, getItemAsync, setItemAsync } from "expo-secure-store";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { AppState } from "react-native";
 
 interface RobotProps {
     robotState?: { adress: string | null; connected: boolean | null };
     onConnect?: (adress: string) => Promise<any>;
-    onDisconnect?: (adress: string) => Promise<any>;
+    onDisconnect?: () => Promise<any>;
 }
 
 export const ROBOT_KEY = "robot_jwt";
@@ -16,6 +17,8 @@ export function useRobot() {
 }
 
 export const RobotProvider = ({ children }: any) => {
+    const appState = useRef(AppState.currentState);
+
     const [robotState, setRobotState] = useState<{
         adress: string | null;
         connected: boolean | null;
@@ -29,6 +32,7 @@ export const RobotProvider = ({ children }: any) => {
             const token = await getItemAsync(ROBOT_KEY);
             if (token) setRobotState({ adress: token, connected: true });
         };
+
         loadToken();
     }, []);
 
@@ -45,14 +49,29 @@ export const RobotProvider = ({ children }: any) => {
         }
     };
 
-    const disconnect = async (adress: string) => {
+    const disconnect = async () => {
         const result = await deleteItemAsync(ROBOT_KEY);
 
         // TODO: remove wifi connection
 
-        setRobotState({ adress: adress, connected: false });
+        setRobotState({ adress: null, connected: false });
         return result;
     };
+
+    useEffect(() => {
+        const subscription = AppState.addEventListener("change", (nextAppState) => {
+            // if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+            //     connect(robotState.adress);
+            // }
+            if (appState.current === "active" && nextAppState.match(/inactive|background/)) {
+                disconnect();
+            }
+
+            appState.current = nextAppState;
+        });
+
+        return () => subscription.remove();
+    }, []);
 
     const value = {
         onConnect: connect,

@@ -59,7 +59,7 @@ export default function Settings() {
                                     <Text className="mb-5 text-foreground">
                                         Vous êtes actuellement connecté à votre robot à l'adresse : {robotState.adress}
                                     </Text>
-                                    <Button variant="outline" onPress={() => onDisconnect(robotState.adress)}>
+                                    <Button variant="outline" onPress={onDisconnect}>
                                         <Text className="text-foreground">Déconnexion</Text>
                                     </Button>
                                 </>
