@@ -3,10 +3,10 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
 
-import { useRobot } from "@/context/robot";
+import { useSocket } from "@/context/socket";
 
 export default function Scan() {
-    const { onConnect, robotState } = useRobot();
+    const { onConnect } = useSocket();
 
     const { width, height } = Dimensions.get("window");
     const qrSize = Math.min(width, height) * 0.7 + 50;
@@ -41,10 +41,8 @@ export default function Scan() {
             if (regex.test(data)) {
                 onConnect(data);
                 router.back();
-            } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une adresse IP");
+            } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une addresse IP");
         } else Alert.alert("Erreur", "Merci de scanner un code QR valide");
-
-        console.info("Code QR scanné :", type, data);
     };
 
     if (hasPermission === null) {

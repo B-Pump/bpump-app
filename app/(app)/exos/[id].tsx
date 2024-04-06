@@ -8,7 +8,7 @@ import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, StyleSheet
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
-import { useRobot } from "@/context/robot";
+import { useSocket } from "@/context/socket";
 import useFetch from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
@@ -20,7 +20,7 @@ interface UniqueExo {
 }
 
 export default function Exos() {
-    const { robotState } = useRobot();
+    const { socketState } = useSocket();
     const { isDarkColorScheme } = useColorScheme();
 
     const { data, isLoading, error, refetch }: UniqueExo = useFetch("GET", `exos/${useLocalSearchParams().id}`);
@@ -160,7 +160,7 @@ export default function Exos() {
             <View className="py-3">
                 <Button
                     onPress={() => {
-                        if (robotState.connected) {
+                        if (socketState.connected) {
                             // TODO: Start exo
                         } else router.push("/settings/scan");
                     }}

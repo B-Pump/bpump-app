@@ -9,7 +9,7 @@ import { Share } from "react-native";
 import { Button } from "@/components/ui/button";
 
 import { useAuth } from "@/context/auth";
-import { RobotProvider } from "@/context/robot";
+import { SocketProvider } from "@/context/socket";
 import { useColorScheme } from "@/lib/color";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -45,7 +45,7 @@ export default function AppLayout() {
         <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
                 <ThemeProvider value={isDarkColorScheme ? darkTheme : lightTheme}>
-                    <RobotProvider>
+                    <SocketProvider>
                         <Stack>
                             <Stack.Screen
                                 name="index"
@@ -105,7 +105,7 @@ export default function AppLayout() {
                             <Stack.Screen name="progs/create" options={defaultStack} />
                             <Stack.Screen name="search/[id]" options={defaultStack} />
                         </Stack>
-                    </RobotProvider>
+                    </SocketProvider>
                 </ThemeProvider>
             </BottomSheetModalProvider>
         </GestureHandlerRootView>

@@ -6,7 +6,7 @@ import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "r
 import { Button } from "@/components/ui/button";
 
 import { useAuth } from "@/context/auth";
-import { useRobot } from "@/context/robot";
+import { useSocket } from "@/context/socket";
 import { THEME_KEY, useColorScheme } from "@/lib/color";
 
 import { expo as cfV } from "@/app.json";
@@ -26,7 +26,7 @@ interface Info {
 
 export default function Settings() {
     const { onLogout, onDelete, authState } = useAuth();
-    const { onDisconnect, robotState } = useRobot();
+    const { onDisconnect, socketState } = useSocket();
 
     const { setColorScheme, colorScheme } = useColorScheme();
 
@@ -54,10 +54,11 @@ export default function Settings() {
                     <Text className="mb-3 text-foreground">🤖​ Configuration du robot</Text>
                     <View className="rounded-lg border border-border">
                         <View className="p-4">
-                            {robotState.connected ? (
+                            {socketState.connected ? (
                                 <>
                                     <Text className="mb-5 text-foreground">
-                                        Vous êtes actuellement connecté à votre robot à l'adresse : {robotState.adress}
+                                        Vous êtes actuellement connecté à votre robot à l'addresse :{" "}
+                                        {socketState.address}
                                     </Text>
                                     <Button variant="outline" onPress={onDisconnect}>
                                         <Text className="text-foreground">Déconnexion</Text>

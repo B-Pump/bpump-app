@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
 import { useAuth } from "@/context/auth";
-import { useRobot } from "@/context/robot";
+import { useSocket } from "@/context/socket";
 import useFetch, { API_URL } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
@@ -23,7 +23,7 @@ interface UniqueProg {
 
 export default function Progs() {
     const { authState } = useAuth();
-    const { robotState } = useRobot();
+    const { socketState } = useSocket();
     const { id } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
 
@@ -202,7 +202,7 @@ export default function Progs() {
             <View className="py-3">
                 <Button
                     onPress={() => {
-                        if (robotState.connected) {
+                        if (socketState.connected) {
                             // TODO: start prog
                         } else router.push("/settings/scan");
                     }}
