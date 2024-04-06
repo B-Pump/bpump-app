@@ -26,7 +26,7 @@ interface Info {
 
 export default function Settings() {
     const { onLogout, onDelete, authState } = useAuth();
-    const { onDisconnect, socketState } = useSocket();
+    const { onDisconnect, onConnect, socketValid, socketAdress } = useSocket();
 
     const { setColorScheme, colorScheme } = useColorScheme();
 
@@ -54,11 +54,10 @@ export default function Settings() {
                     <Text className="mb-3 text-foreground">🤖​ Configuration du robot</Text>
                     <View className="rounded-lg border border-border">
                         <View className="p-4">
-                            {socketState.connected ? (
+                            {socketValid ? (
                                 <>
                                     <Text className="mb-5 text-foreground">
-                                        Vous êtes actuellement connecté à votre robot à l'addresse :{" "}
-                                        {socketState.address}
+                                        Vous êtes actuellement connecté à votre robot à l'addresse : {socketAdress}
                                     </Text>
                                     <Button variant="outline" onPress={onDisconnect}>
                                         <Text className="text-foreground">Déconnexion</Text>
@@ -73,6 +72,9 @@ export default function Settings() {
                                     <Button variant="outline" onPress={() => router.push("/settings/scan")}>
                                         <Text className="text-foreground">Scanner le code QR</Text>
                                     </Button>
+                                    {/* <Button variant="outline" onPress={() => onConnect("192.168.56.1:5001")}>
+                                        <Text className="text-foreground">test connexion</Text>
+                                    </Button> */}
                                 </>
                             )}
                         </View>

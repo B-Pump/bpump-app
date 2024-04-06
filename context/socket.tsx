@@ -1,7 +1,9 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
 interface SocketProps {
-    socketState?: { address: string | null; connected: boolean | null };
+    socketAdress?: string | null;
+    socketValid?: boolean | null;
     onConnect?: (address: string) => void;
     onDisconnect?: () => void;
 }
@@ -13,25 +15,38 @@ export function useSocket() {
 }
 
 export const SocketProvider = ({ children }: any) => {
-    const [socketState, setSocketState] = useState<{
-        address: string | null;
-        connected: boolean | null;
-    }>({
-        address: null,
-        connected: null,
-    });
+    const [socketAdress, setSocketAdress] = useState<string>(null);
+    const [socketValid, setSocketValid] = useState<boolean>(false);
 
-    const connect = (address: string) => {
-        setSocketState({ address: address, connected: true });
-    };
-    const disconnect = () => {
-        setSocketState({ address: null, connected: false });
-    };
+    useEffect(() => {
+        if (socketAdress) {
+            const socket = io(`http://${socketAdress}`, { transports: ["websocket"] });
+
+            socket.io.on("open", () => {
+                setSocketValid(true);
+                console.log("Connected to", socketAdress);
+            });
+            socket.io.on("close", () => {
+                setSocketValid(false);
+                console.log("Disconnected from", socketAdress);
+            });
+
+            return () => {
+                socket.disconnect();
+                socket.removeAllListeners();
+                disconnect();
+            };
+        }
+    }, [socketAdress]);
+
+    const connect = (address: string) => setSocketAdress(address);
+    const disconnect = () => setSocketAdress(null);
 
     const value = {
         onConnect: connect,
         onDisconnect: disconnect,
-        socketState,
+        socketAdress,
+        socketValid,
     };
 
     return <SocketContext.Provider value={value}>{children}</SocketContext.Provider>;

@@ -23,7 +23,7 @@ interface UniqueProg {
 
 export default function Progs() {
     const { authState } = useAuth();
-    const { socketState } = useSocket();
+    const { socketValid } = useSocket();
     const { id } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
 
@@ -202,7 +202,7 @@ export default function Progs() {
             <View className="py-3">
                 <Button
                     onPress={() => {
-                        if (socketState.connected) {
+                        if (socketValid) {
                             // TODO: start prog
                         } else router.push("/settings/scan");
                     }}

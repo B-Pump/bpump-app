@@ -20,7 +20,7 @@ interface UniqueExo {
 }
 
 export default function Exos() {
-    const { socketState } = useSocket();
+    const { socketValid } = useSocket();
     const { isDarkColorScheme } = useColorScheme();
 
     const { data, isLoading, error, refetch }: UniqueExo = useFetch("GET", `exos/${useLocalSearchParams().id}`);
@@ -160,7 +160,7 @@ export default function Exos() {
             <View className="py-3">
                 <Button
                     onPress={() => {
-                        if (socketState.connected) {
+                        if (socketValid) {
                             // TODO: Start exo
                         } else router.push("/settings/scan");
                     }}
