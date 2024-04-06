@@ -64,7 +64,7 @@ export default function Progs() {
                         </Button>
                     ),
                     headerRight:
-                        id !== "default_1" && id !== "default_2"
+                        typeof id === "string" && !id.startsWith("default_")
                             ? () => (
                                   <Button
                                       variant="secondary"
