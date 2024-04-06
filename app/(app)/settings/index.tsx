@@ -1,17 +1,15 @@
-import { Picker } from "@react-native-picker/picker";
 import { deviceName, osInternalBuildId } from "expo-device";
 import { router } from "expo-router";
 import { deleteItemAsync, setItemAsync } from "expo-secure-store";
-import { useState } from "react";
 import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { Button } from "@/components/ui/button";
 
 import { useAuth } from "@/context/auth";
+import { useRobot } from "@/context/robot";
 import { THEME_KEY, useColorScheme } from "@/lib/color";
 
 import { expo as cfV } from "@/app.json";
-import { useRobot } from "@/context/robot";
 
 interface Mode {
     value: string;
@@ -28,15 +26,9 @@ interface Info {
 
 export default function Settings() {
     const { onLogout, onDelete, authState } = useAuth();
-    const { onConnect, onDisconnect, robotState } = useRobot();
+    const { onDisconnect, robotState } = useRobot();
 
-    const { setColorScheme, colorScheme, isDarkColorScheme } = useColorScheme();
-
-    const [selectedMode, setSelectedMode] = useState<string>("bluetooth");
-    const mode: Mode[] = [
-        { value: "bluetooth", label: "Bluetooth" },
-        { value: "wifi", label: "WiFi" },
-    ];
+    const { setColorScheme, colorScheme } = useColorScheme();
 
     const theme: Theme[] = [
         { value: "light", label: "Clair" },
@@ -65,17 +57,9 @@ export default function Settings() {
                             {robotState.connected ? (
                                 <>
                                     <Text className="mb-5 text-foreground">
-                                        Vous êtes actuellement connecté à votre robot. Si vous rencontrez des problèmes,
-                                        vous pouvez essayer de vous déconnecter et de vous reconnecter pour résoudre
-                                        tout dysfonctionnement éventuel.
+                                        Vous êtes actuellement connecté à votre robot à l'adresse : {robotState.adress}
                                     </Text>
-                                    <Button
-                                        variant="outline"
-                                        onPress={() => {
-                                            onDisconnect();
-                                            // TODO: remove bluetooth or wifi connection
-                                        }}
-                                    >
+                                    <Button variant="outline" onPress={() => onDisconnect(robotState.adress)}>
                                         <Text className="text-foreground">Déconnexion</Text>
                                     </Button>
                                 </>
@@ -85,36 +69,11 @@ export default function Settings() {
                                         Connectez votre robot en scannant un code QR que vous pouvez retrouver sur la
                                         projection à l'allumage du robot.
                                     </Text>
-                                    <Button
-                                        variant="outline"
-                                        onPress={() =>
-                                            router.push({ pathname: "/settings/scan", params: { value: selectedMode } })
-                                        }
-                                    >
+                                    <Button variant="outline" onPress={() => router.push("/settings/scan")}>
                                         <Text className="text-foreground">Scanner le code QR</Text>
                                     </Button>
                                 </>
                             )}
-                        </View>
-                        <View className="border-t border-border p-4">
-                            <Text className="mb-5 text-foreground">
-                                Choisissez le type de connexion à utiliser pour la liaison entre l'application et votre
-                                robot.
-                            </Text>
-                            <View className="rounded-lg border border-border">
-                                <Picker
-                                    selectedValue={selectedMode}
-                                    onValueChange={(itemValue) => setSelectedMode(itemValue)}
-                                    mode="dropdown"
-                                    numberOfLines={1}
-                                    dropdownIconColor={isDarkColorScheme ? "white" : "black"}
-                                    style={{ color: isDarkColorScheme ? "white" : "black" }}
-                                >
-                                    {mode.map((item: Mode, index: number) => (
-                                        <Picker.Item label={item.label} value={item.value} key={index} />
-                                    ))}
-                                </Picker>
-                            </View>
                         </View>
                     </View>
                 </View>

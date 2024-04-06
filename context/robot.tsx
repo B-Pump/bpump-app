@@ -2,9 +2,9 @@ import { deleteItemAsync, getItemAsync, setItemAsync } from "expo-secure-store";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface RobotProps {
-    robotState?: { connected: boolean | null };
-    onConnect?: (mode: string) => Promise<any>;
-    onDisconnect?: () => Promise<any>;
+    robotState?: { adress: string | null; connected: boolean | null };
+    onConnect?: (adress: string) => Promise<any>;
+    onDisconnect?: (adress: string) => Promise<any>;
 }
 
 export const ROBOT_KEY = "robot_jwt";
@@ -17,34 +17,40 @@ export function useRobot() {
 
 export const RobotProvider = ({ children }: any) => {
     const [robotState, setRobotState] = useState<{
+        adress: string | null;
         connected: boolean | null;
     }>({
+        adress: null,
         connected: null,
     });
 
     useEffect(() => {
         const loadToken = async () => {
             const token = await getItemAsync(ROBOT_KEY);
-            if (token) setRobotState({ connected: true });
+            if (token) setRobotState({ adress: token, connected: true });
         };
         loadToken();
     }, []);
 
-    const connect = async (mode: string) => {
+    const connect = async (adress: string) => {
         try {
-            const result = await setItemAsync(ROBOT_KEY, mode);
+            const result = await setItemAsync(ROBOT_KEY, adress);
 
-            setRobotState({ connected: true });
+            // TODO: setup wifi connection
+
+            setRobotState({ adress: adress, connected: true });
             return result;
         } catch (error) {
             return { error: true, msg: error };
         }
     };
 
-    const disconnect = async () => {
+    const disconnect = async (adress: string) => {
         const result = await deleteItemAsync(ROBOT_KEY);
 
-        setRobotState({ connected: false });
+        // TODO: remove wifi connection
+
+        setRobotState({ adress: adress, connected: false });
         return result;
     };
 
