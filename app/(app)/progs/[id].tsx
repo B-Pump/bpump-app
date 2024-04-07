@@ -23,7 +23,7 @@ interface UniqueProg {
 
 export default function Progs() {
     const { authState } = useAuth();
-    const { socketValid } = useSocket();
+    const { socketValid, socketInstance } = useSocket();
     const { id } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
 
@@ -203,7 +203,17 @@ export default function Progs() {
                 <Button
                     onPress={() => {
                         if (socketValid) {
-                            // TODO: start prog
+                            if (socketValid && socketInstance) {
+                                progData.exercises.forEach((exerciseId) => {
+                                    const exoItem = exoData.find((exo) => exo.id === exerciseId);
+                                    if (exoItem) {
+                                        socketInstance.emit("start_exo", {
+                                            type: "prog",
+                                            data: exoItem,
+                                        });
+                                    }
+                                });
+                            }
                         } else router.push("/settings/scan");
                     }}
                 >

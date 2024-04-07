@@ -20,7 +20,7 @@ interface UniqueExo {
 }
 
 export default function Exos() {
-    const { socketValid } = useSocket();
+    const { socketValid, socketInstance } = useSocket();
     const { isDarkColorScheme } = useColorScheme();
 
     const { data, isLoading, error, refetch }: UniqueExo = useFetch("GET", `exos/${useLocalSearchParams().id}`);
@@ -161,7 +161,9 @@ export default function Exos() {
                 <Button
                     onPress={() => {
                         if (socketValid) {
-                            // TODO: Start exo
+                            if (socketValid && socketInstance) {
+                                socketInstance.emit("start_exo", { type: "exo", data: data });
+                            }
                         } else router.push("/settings/scan");
                     }}
                 >

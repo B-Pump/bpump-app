@@ -1,9 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { io } from "socket.io-client";
+import { Socket, io } from "socket.io-client";
 
 interface SocketProps {
     socketAdress?: string | null;
     socketValid?: boolean | null;
+    socketInstance?: Socket | null;
     onConnect?: (address: string) => void;
     onDisconnect?: () => void;
 }
@@ -17,6 +18,7 @@ export function useSocket() {
 export const SocketProvider = ({ children }: any) => {
     const [socketAdress, setSocketAdress] = useState<string>(null);
     const [socketValid, setSocketValid] = useState<boolean>(false);
+    const [socketInstance, setSocketInstance] = useState<Socket>(null);
 
     useEffect(() => {
         if (socketAdress) {
@@ -24,12 +26,12 @@ export const SocketProvider = ({ children }: any) => {
 
             socket.io.on("open", () => {
                 setSocketValid(true);
-                console.log("Connected to", socketAdress);
             });
             socket.io.on("close", () => {
                 setSocketValid(false);
-                console.log("Disconnected from", socketAdress);
             });
+
+            setSocketInstance(socket);
 
             return () => {
                 socket.disconnect();
@@ -47,6 +49,7 @@ export const SocketProvider = ({ children }: any) => {
         onDisconnect: disconnect,
         socketAdress,
         socketValid,
+        socketInstance,
     };
 
     return <SocketContext.Provider value={value}>{children}</SocketContext.Provider>;
