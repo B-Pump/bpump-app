@@ -36,7 +36,8 @@
         "react-native-svg": "14.1.0",
         "socket.io-client": "^4.7.5",
         "tailwind-merge": "^2.2.1",
-        "tailwindcss": "^3.4.1"
+        "tailwindcss": "^3.4.1",
+        "expo-build-properties": "~0.11.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",

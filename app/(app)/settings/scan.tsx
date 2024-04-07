@@ -36,13 +36,15 @@ export default function Scan() {
 
     const handleBarCodeScanned = ({ type, data }) => {
         if (typeof data === "string") {
-            const regex = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}$/;
+            const regex = /https:\/\/[a-z0-9-]+\.ngrok-[a-z]+\.app/g;
 
             if (regex.test(data)) {
                 onConnect(data);
-                router.back();
-            } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à une addresse IP");
+            } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à B-Pump");
+            onConnect(data);
         } else Alert.alert("Erreur", "Merci de scanner un code QR valide");
+
+        router.back();
     };
 
     if (hasPermission === null) {

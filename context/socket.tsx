@@ -20,7 +20,7 @@ export const SocketProvider = ({ children }: any) => {
 
     useEffect(() => {
         if (socketAdress) {
-            const socket = io(`http://${socketAdress}`, { transports: ["websocket"] });
+            const socket = io(socketAdress, { transports: ["websocket"] });
 
             socket.io.on("open", () => {
                 setSocketValid(true);

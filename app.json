@@ -28,7 +28,19 @@
             },
             "package": "com.wiizz.bpumpapp"
         },
-        "plugins": ["expo-router", "expo-font", "expo-secure-store"],
+        "plugins": [
+            "expo-router",
+            "expo-font",
+            "expo-secure-store",
+            [
+                "expo-build-properties",
+                {
+                    "android": {
+                        "usesCleartextTraffic": true
+                    }
+                }
+            ]
+        ],
         "extra": {
             "router": {
                 "origin": false
