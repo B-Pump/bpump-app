@@ -10,8 +10,6 @@ interface Exos {
     security: string[];
     needed: string[];
     calories: number;
-    camera: string;
-    projector: string[];
 }
 
 interface Progs {
