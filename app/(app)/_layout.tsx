@@ -102,6 +102,7 @@ export default function AppLayout() {
                             <Stack.Screen name="settings/index" options={defaultStack} />
                             <Stack.Screen name="exos/[id]" options={defaultStack} />
                             <Stack.Screen name="exos/showall" options={defaultStack} />
+                            <Stack.Screen name="exos/result" options={defaultStack} />
                             <Stack.Screen name="progs/create" options={defaultStack} />
                             <Stack.Screen name="search/[id]" options={defaultStack} />
                         </Stack>

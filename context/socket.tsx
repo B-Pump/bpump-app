@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Socket, io } from "socket.io-client";
 
@@ -29,6 +30,20 @@ export const SocketProvider = ({ children }: any) => {
             });
             socket.io.on("close", () => {
                 setSocketValid(false);
+            });
+
+            socket.on("result", (data: number[]) => {
+                const test = [
+                    // temporary while I make the right data format in bpump-robot
+                    { value: 10, time: 0 },
+                    { value: 20, time: 1 },
+                    { value: 30, time: 2 },
+                    { value: 25, time: 3 },
+                    { value: 35, time: 4 },
+                    { value: 40, time: 5 },
+                    { value: 60, time: 6 },
+                ];
+                router.push({ pathname: "/exos/result", params: { data: JSON.stringify(test) } });
             });
 
             setSocketInstance(socket);
