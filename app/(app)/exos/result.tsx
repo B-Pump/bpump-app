@@ -2,29 +2,26 @@ import { globals } from "@/styles/globals";
 
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
 
 import { useColorScheme } from "@/lib/color";
-import { ScrollView } from "react-native";
-
-interface ChartDataItem {
-    value: number;
-    time: number;
-}
 
 export default function Result() {
     const { data } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
 
-    const [chartData, setChartData] = useState<ChartDataItem[]>([]);
+    const [chartData, setChartData] = useState<ChartDataItem>({
+        message: "",
+        data: [],
+    });
 
     useEffect(() => {
         if (typeof data === "string") {
             try {
                 const parsedData = JSON.parse(data);
 
-                if (Array.isArray(parsedData)) {
+                if (Array.isArray(parsedData.data)) {
                     setChartData(parsedData);
                 } else console.warn("Data is not in tabular form");
             } catch (error) {
@@ -44,7 +41,7 @@ export default function Result() {
                 </View>
                 <View className="my-3">
                     <LineChart
-                        data={chartData}
+                        data={chartData.data}
                         width={300}
                         height={400}
                         thickness={2}
@@ -58,13 +55,7 @@ export default function Result() {
                 </View>
                 <View>
                     <Text className="text-lg font-medium text-foreground">Résumé de votre performance :</Text>
-                    <Text className="text-foreground">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et placeat, non corporis, doloremque
-                        pariatur harum quaerat ipsum, vitae maxime vero animi temporibus perspiciatis sunt corrupti
-                        laudantium dolor totam! Corrupti excepturi, tempore consectetur deleniti doloribus, possimus
-                        eaque libero laudantium, voluptates fugit quaerat in molestiae totam nesciunt neque adipisci.
-                        Accusamus saepe dolorem omnis dicta eligendi tenetur inventore. Minus, dicta? Id, soluta.
-                    </Text>
+                    <Text className="text-foreground">{chartData.message}</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>

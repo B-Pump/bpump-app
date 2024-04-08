@@ -32,17 +32,22 @@ export const SocketProvider = ({ children }: any) => {
                 setSocketValid(false);
             });
 
-            socket.on("result", (data: number[]) => {
-                const test = [
+            socket.on("result", (data: ChartDataItem) => {
+                console.log(data);
+
+                const test = {
                     // temporary while I make the right data format in bpump-robot
-                    { value: 10, time: 0 },
-                    { value: 20, time: 1 },
-                    { value: 30, time: 2 },
-                    { value: 25, time: 3 },
-                    { value: 35, time: 4 },
-                    { value: 40, time: 5 },
-                    { value: 60, time: 6 },
-                ];
+                    message: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+                    data: [
+                        { value: 10, time: 0 },
+                        { value: 20, time: 1 },
+                        { value: 30, time: 2 },
+                        { value: 25, time: 3 },
+                        { value: 35, time: 4 },
+                        { value: 40, time: 5 },
+                        { value: 60, time: 6 },
+                    ],
+                };
                 router.push({ pathname: "/exos/result", params: { data: JSON.stringify(test) } });
             });
 

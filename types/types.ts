@@ -39,3 +39,11 @@ interface ProgsData {
     error: boolean;
     refetch: () => void;
 }
+
+interface ChartDataItem {
+    message: string;
+    data: {
+        value: number;
+        time: number;
+    }[];
+}
