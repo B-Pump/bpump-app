@@ -41,20 +41,26 @@ export default function Result() {
                 </View>
                 <View className="my-3">
                     <LineChart
+                        isAnimated
+                        curved
                         data={chartData.data}
                         width={300}
-                        height={400}
+                        height={350}
                         thickness={2}
-                        initialSpacing={0}
+                        initialSpacing={3}
                         rulesColor={isDarkColorScheme ? "gray" : "gray"}
                         dataPointsColor={isDarkColorScheme ? globals.dark.primary : globals.light.primary}
                         color={isDarkColorScheme ? globals.light.primary : globals.dark.primary}
                         yAxisColor={isDarkColorScheme ? "white" : "black"}
                         xAxisColor={isDarkColorScheme ? "white" : "black"}
+                        yAxisLabelSuffix="N"
                     />
                 </View>
+                <Text className="pb-5 text-center font-semibold">
+                    Force exercée (Newton) en fonction du temps (secondes).
+                </Text>
                 <View>
-                    <Text className="text-lg font-medium text-foreground">Résumé de votre performance :</Text>
+                    <Text className="text-lg font-medium text-foreground">📋​ Résumé de votre performance :</Text>
                     <Text className="text-foreground">{chartData.message}</Text>
                 </View>
             </ScrollView>
