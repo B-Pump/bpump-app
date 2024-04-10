@@ -41,6 +41,7 @@
 
 -   [React-native / Expo](https://docs.expo.dev/)
 -   [Nativewind](https://www.nativewind.dev/v4/overview)
+-   [Zustand](https://zustand-demo.pmnd.rs/)
 
 ## Getting Started
 
@@ -56,9 +57,9 @@ To get a local copy up and running follow these simple steps.
     ```sh
     git clone https://github.com/B-Pump/bpump-app.git
     ```
-2. Install NPM packages
+2. Install Yarn packages
     ```sh
-    npm install
+    yarn
     ```
 
 ## Usage
@@ -66,7 +67,7 @@ To get a local copy up and running follow these simple steps.
 -   Launch the app
 
     ```sh
-    npm run start
+    yarn start
     ```
 
 -   Follow the steps in your terminal
@@ -81,7 +82,7 @@ Distributed under the MIT License. See [`LICENSE`][license-url] for more informa
 
 ## Contact
 
-B-Pump - [b.pump.project@gmail.com](mailto:b.pump.project@gmail.com)
+B-Pump: [b.pump.project@gmail.com](mailto:b.pump.project@gmail.com)
 
 Org Link: [https://github.com/B-Pump](https://github.com/B-Pump)
 

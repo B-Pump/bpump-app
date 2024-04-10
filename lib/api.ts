@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export const API_URL = "https://bpump-api.vercel.app"; // WARNING : do not put any "/" at the end of this url
 
-export default function useFetch(method: Method, endpoint: string, body: any = {}) {
+export function useFetch(method: Method, endpoint: string, body: any = {}) {
     const [data, setData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);

@@ -10,7 +10,7 @@ import { DEFAULT_THEME, THEME_KEY, useColorScheme } from "@/lib/color";
 
 export default function AppLayout() {
     const { isDarkColorScheme, setColorScheme } = useColorScheme();
-    const { authState } = useAuth();
+    const { authenticated } = useAuth();
 
     async function setTheme() {
         type ThemeType = "dark" | "light" | "system";
@@ -22,7 +22,7 @@ export default function AppLayout() {
         }
     }
 
-    if (authState.authenticated) {
+    if (authenticated) {
         setTheme();
         return <Redirect href="/" />;
     } else setColorScheme(DEFAULT_THEME);

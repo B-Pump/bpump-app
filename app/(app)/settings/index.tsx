@@ -25,7 +25,7 @@ interface Info {
 }
 
 export default function Settings() {
-    const { onLogout, onDelete, authState } = useAuth();
+    const { logout, token } = useAuth();
     const { onDisconnect, socketValid, socketAdress } = useSocket();
 
     const { setColorScheme, colorScheme } = useColorScheme();
@@ -128,7 +128,7 @@ export default function Settings() {
                                 variant="outline"
                                 onPress={() => {
                                     deleteItemAsync(THEME_KEY);
-                                    onLogout();
+                                    logout();
                                 }}
                             >
                                 <Text className="text-foreground">Vous déconnecter</Text>
@@ -154,7 +154,7 @@ export default function Settings() {
                                                 text: "Confirmer",
                                                 onPress: () => {
                                                     deleteItemAsync(THEME_KEY);
-                                                    onDelete(authState.token);
+                                                    // delete(token);
                                                 },
                                                 style: "destructive",
                                             },

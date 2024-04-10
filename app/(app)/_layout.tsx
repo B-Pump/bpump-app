@@ -16,9 +16,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function AppLayout() {
     const { isDarkColorScheme } = useColorScheme();
-    const { authState } = useAuth();
+    const { authenticated } = useAuth();
 
-    if (!authState?.authenticated) return <Redirect href="/auth/" />;
+    if (!authenticated) return <Redirect href="/auth/" />;
 
     const lightTheme: Theme = {
         dark: false,

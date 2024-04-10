@@ -11,14 +11,14 @@ import { useAuth } from "@/context/auth";
 import { DEFAULT_THEME, THEME_KEY } from "@/lib/color";
 
 export default function Register() {
-    const { onRegister, onLogin } = useAuth();
+    const { register, login } = useAuth();
 
     const [loading, setLoading] = useState<boolean>(false);
 
     const [username, setUsername] = useState<string>(null);
     const [password, setPassword] = useState<string>(null);
 
-    const register = async () => {
+    const onRegister = async () => {
         if (username && password) {
             setLoading(true);
 
@@ -26,11 +26,11 @@ export default function Register() {
             const passwordRegex = /^[a-zA-Z0-9@#$%^&*]+$/;
 
             if (usernameRegex.test(username.trim()) && passwordRegex.test(password.trim())) {
-                const result = await onRegister!(username, password);
+                const result = await register!(username, password);
                 if (result && result.error) {
                     Alert.alert("Erreur", result.msg);
                 } else {
-                    const result = await onLogin!(username, password);
+                    const result = await login!(username, password);
 
                     if (result && result.error) {
                         Alert.alert("Erreur", "Veuillez réessayer");
@@ -75,7 +75,7 @@ export default function Register() {
                 <Image source="https://i.ibb.co/GVMtQbx/1.png" style={{ width: "100%", height: 500 }} />
             </View>
             <View className="py-3">
-                <Button onPress={register} disabled={loading}>
+                <Button onPress={onRegister} disabled={loading}>
                     <Text className="text-accent">Créer un compte</Text>
                 </Button>
             </View>

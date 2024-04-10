@@ -11,18 +11,18 @@ import { useAuth } from "@/context/auth";
 import { DEFAULT_THEME, THEME_KEY } from "@/lib/color";
 
 export default function Login() {
-    const { onLogin } = useAuth();
+    const { login } = useAuth();
 
     const [loading, setLoading] = useState<boolean>(false);
 
     const [username, setUsername] = useState<string>(null);
     const [password, setPassword] = useState<string>(null);
 
-    const login = async () => {
+    const onLogin = async () => {
         if (username && password) {
             setLoading(true);
 
-            const result = await onLogin!(username, password);
+            const result = await login!(username, password);
             if (result && result.error) {
                 Alert.alert("Erreur", "Identifiants invalides");
             } else {
@@ -62,7 +62,7 @@ export default function Login() {
                 <Image source="https://i.ibb.co/JQqkK4k/3.png" style={{ width: "100%", height: 500 }} />
             </View>
             <View className="py-3">
-                <Button onPress={login} disabled={loading}>
+                <Button onPress={onLogin} disabled={loading}>
                     <Text className="text-accent">Vous connecter</Text>
                 </Button>
             </View>

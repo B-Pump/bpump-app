@@ -8,7 +8,6 @@ import { Wifi } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 
-import { AuthProvider } from "@/context/auth";
 import { useColorScheme } from "@/lib/color";
 
 SplashScreen.preventAutoHideAsync();
@@ -35,7 +34,7 @@ export default function RootLayout() {
     if (!fontsLoaded && !fontError) return null;
 
     return (
-        <AuthProvider>
+        <>
             {isConnected ? (
                 <Slot />
             ) : (
@@ -57,6 +56,6 @@ export default function RootLayout() {
                 </SafeAreaView>
             )}
             <StatusBar style={isDarkColorScheme ? "dark" : "light"} />
-        </AuthProvider>
+        </>
     );
 }

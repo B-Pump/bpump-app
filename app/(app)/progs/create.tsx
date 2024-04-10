@@ -2,7 +2,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import axios from "axios";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
-import { ActivityIndicator, Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { Sheet } from "@/components/progs-sheet";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "@/context/auth";
-import useFetch, { API_URL } from "@/lib/api";
+import { useDataStore } from "@/context/data";
+import { API_URL } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
 interface ExosList {
@@ -19,10 +20,9 @@ interface ExosList {
 }
 
 export default function CreateProgs() {
-    const { authState } = useAuth();
+    const { exos } = useDataStore();
+    const { token } = useAuth();
     const { isDarkColorScheme } = useColorScheme();
-
-    const { data, isLoading, error }: ExosData = useFetch("GET", "exos/all");
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -37,8 +37,8 @@ export default function CreateProgs() {
     const exoRef = useRef<BottomSheetModal>(null);
 
     let categoryData = [];
-    if (Array.isArray(data) && !isLoading && !error) {
-        const uniqueCategories = new Set(data.map((item) => item.category));
+    if (Array.isArray(exos)) {
+        const uniqueCategories = new Set(exos.map((item) => item.category));
         categoryData = [...uniqueCategories];
     }
 
@@ -49,9 +49,9 @@ export default function CreateProgs() {
                 if (newDiff >= 1 && newDiff <= 5) {
                     setLoading(true);
 
-                    await axios.post(`${API_URL}/add_program?username=${authState.token}`, {
+                    await axios.post(`${API_URL}/add_program?username=${token}`, {
                         id: title.toLowerCase(),
-                        owner: authState.token,
+                        owner: token,
                         icon: icon,
                         title: title,
                         description: description,
@@ -160,25 +160,19 @@ export default function CreateProgs() {
                     <Text className="text-xl font-bold text-foreground">Veuillez sélectionner une catégorie</Text>
                 </View>
                 <View className="flex flex-row flex-wrap justify-center">
-                    {isLoading ? (
-                        <ActivityIndicator size="large" color={isDarkColorScheme ? "white" : "black"} />
-                    ) : error ? (
-                        <Text>Erreur lors du chargement des exercices</Text>
-                    ) : data ? (
-                        categoryData.map((item: string, index: number) => (
-                            <View className="m-1" key={index}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        if (category === item) {
-                                            setCategory(null);
-                                        } else setCategory(item);
-                                    }}
-                                >
-                                    <Badge variant={category === item ? "success" : "outline"} label={item} />
-                                </TouchableOpacity>
-                            </View>
-                        ))
-                    ) : null}
+                    {categoryData.map((item: string, index: number) => (
+                        <View className="m-1" key={index}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (category === item) {
+                                        setCategory(null);
+                                    } else setCategory(item);
+                                }}
+                            >
+                                <Badge variant={category === item ? "success" : "outline"} label={item} />
+                            </TouchableOpacity>
+                        </View>
+                    ))}
                 </View>
             </Sheet>
             <Sheet ref={exoRef} snap={["35%", "60%"]}>
@@ -186,34 +180,26 @@ export default function CreateProgs() {
                     <Text className="text-xl font-bold text-foreground">Veuillez sélectionner des exercices</Text>
                 </View>
                 <View className="flex flex-row flex-wrap justify-center">
-                    {isLoading ? (
-                        <ActivityIndicator size="large" color={isDarkColorScheme ? "white" : "black"} />
-                    ) : error ? (
-                        <Text>Erreur lors du chargement des exercices</Text>
-                    ) : data ? (
-                        data.map((item: Exos, index: number) => (
-                            <View className="m-1" key={index}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        if (exercises.some((exercise: ExosList) => exercise.id === item.id)) {
-                                            setExercices(
-                                                exercises.filter((exercise: ExosList) => exercise.id !== item.id),
-                                            );
-                                        } else setExercices([...exercises, { id: item.id, title: item.title }]);
-                                    }}
-                                >
-                                    <Badge
-                                        variant={
-                                            exercises.some((exercise: ExosList) => exercise.id === item.id)
-                                                ? "success"
-                                                : "outline"
-                                        }
-                                        label={item.title}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                        ))
-                    ) : null}
+                    {exos.map((item: Exos, index: number) => (
+                        <View className="m-1" key={index}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (exercises.some((exercise: ExosList) => exercise.id === item.id)) {
+                                        setExercices(exercises.filter((exercise: ExosList) => exercise.id !== item.id));
+                                    } else setExercices([...exercises, { id: item.id, title: item.title }]);
+                                }}
+                            >
+                                <Badge
+                                    variant={
+                                        exercises.some((exercise: ExosList) => exercise.id === item.id)
+                                            ? "success"
+                                            : "outline"
+                                    }
+                                    label={item.title}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    ))}
                 </View>
                 {/* TODO: Drag & drop to change exos order */}
                 {/* <View className="mt-5 flex-row justify-center">

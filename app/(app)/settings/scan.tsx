@@ -41,7 +41,6 @@ export default function Scan() {
             if (regex.test(data)) {
                 onConnect(data);
             } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à B-Pump");
-            onConnect(data);
         } else Alert.alert("Erreur", "Merci de scanner un code QR valide");
 
         router.back();

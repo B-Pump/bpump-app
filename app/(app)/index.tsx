@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { Search } from "lucide-react-native";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FlatList, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ExosCard, ProgsCard } from "@/components/data-card";
@@ -10,11 +10,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "@/context/auth";
-import useFetch from "@/lib/api";
+import { useDataStore } from "@/context/data";
+import { useFetch } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
 export default function App() {
-    const { authState } = useAuth();
+    const { exos, progs, setExos, setProgs } = useDataStore();
+    const { token } = useAuth();
     const { isDarkColorScheme } = useColorScheme();
 
     const [searchTerm, setSearchTerm] = useState<string>(null);
@@ -30,7 +32,12 @@ export default function App() {
         isLoading: progsLoad,
         error: progsError,
         refetch: progsRefetch,
-    }: ProgsData = useFetch("GET", `progs/all?username=${authState.token}`);
+    }: ProgsData = useFetch("GET", `progs/all?username=${token}`);
+
+    useEffect(() => {
+        setExos(exosData);
+        setProgs(progsData);
+    }, [exosData, progsData]);
 
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {
@@ -67,7 +74,7 @@ export default function App() {
                 <View>
                     <View className="mt-3">
                         <Text className="text-2xl text-foreground">
-                            {sayHello()} {authState.token.charAt(0).toUpperCase() + authState.token.slice(1)} !
+                            {sayHello()} {token && token.charAt(0).toUpperCase() + token.slice(1)} !
                         </Text>
                         <Text className="text-3xl font-semibold leading-tight text-foreground">
                             Trouvez votre programme d'entraînement parfait !
@@ -148,9 +155,9 @@ export default function App() {
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
-                                data={progsData}
+                                data={progs}
                                 renderItem={({ item, index }: { item: Progs; index: number }) => (
-                                    <ProgsCard data={item} isLoading={progsLoad} error={progsError} key={index} />
+                                    <ProgsCard data={item} key={index} />
                                 )}
                                 keyExtractor={(item) => item.id.toString()}
                                 contentContainerStyle={{ columnGap: 7 }}
@@ -172,12 +179,12 @@ export default function App() {
                         ) : exosError ? (
                             <Text className="text-foreground">Erreur lors du chargement des exercices</Text>
                         ) : (
-                            exosData
+                            exos
                                 ?.sort(() => Math.random() - 0.5)
                                 .slice(0, 3)
                                 .map((item: Exos, index: number) => (
                                     <View className="py-1" key={index}>
-                                        <ExosCard data={item} isLoading={exosLoad} error={exosError} />
+                                        <ExosCard data={item} />
                                     </View>
                                 ))
                         )}

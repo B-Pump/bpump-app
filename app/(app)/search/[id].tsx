@@ -1,15 +1,13 @@
 import { useLocalSearchParams } from "expo-router";
-import { useCallback, useState } from "react";
-import { RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import { ExosCard } from "@/components/data-card";
-import { ExosSkeletonList } from "@/components/data-skeleton";
 
-import useFetch from "@/lib/api";
+import { useDataStore } from "@/context/data";
 
 export default function Search() {
+    const { exos } = useDataStore();
     const { id } = useLocalSearchParams();
-    const { data, isLoading, error, refetch }: ExosData = useFetch("GET", "exos/all");
 
     const normalizeString = (str: string): string => {
         return str
@@ -18,7 +16,7 @@ export default function Search() {
             .toLowerCase();
     };
 
-    const filteredData = data?.filter((item: Exos) => {
+    const filteredData = exos?.filter((item: Exos) => {
         const title = item?.title || "";
         const description = item?.description || "";
         const category = item?.category || "";
@@ -31,19 +29,9 @@ export default function Search() {
         return matchKeyword(title) || matchKeyword(description) || matchKeyword(category);
     });
 
-    const [refreshing, setRefreshing] = useState<boolean>(false);
-    const onRefresh = useCallback(() => {
-        setRefreshing(true);
-        refetch();
-        setRefreshing(false);
-    }, [setRefreshing, refetch]);
-
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-            >
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mt-3">
                     <Text className="text-2xl text-foreground">{id}</Text>
                     <Text className="text-3xl font-semibold leading-tight text-foreground">
@@ -51,14 +39,10 @@ export default function Search() {
                     </Text>
                 </View>
                 <View className="my-3">
-                    {isLoading ? (
-                        <ExosSkeletonList count={6} />
-                    ) : error ? (
-                        <Text className="text-foreground">Erreur lors du chargement du contenu de votre recherche</Text>
-                    ) : filteredData && filteredData.length > 0 ? (
+                    {filteredData && filteredData.length > 0 ? (
                         filteredData?.map((item: Exos, index: number) => (
                             <View className="py-1" key={index}>
-                                <ExosCard data={item} isLoading={isLoading} error={error} />
+                                <ExosCard data={item} />
                             </View>
                         ))
                     ) : (
