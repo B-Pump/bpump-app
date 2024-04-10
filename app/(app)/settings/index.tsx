@@ -11,10 +11,6 @@ import { THEME_KEY, useColorScheme } from "@/lib/color";
 
 import { expo as cfV } from "@/app.json";
 
-interface Mode {
-    value: string;
-    label: string;
-}
 interface Theme {
     value: "dark" | "system" | "light";
     label: string;
@@ -25,7 +21,7 @@ interface Info {
 }
 
 export default function Settings() {
-    const { logout, token } = useAuth();
+    const { logout, remove, token } = useAuth();
     const { onDisconnect, socketValid, socketAdress } = useSocket();
 
     const { setColorScheme, colorScheme } = useColorScheme();
@@ -154,7 +150,7 @@ export default function Settings() {
                                                 text: "Confirmer",
                                                 onPress: () => {
                                                     deleteItemAsync(THEME_KEY);
-                                                    // delete(token);
+                                                    remove(token);
                                                 },
                                                 style: "destructive",
                                             },

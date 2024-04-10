@@ -11,7 +11,7 @@ type AuthStore = {
     register: (username: string, password: string) => Promise<any>;
     login: (username: string, password: string) => Promise<any>;
     logout: () => Promise<void>;
-    delete: (username: string) => Promise<any>;
+    remove: (username: string) => Promise<any>;
     initialize: () => void;
 };
 
@@ -46,7 +46,7 @@ const useAuthStore = create<AuthStore>((set, get) => ({
         axios.defaults.headers.common["Authorization"] = "";
         set({ token: null, authenticated: false });
     },
-    delete: async (username: string) => {
+    remove: async (username: string) => {
         try {
             const response = await axios.delete(`${API_URL}/delete?username=${username}`);
             get().logout;

@@ -16,6 +16,8 @@ export function useSocket() {
     return useContext(SocketContext);
 }
 
+// TODO: use zustang to manage socket states
+
 export const SocketProvider = ({ children }: any) => {
     const [socketAdress, setSocketAdress] = useState<string>(null);
     const [socketValid, setSocketValid] = useState<boolean>(false);
