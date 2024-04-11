@@ -22,7 +22,7 @@ interface Info {
 
 export default function Settings() {
     const { logout, remove, token } = useAuth();
-    const { onDisconnect, socketValid, socketAdress } = useSocket();
+    const { disconnect, socketValid, socketAdress } = useSocket();
 
     const { setColorScheme, colorScheme } = useColorScheme();
 
@@ -55,7 +55,7 @@ export default function Settings() {
                                     <Text className="mb-5 text-foreground">
                                         Vous êtes actuellement connecté à l'addresse : {"\n" + socketAdress}
                                     </Text>
-                                    <Button variant="outline" onPress={onDisconnect}>
+                                    <Button variant="outline" onPress={disconnect}>
                                         <Text className="text-foreground">Déconnexion</Text>
                                     </Button>
                                 </>

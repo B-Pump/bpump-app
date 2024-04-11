@@ -16,7 +16,7 @@ export default function Search() {
             .toLowerCase();
     };
 
-    const filteredData = exos?.filter((item: Exos) => {
+    const filteredData = exos?.filter((item: ExoItem) => {
         const title = item?.title || "";
         const description = item?.description || "";
         const category = item?.category || "";
@@ -40,7 +40,7 @@ export default function Search() {
                 </View>
                 <View className="my-3">
                     {filteredData && filteredData.length > 0 ? (
-                        filteredData?.map((item: Exos, index: number) => (
+                        filteredData?.map((item: ExoItem, index: number) => (
                             <View className="py-1" key={index}>
                                 <ExosCard data={item} />
                             </View>

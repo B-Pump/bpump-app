@@ -180,7 +180,7 @@ export default function CreateProgs() {
                     <Text className="text-xl font-bold text-foreground">Veuillez sélectionner des exercices</Text>
                 </View>
                 <View className="flex flex-row flex-wrap justify-center">
-                    {exos.map((item: Exos, index: number) => (
+                    {exos.map((item: ExoItem, index: number) => (
                         <View className="m-1" key={index}>
                             <TouchableOpacity
                                 onPress={() => {

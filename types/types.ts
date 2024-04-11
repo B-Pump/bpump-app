@@ -1,4 +1,4 @@
-interface Exos {
+interface ExoItem {
     id: string;
     icon: string;
     title: string;
@@ -12,7 +12,7 @@ interface Exos {
     calories: number;
 }
 
-interface Progs {
+interface ProgItem {
     id: string;
     owner: string;
     icon: string;
@@ -22,20 +22,6 @@ interface Progs {
     difficulty: number;
     hint: string[];
     exercises: string[];
-}
-
-interface ExosData {
-    data: Exos[];
-    isLoading: boolean;
-    error: boolean;
-    refetch: () => void;
-}
-
-interface ProgsData {
-    data: Progs[];
-    isLoading: boolean;
-    error: boolean;
-    refetch: () => void;
 }
 
 interface ChartDataItem {

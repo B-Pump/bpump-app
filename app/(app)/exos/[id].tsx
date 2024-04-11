@@ -14,7 +14,7 @@ import { useColorScheme } from "@/lib/color";
 
 export default function Exos() {
     const { exos } = useDataStore();
-    const data = exos.find((exo: Exos) => exo.id === useLocalSearchParams().id);
+    const exoData = exos.find((exo: ExoItem) => exo.id === useLocalSearchParams().id);
 
     const { socketValid, socketInstance } = useSocket();
     const { isDarkColorScheme } = useColorScheme();
@@ -39,20 +39,20 @@ export default function Exos() {
                     <View className="items-center justify-between rounded-xl">
                         <Image
                             style={{ width: 70, height: 70, borderRadius: 10 }}
-                            source={data?.icon || "https://urlz.fr/q5qm"}
+                            source={exoData?.icon || "https://urlz.fr/q5qm"}
                             contentFit="fill"
                         />
                     </View>
                     <View className="mt-3">
                         <Text className="text-center text-2xl font-medium text-foreground">
-                            Exercice - {data?.title}
+                            Exercice - {exoData?.title}
                         </Text>
                     </View>
                     <View className="mt-3 flex-row items-center justify-center">
-                        <Text className="text-lg text-foreground">{data?.category} | </Text>
+                        <Text className="text-lg text-foreground">{exoData?.category} | </Text>
                         <View className="flex-row items-center justify-center">
                             <Star size={15} color={isDarkColorScheme ? "white" : "black"} />
-                            <Text className="ml-1 text-foreground">{data?.difficulty}/5</Text>
+                            <Text className="ml-1 text-foreground">{exoData?.difficulty}/5</Text>
                         </View>
                     </View>
                 </View>
@@ -68,12 +68,12 @@ export default function Exos() {
                                     <View className="my-2">
                                         <Text className="mb-3 text-foreground">📜​ Description :</Text>
                                         <Text className="text-muted-foreground">
-                                            {data?.description ?? "Aucune données"}
+                                            {exoData?.description ?? "Aucune données"}
                                         </Text>
                                     </View>
                                     <View className="my-2">
                                         <Text className="mb-3 text-foreground">💪🏻​​ Muscles sollicités :</Text>
-                                        {data?.muscles?.map((item: string, index: number) => (
+                                        {exoData?.muscles?.map((item: string, index: number) => (
                                             <Text className="text-muted-foreground" key={index}>
                                                 {"\u2022 "}
                                                 {item ?? "Aucune données"}
@@ -82,7 +82,7 @@ export default function Exos() {
                                     </View>
                                     <View className="my-2">
                                         <Text className="mb-3 text-foreground">🔐​ Consignes de sécurité :</Text>
-                                        {data?.security?.map((item: string, index: number) => (
+                                        {exoData?.security?.map((item: string, index: number) => (
                                             <Text className="text-muted-foreground" key={index}>
                                                 {"\u2022 "}
                                                 {item ?? "Aucune données"}
@@ -91,7 +91,7 @@ export default function Exos() {
                                     </View>
                                     <View className="my-2">
                                         <Text className="mb-3 text-foreground">🏋️ Préréquis :</Text>
-                                        {data?.needed?.map((item: string, index: number) => (
+                                        {exoData?.needed?.map((item: string, index: number) => (
                                             <Text className="text-muted-foreground" key={index}>
                                                 {"\u2022 "}
                                                 {item ?? "Aucune données"}
@@ -101,7 +101,7 @@ export default function Exos() {
                                     <View className="my-2">
                                         <Text className="mb-3 text-foreground">🤸​ Dépenses énergétiques :</Text>
                                         <Text className="text-muted-foreground">
-                                            Calories brulées pour 10 reps : {data?.calories ?? "Aucune donnée"} kcal
+                                            Calories brulées pour 10 reps : {exoData?.calories ?? "Aucune donnée"} kcal
                                         </Text>
                                     </View>
                                 </View>
@@ -115,7 +115,7 @@ export default function Exos() {
                                         <Video
                                             ref={videoRef}
                                             source={{
-                                                uri: data?.video || "https://urlz.fr/q5e8",
+                                                uri: exoData?.video || "https://urlz.fr/q5e8",
                                             }}
                                             style={styles.video}
                                             useNativeControls
@@ -134,7 +134,7 @@ export default function Exos() {
                     onPress={() => {
                         if (socketValid) {
                             if (socketValid && socketInstance) {
-                                socketInstance.emit("start_exo", { type: "exo", data: data });
+                                socketInstance.emit("start_exo", { type: "exo", data: exoData });
                             }
                         } else router.push("/settings/scan");
                     }}

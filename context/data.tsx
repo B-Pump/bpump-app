@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
 type DataStoreType = {
-    exos: Exos[];
-    progs: Progs[];
-    setExos: (exos: Exos[]) => void;
-    setProgs: (exos: Progs[]) => void;
+    exos: ExoItem[];
+    progs: ProgItem[];
+    setExos: (exos: ExoItem[]) => void;
+    setProgs: (exos: ProgItem[]) => void;
 };
 
 export const useDataStore = create<DataStoreType>((set) => ({

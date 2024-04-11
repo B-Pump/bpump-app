@@ -6,7 +6,7 @@ import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
 import { useSocket } from "@/context/socket";
 
 export default function Scan() {
-    const { onConnect } = useSocket();
+    const { connect } = useSocket();
 
     const { width, height } = Dimensions.get("window");
     const qrSize = Math.min(width, height) * 0.7 + 50;
@@ -39,7 +39,7 @@ export default function Scan() {
             const regex = /https:\/\/[a-z0-9-]+\.ngrok-[a-z]+\.app/g;
 
             if (regex.test(data)) {
-                onConnect(data);
+                connect(data);
             } else Alert.alert("Scanneur", "Ce code QR ne correspond pas à B-Pump");
         } else Alert.alert("Erreur", "Merci de scanner un code QR valide");
 

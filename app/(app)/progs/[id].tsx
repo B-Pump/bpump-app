@@ -16,7 +16,7 @@ import { useColorScheme } from "@/lib/color";
 
 export default function Progs() {
     const { exos, progs } = useDataStore();
-    const data = progs.find((prog: Progs) => prog.id === useLocalSearchParams().id);
+    const progData = progs.find((prog: ProgItem) => prog.id === useLocalSearchParams().id);
 
     const { token } = useAuth();
     const { socketValid, socketInstance } = useSocket();
@@ -82,20 +82,20 @@ export default function Progs() {
                     <View className="items-center justify-between rounded-xl">
                         <Image
                             style={{ width: 70, height: 70, borderRadius: 10 }}
-                            source={data?.icon || "https://urlz.fr/q5qt"}
+                            source={progData?.icon || "https://urlz.fr/q5qt"}
                             contentFit="fill"
                         />
                     </View>
                     <View className="mt-3">
                         <Text className="text-center text-2xl font-medium text-foreground">
-                            Programme - {data?.title}
+                            Programme - {progData?.title}
                         </Text>
                     </View>
                     <View className="mt-3 flex-row items-center justify-center">
-                        <Text className="text-lg text-foreground">{data?.category} | </Text>
+                        <Text className="text-lg text-foreground">{progData?.category} | </Text>
                         <View className="flex-row items-center justify-center">
                             <Star size={15} color={isDarkColorScheme ? "white" : "black"} />
-                            <Text className="ml-1 text-foreground">{data?.difficulty}/5</Text>
+                            <Text className="ml-1 text-foreground">{progData?.difficulty}/5</Text>
                         </View>
                     </View>
                 </View>
@@ -111,12 +111,12 @@ export default function Progs() {
                                     <View className="my-2">
                                         <Text className="mb-3 text-foreground">📜​ Description :</Text>
                                         <Text className="text-muted-foreground">
-                                            {data?.description ?? "Aucune données"}
+                                            {progData?.description ?? "Aucune données"}
                                         </Text>
                                     </View>
                                     <View className="my-2">
                                         <Text className="mb-3 text-foreground">🔎 Conseils :</Text>
-                                        {data?.hint?.map((item: string, index: number) => (
+                                        {progData?.hint?.map((item: string, index: number) => (
                                             <Text className="text-muted-foreground" key={index}>
                                                 {"\u2022 "}
                                                 {item ?? "Aucune données"}
@@ -130,9 +130,9 @@ export default function Progs() {
                                         Catalogue de ce programme
                                     </Text>
                                     <View>
-                                        {data?.exercises?.map((item: string, index: number) => {
+                                        {progData?.exercises?.map((item: string, index: number) => {
                                             if (exos) {
-                                                const exoItem = exos.find((exo: Exos) => exo.id === item);
+                                                const exoItem = exos.find((exo: ExoItem) => exo.id === item);
 
                                                 return (
                                                     <View key={index}>
@@ -161,7 +161,7 @@ export default function Progs() {
                     onPress={() => {
                         if (socketValid) {
                             if (socketValid && socketInstance) {
-                                data.exercises.forEach((exerciseId) => {
+                                progData.exercises.forEach((exerciseId) => {
                                     const exoItem = exos.find((exo) => exo.id === exerciseId);
                                     if (exoItem) {
                                         socketInstance.emit("start_exo", {

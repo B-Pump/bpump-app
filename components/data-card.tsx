@@ -2,7 +2,7 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
-export function ExosCard({ data }: { data: Exos }) {
+export function ExosCard({ data }: { data: ExoItem }) {
     return (
         <TouchableOpacity onPress={() => router.push(`/exos/${data?.id}`)}>
             <View className="flex-row rounded-lg border border-border bg-background p-6">
@@ -27,7 +27,7 @@ export function ExosCard({ data }: { data: Exos }) {
     );
 }
 
-export function ProgsCard({ data }: { data: Progs }) {
+export function ProgsCard({ data }: { data: ProgItem }) {
     return (
         <TouchableOpacity onPress={() => router.push(`/progs/${data?.id}`)}>
             <View className="w-[300px] rounded-lg border border-border bg-background p-6">

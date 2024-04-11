@@ -8,7 +8,7 @@ import { useDataStore } from "@/context/data";
 export default function ShowallExos() {
     const { exos: data } = useDataStore();
 
-    const tabs: string[] = ["Tout", ...(data ? [...new Set(data.map((item: Exos) => item?.category))] : [])];
+    const tabs: string[] = ["Tout", ...(data ? [...new Set(data.map((item: ExoItem) => item?.category))] : [])];
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
@@ -25,7 +25,7 @@ export default function ShowallExos() {
                         <TabsContent value={tab} key={index}>
                             {tab === "Tout" ? (
                                 <>
-                                    {data?.map((item: Exos, index: number) => (
+                                    {data?.map((item: ExoItem, index: number) => (
                                         <View className="py-1" key={index}>
                                             <ExosCard data={item} />
                                         </View>
@@ -33,7 +33,7 @@ export default function ShowallExos() {
                                 </>
                             ) : (
                                 <>
-                                    {data?.map((item: Exos, index: number) => {
+                                    {data?.map((item: ExoItem, index: number) => {
                                         if (item?.category === tab) {
                                             return (
                                                 <View className="py-1" key={index}>

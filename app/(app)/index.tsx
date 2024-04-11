@@ -4,15 +4,28 @@ import { useCallback, useEffect, useState } from "react";
 import { FlatList, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ExosCard, ProgsCard } from "@/components/data-card";
-import { CategorySkeletonList, ExosSkeletonList, ProgsSkeletonList } from "@/components/data-skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { useAuth } from "@/context/auth";
 import { useDataStore } from "@/context/data";
 import { useFetch } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
+
+interface ExosFetch {
+    data: ExoItem[];
+    isLoading: boolean;
+    error: boolean;
+    refetch: () => void;
+}
+interface ProgsFetch {
+    data: ProgItem[];
+    isLoading: boolean;
+    error: boolean;
+    refetch: () => void;
+}
 
 export default function App() {
     const { exos, progs, setExos, setProgs } = useDataStore();
@@ -26,13 +39,13 @@ export default function App() {
         isLoading: exosLoad,
         error: exosError,
         refetch: exosRefetch,
-    }: ExosData = useFetch("GET", "exos/all");
+    }: ExosFetch = useFetch("GET", "exos/all");
     const {
         data: progsData,
         isLoading: progsLoad,
         error: progsError,
         refetch: progsRefetch,
-    }: ProgsData = useFetch("GET", `progs/all?username=${token}`);
+    }: ProgsFetch = useFetch("GET", `progs/all?username=${token}`);
 
     useEffect(() => {
         setExos(exosData);
@@ -109,10 +122,17 @@ export default function App() {
                     <View className="my-3">
                         {exosLoad ? (
                             <View className="flex-row">
-                                <CategorySkeletonList count={4} />
+                                <>
+                                    {Array.from({ length: 4 }).map((_, index: number) => (
+                                        <Skeleton key={index} className="mr-2 h-8 w-28 rounded-full" />
+                                    ))}
+                                </>
                             </View>
                         ) : exosError ? (
-                            <Text className="text-foreground">Erreur lors du chargement des badges de recherche</Text>
+                            <Text className="text-foreground">
+                                Erreur lors du chargement des badges de recherche. Redémarrer l'application devrait
+                                résoudre ce problème.
+                            </Text>
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
@@ -148,15 +168,35 @@ export default function App() {
                     <View>
                         {progsLoad ? (
                             <View className="flex-row">
-                                <ProgsSkeletonList count={2} />
+                                <>
+                                    {Array.from({ length: 2 }).map((_, index: number) => (
+                                        <View key={index} className="mr-2">
+                                            <View className="w-[300px] rounded-lg border border-border p-6">
+                                                <View className="justify-between rounded-xl">
+                                                    <Skeleton className="size-14" />
+                                                </View>
+                                                <View className="mt-5">
+                                                    <Skeleton className="h-5 w-[250px]" />
+                                                </View>
+                                                <View className="mt-5">
+                                                    <Skeleton className="mb-3 h-5 w-[120px]" />
+                                                    <Skeleton className="h-5 w-[100px]" />
+                                                </View>
+                                            </View>
+                                        </View>
+                                    ))}
+                                </>
                             </View>
                         ) : progsError ? (
-                            <Text className="text-foreground">Erreur lors du chargement des programmes</Text>
+                            <Text className="text-foreground">
+                                Erreur lors du chargement des programmes. Redémarrer l'application devrait résoudre ce
+                                problème.
+                            </Text>
                         ) : (
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
                                 data={progs}
-                                renderItem={({ item, index }: { item: Progs; index: number }) => (
+                                renderItem={({ item, index }: { item: ProgItem; index: number }) => (
                                     <ProgsCard data={item} key={index} />
                                 )}
                                 keyExtractor={(item) => item.id.toString()}
@@ -175,14 +215,31 @@ export default function App() {
                     </View>
                     <View>
                         {exosLoad ? (
-                            <ExosSkeletonList count={2} />
+                            <>
+                                {Array.from({ length: 2 }).map((_, index: number) => (
+                                    <View key={index} className="my-1">
+                                        <View className="flex-row rounded-lg border border-border p-6">
+                                            <View className="items-center justify-between rounded-xl">
+                                                <Skeleton className="size-14" />
+                                            </View>
+                                            <View className="ml-7 justify-center">
+                                                <Skeleton className="mb-3 h-5 w-[120px]" />
+                                                <Skeleton className="h-5 w-[100px]" />
+                                            </View>
+                                        </View>
+                                    </View>
+                                ))}
+                            </>
                         ) : exosError ? (
-                            <Text className="text-foreground">Erreur lors du chargement des exercices</Text>
+                            <Text className="text-foreground">
+                                Erreur lors du chargement des exercices. Redémarrer l'application devrait résoudre ce
+                                problème.
+                            </Text>
                         ) : (
                             exos
                                 ?.sort(() => Math.random() - 0.5)
                                 .slice(0, 3)
-                                .map((item: Exos, index: number) => (
+                                .map((item: ExoItem, index: number) => (
                                     <View className="py-1" key={index}>
                                         <ExosCard data={item} />
                                     </View>

@@ -2,13 +2,13 @@ import { router } from "expo-router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Socket, io } from "socket.io-client";
 
-interface SocketProps {
+type SocketProps = {
     socketAdress?: string | null;
     socketValid?: boolean | null;
     socketInstance?: Socket | null;
-    onConnect?: (address: string) => void;
-    onDisconnect?: () => void;
-}
+    connect?: (address: string) => void;
+    disconnect?: () => void;
+};
 
 const SocketContext = createContext<SocketProps>({});
 
@@ -48,8 +48,8 @@ export const SocketProvider = ({ children }: any) => {
     const disconnect = () => setSocketAdress(null);
 
     const value = {
-        onConnect: connect,
-        onDisconnect: disconnect,
+        connect,
+        disconnect,
         socketAdress,
         socketValid,
         socketInstance,
