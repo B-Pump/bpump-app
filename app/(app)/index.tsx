@@ -65,19 +65,6 @@ export default function App() {
         return hour >= 6 && hour < 18 ? "Bonjour" : "Bonsoir";
     };
 
-    // const test = {
-    //     message: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, est.",
-    //     data: [
-    //         { value: 0, label: "0s" },
-    //         { value: 10, label: "1s" },
-    //         { value: 35, label: "2s" },
-    //         { value: 60, label: "3s" },
-    //         { value: 5, label: "4s" },
-    //         { value: 10, label: "5s" },
-    //         { value: 35, label: "6s" },
-    //     ],
-    // };
-
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView
@@ -92,14 +79,6 @@ export default function App() {
                         <Text className="text-3xl font-semibold leading-tight text-foreground">
                             Trouvez votre programme d'entraînement parfait !
                         </Text>
-                        {/* <Button
-                            variant="secondary"
-                            onPress={() => {
-                                router.push({ pathname: "/exos/result", params: { data: JSON.stringify(test) } });
-                            }}
-                        >
-                            <Text>Stats</Text>
-                        </Button> */}
                     </View>
                     <View className="my-3 flex flex-row items-center justify-center">
                         <View className="mr-3 flex-1">

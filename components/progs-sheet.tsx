@@ -1,5 +1,5 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { ReactNode, forwardRef, useCallback, useMemo } from "react";
+import { forwardRef, useCallback, useMemo } from "react";
 import { View } from "react-native";
 
 import { useColorScheme } from "@/lib/color";
@@ -8,7 +8,7 @@ type Ref = BottomSheetModal;
 
 interface SheetProps {
     snap: string[];
-    children: ReactNode;
+    children: React.ReactNode;
 }
 
 export const Sheet = forwardRef<Ref, SheetProps>((props, ref) => {
