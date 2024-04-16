@@ -12,7 +12,6 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/auth";
 import { useDataStore } from "@/context/data";
 import { API_URL } from "@/lib/api";
-import { useColorScheme } from "@/lib/color";
 
 interface ExosList {
     id: string;
@@ -22,7 +21,6 @@ interface ExosList {
 export default function CreateProgs() {
     const { exos } = useDataStore();
     const { token } = useAuth();
-    const { isDarkColorScheme } = useColorScheme();
 
     const [loading, setLoading] = useState<boolean>(false);
 

@@ -1,18 +1,18 @@
 import { globals } from "@/styles/globals";
 
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Theme, ThemeProvider } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { Redirect, Stack, router } from "expo-router";
 import { ArrowLeft, Info, Settings, Share2 } from "lucide-react-native";
 import { Share } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Button } from "@/components/ui/button";
 
 import { useAuth } from "@/context/auth";
 import { SocketProvider } from "@/context/socket";
 import { useColorScheme } from "@/lib/color";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function AppLayout() {
     const { isDarkColorScheme } = useColorScheme();
@@ -83,7 +83,7 @@ export default function AppLayout() {
                                             onPress={() => {
                                                 Share.share({
                                                     message:
-                                                        "Je me suis mit au sport grâce à B-Pump, le coach sportif 100% robotique ! Tu devrais essayer : <lien_vers_le_site_web>",
+                                                        "Je me suis mit au sport grâce à B-Pump, le coach sportif 100% robotique ! Tu devrais essayer : https://b-pump.fr",
                                                 });
                                             }}
                                         >

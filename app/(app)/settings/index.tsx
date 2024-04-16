@@ -1,7 +1,7 @@
 import { deviceName, osInternalBuildId } from "expo-device";
 import { router } from "expo-router";
 import { deleteItemAsync, setItemAsync } from "expo-secure-store";
-import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Linking, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { Button } from "@/components/ui/button";
 
@@ -116,6 +116,15 @@ export default function Settings() {
                     <Text className="mb-3 text-foreground">⚠️ Actions sur votre compte</Text>
                     <View className="rounded-lg border border-border">
                         <View className="p-4">
+                            <Text className="mb-5 text-foreground">
+                                Pour modifier vos programmes ou votre métabolisme, vous pouvez vous connecter à votre
+                                compte sur notre site internet et aller dans la rubrique 'Dashboard'.
+                            </Text>
+                            <Button variant="outline" onPress={() => Linking.openURL("https://b-pump.fr")}>
+                                <Text className="text-foreground">Aller sur le site</Text>
+                            </Button>
+                        </View>
+                        <View className="border-t border-border p-4">
                             <Text className="mb-5 text-foreground">
                                 Vous déconnecter vous raménera à l'écran d'accueil. Vous pourrez toujours utiliser votre
                                 compte et vos programmes seront sauvegardés.

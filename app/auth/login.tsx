@@ -19,19 +19,22 @@ export default function Login() {
     const [password, setPassword] = useState<string>(null);
 
     const onLogin = async () => {
-        if (username && password) {
-            setLoading(true);
+        if (!username || !password) {
+            return Alert.alert("Erreur", "Veuillez remplir tous les champs");
+        }
 
-            const result = await login!(username, password);
-            if (result && result.error) {
-                Alert.alert("Erreur", "Identifiants invalides");
-            } else {
-                setItemAsync(THEME_KEY, DEFAULT_THEME);
-                router.replace("/");
-            }
+        setLoading(true);
 
+        const loginResult = await login!(username, password);
+        if (loginResult && loginResult.error) {
             setLoading(false);
-        } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
+            return Alert.alert("Erreur", "Identifiants invalides");
+        }
+
+        setItemAsync(THEME_KEY, DEFAULT_THEME);
+        router.replace("/");
+
+        setLoading(false);
     };
 
     return (

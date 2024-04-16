@@ -17,34 +17,54 @@ export default function Register() {
 
     const [username, setUsername] = useState<string>(null);
     const [password, setPassword] = useState<string>(null);
+    const [weight, setWeight] = useState<string>(null);
+    const [height, setHeight] = useState<string>(null);
+    const [age, setAge] = useState<string>(null);
+    const [sex, setSex] = useState<string>(null);
 
     const onRegister = async () => {
-        if (username && password) {
-            setLoading(true);
+        if (!username || !password || !weight || !height || !age || !sex) {
+            return Alert.alert("Erreur", "Veuillez remplir tous les champs");
+        }
 
-            const usernameRegex = /^[a-zA-Z0-9_\-]+$/;
-            const passwordRegex = /^[a-zA-Z0-9@#$%^&*]+$/;
+        const usernameRegex = /^[a-zA-Z0-9_\-]+$/;
+        const passwordRegex = /^[a-zA-Z0-9@#$%^&*]+$/;
+        const ageRegex = /^(1[6-9]|[2-9]\d)$/;
 
-            if (usernameRegex.test(username.trim()) && passwordRegex.test(password.trim())) {
-                const result = await register!(username, password);
-                if (result && result.error) {
-                    Alert.alert("Erreur", result.msg);
-                } else {
-                    const result = await login!(username, password);
+        if (!usernameRegex.test(username.trim()) && !passwordRegex.test(password.trim())) {
+            return Alert.alert(
+                "Erreur",
+                "Le nom d'utilisateur ou le mot de passe contient des caractères non autorisés",
+            );
+        }
+        if (!ageRegex.test(age.trim())) {
+            return Alert.alert("Erreur", "Vous devez saisir un âge entre 16 et 99 ans");
+        }
 
-                    if (result && result.error) {
-                        Alert.alert("Erreur", "Veuillez réessayer");
-                    } else {
-                        setItemAsync(THEME_KEY, DEFAULT_THEME);
-                        router.replace("/");
-                    }
-                }
-            } else {
-                Alert.alert("Erreur", "Le nom d'utilisateur ou le mot de passe contient des caractères non autorisés");
-            }
+        setLoading(true);
 
+        const registerResult = await register!(
+            username,
+            password,
+            parseInt(weight),
+            parseInt(height),
+            parseInt(age),
+            sex,
+        );
+        if (registerResult && registerResult.error) {
             setLoading(false);
-        } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
+            return Alert.alert("Erreur", "Erreur lors de la création du compte");
+        }
+
+        const loginResult = await login!(username, password);
+        if (loginResult && loginResult.error) {
+            Alert.alert("Erreur", "Erreur lors de la connexion à votre compte");
+        } else {
+            setItemAsync(THEME_KEY, DEFAULT_THEME);
+            router.replace("/");
+        }
+
+        setLoading(false);
     };
 
     return (
@@ -68,11 +88,38 @@ export default function Register() {
                             secureTextEntry
                             autoComplete="password"
                         />
+                        <Input
+                            value={weight}
+                            onChangeText={(text) => setWeight(text)}
+                            placeholder="Poids (kg)"
+                            keyboardType="numeric"
+                            maxLength={3}
+                        />
+                        <Input
+                            value={height}
+                            onChangeText={(text) => setHeight(text)}
+                            placeholder="Taille (cm)"
+                            keyboardType="numeric"
+                            maxLength={3}
+                        />
+                        <Input
+                            value={age}
+                            onChangeText={(text) => setAge(text)}
+                            placeholder="Âge (années)"
+                            keyboardType="numeric"
+                            maxLength={2}
+                        />
+                        <Input
+                            value={sex}
+                            onChangeText={(text) => setSex(text.toLocaleLowerCase())}
+                            placeholder="Sexe de naissance (m ou f)"
+                            maxLength={1}
+                        />
                     </View>
                 </View>
             </View>
-            <View className="flex-1">
-                <Image source="https://i.ibb.co/GVMtQbx/1.png" style={{ width: "100%", height: 500 }} />
+            <View className="flex-1 items-center">
+                <Image source="https://i.ibb.co/GVMtQbx/1.png" style={{ width: "50%", height: 300 }} />
             </View>
             <View className="py-3">
                 <Button onPress={onRegister} disabled={loading}>
