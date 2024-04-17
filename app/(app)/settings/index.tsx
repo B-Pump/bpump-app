@@ -113,18 +113,24 @@ export default function Settings() {
                     </View>
                 </View>
                 <View className="my-3">
-                    <Text className="mb-3 text-foreground">⚠️ Actions sur votre compte</Text>
+                    <Text className="mb-3 text-foreground">🏋️ Renseigner votre métabolisme</Text>
                     <View className="rounded-lg border border-border">
                         <View className="p-4">
                             <Text className="mb-5 text-foreground">
-                                Pour modifier vos programmes ou votre métabolisme, vous pouvez vous connecter à votre
-                                compte sur notre site internet et aller dans la rubrique 'Dashboard'.
+                                Vous pouvez renseigner certaines informations sur votre poids, taille, âge et sexe afin
+                                d'avoir un suivi sur vos calories dépensées à la fin de chaque exercice en allant sur
+                                notre site dans la rubrique 'Dashboard'.
                             </Text>
-                            <Button variant="outline" onPress={() => Linking.openURL("https://b-pump.fr")}>
+                            <Button variant="outline" onPress={() => Linking.openURL("https://b-pump.fr/account")}>
                                 <Text className="text-foreground">Aller sur le site</Text>
                             </Button>
                         </View>
-                        <View className="border-t border-border p-4">
+                    </View>
+                </View>
+                <View className="my-3">
+                    <Text className="mb-3 text-foreground">⚠️ Actions sur votre compte</Text>
+                    <View className="rounded-lg border border-border">
+                        <View className="p-4">
                             <Text className="mb-5 text-foreground">
                                 Vous déconnecter vous raménera à l'écran d'accueil. Vous pourrez toujours utiliser votre
                                 compte et vos programmes seront sauvegardés.

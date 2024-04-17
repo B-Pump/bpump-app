@@ -8,14 +8,7 @@ import { API_URL } from "@/lib/api";
 type AuthStore = {
     token: string | null;
     authenticated: boolean;
-    register: (
-        username: string,
-        password: string,
-        weight: number,
-        height: number,
-        age: number,
-        sex: string,
-    ) => Promise<any>;
+    register: (username: string, password: string) => Promise<any>;
     login: (username: string, password: string) => Promise<any>;
     logout: () => Promise<void>;
     remove: (username: string) => Promise<any>;
@@ -27,9 +20,9 @@ export const AUTH_KEY = "auth_jwt";
 const useAuthStore = create<AuthStore>((set, get) => ({
     token: null,
     authenticated: false,
-    register: async (username: string, password: string, weight: number, height: number, age: number, sex: string) => {
+    register: async (username: string, password: string) => {
         try {
-            const response = await axios.post(`${API_URL}/register`, { username, password, weight, height, age, sex });
+            const response = await axios.post(`${API_URL}/register`, { username, password });
             return response;
         } catch (error) {
             console.warn("Error while creating account :", error);

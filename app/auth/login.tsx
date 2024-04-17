@@ -61,7 +61,7 @@ export default function Login() {
                     </View>
                 </View>
             </View>
-            <View className="flex-1">
+            <View className="flex-1 items-center">
                 <Image source="https://i.ibb.co/JQqkK4k/3.png" style={{ width: "100%", height: 500 }} />
             </View>
             <View className="py-3">

@@ -195,7 +195,7 @@ export default function App() {
                     <View>
                         {exosLoad ? (
                             <>
-                                {Array.from({ length: 2 }).map((_, index: number) => (
+                                {Array.from({ length: 3 }).map((_, index: number) => (
                                     <View key={index} className="my-1">
                                         <View className="flex-row rounded-lg border border-border p-6">
                                             <View className="items-center justify-between rounded-xl">
