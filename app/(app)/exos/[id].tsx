@@ -13,7 +13,7 @@ import { useSocket } from "@/context/socket";
 import { useColorScheme } from "@/lib/color";
 
 export default function Exos() {
-    const { exos } = useDataStore();
+    const { exos, metabolism } = useDataStore();
     const exoData = exos.find((exo: ExoItem) => exo.id === useLocalSearchParams().id);
 
     const { socketValid, socketInstance } = useSocket();
@@ -134,7 +134,12 @@ export default function Exos() {
                     onPress={() => {
                         if (socketValid) {
                             if (socketValid && socketInstance) {
-                                socketInstance.emit("start_exo", { type: "exo", data: exoData });
+                                socketInstance.emit("start_exo", {
+                                    type: "exo",
+                                    data: exoData,
+                                    metabolism: metabolism,
+                                });
+                                // TODO: add custom metabolism
                             }
                         } else router.push("/settings/scan");
                     }}

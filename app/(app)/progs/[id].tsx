@@ -15,7 +15,7 @@ import { API_URL } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
 export default function Progs() {
-    const { exos, progs } = useDataStore();
+    const { exos, progs, metabolism } = useDataStore();
     const progData = progs.find((prog: ProgItem) => prog.id === useLocalSearchParams().id);
 
     const { token } = useAuth();
@@ -160,13 +160,14 @@ export default function Progs() {
                 <Button
                     onPress={() => {
                         if (socketValid) {
-                            if (socketValid && socketInstance) {
+                            if (socketInstance) {
                                 progData.exercises.forEach((exerciseId) => {
                                     const exoItem = exos.find((exo) => exo.id === exerciseId);
                                     if (exoItem) {
                                         socketInstance.emit("start_exo", {
                                             type: "prog",
                                             data: exoItem,
+                                            metabolism: metabolism, // TODO: add custom metabolism
                                         });
                                     }
                                 });

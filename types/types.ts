@@ -24,6 +24,13 @@ interface ProgItem {
     exercises: string[];
 }
 
+interface MetaItem {
+    weight: number;
+    height: number;
+    age: number;
+    sex: string;
+}
+
 interface ChartDataItem {
     message: string;
     data: {

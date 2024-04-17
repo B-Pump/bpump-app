@@ -28,7 +28,7 @@ interface ProgsFetch {
 }
 
 export default function App() {
-    const { exos, progs, setExos, setProgs } = useDataStore();
+    const { exos, progs, setExos, setProgs, setMeta } = useDataStore();
     const { token } = useAuth();
     const { isDarkColorScheme } = useColorScheme();
 
@@ -46,17 +46,25 @@ export default function App() {
         error: progsError,
         refetch: progsRefetch,
     }: ProgsFetch = useFetch("GET", `progs/all?username=${token}`);
+    const { data: metaData, refetch: metaRefetch }: { data: MetaItem[]; refetch: () => void } = useFetch(
+        "GET",
+        `metabolism?username=${token}`,
+    );
 
     useEffect(() => {
         setExos(exosData);
         setProgs(progsData);
+        setMeta(metaData);
     }, [exosData, progsData]);
 
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);
+
         exosRefetch();
         progsRefetch();
+        metaRefetch();
+
         setRefreshing(false);
     }, [setRefreshing, exosRefetch]);
 
