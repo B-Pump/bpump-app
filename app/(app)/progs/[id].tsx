@@ -105,60 +105,62 @@ export default function Progs(): React.JSX.Element {
                     </View>
                 </View>
                 <Tabs defaultValue={tabs[0]}>
-                    <TabsTrigger data={tabs} />
-                    {tabs.map((tab: string, index: number) => (
-                        <TabsContent value={tab} key={index}>
-                            {tab === tabs[0] ? (
-                                <View className="my-3">
-                                    <Text className="mb-3 text-lg font-medium text-foreground">
-                                        En savoir plus sur ce programme
-                                    </Text>
-                                    <View className="my-2">
-                                        <Text className="mb-3 text-foreground">📜​ Description :</Text>
-                                        <Text className="text-muted-foreground">
-                                            {progData?.description ?? "Aucune données"}
+                    <>
+                        <TabsTrigger data={tabs} />
+                        {tabs.map((tab: string, index: number) => (
+                            <TabsContent value={tab} key={index}>
+                                {tab === tabs[0] ? (
+                                    <View className="my-3">
+                                        <Text className="mb-3 text-lg font-medium text-foreground">
+                                            En savoir plus sur ce programme
                                         </Text>
-                                    </View>
-                                    <View className="my-2">
-                                        <Text className="mb-3 text-foreground">🔎 Conseils :</Text>
-                                        {progData?.hint?.map((item: string, index: number) => (
-                                            <Text className="text-muted-foreground" key={index}>
-                                                {"\u2022 "}
-                                                {item ?? "Aucune données"}
+                                        <View className="my-2">
+                                            <Text className="mb-3 text-foreground">📜​ Description :</Text>
+                                            <Text className="text-muted-foreground">
+                                                {progData?.description ?? "Aucune données"}
                                             </Text>
-                                        ))}
+                                        </View>
+                                        <View className="my-2">
+                                            <Text className="mb-3 text-foreground">🔎 Conseils :</Text>
+                                            {progData?.hint?.map((item: string, index: number) => (
+                                                <Text className="text-muted-foreground" key={index}>
+                                                    {"\u2022 "}
+                                                    {item ?? "Aucune données"}
+                                                </Text>
+                                            ))}
+                                        </View>
                                     </View>
-                                </View>
-                            ) : tab === tabs[1] ? (
-                                <View className="my-3">
-                                    <Text className="mb-3 text-lg font-medium text-foreground">
-                                        Catalogue de ce programme
-                                    </Text>
-                                    <View>
-                                        {progData?.exercises?.map((item: string, index: number) => {
-                                            if (exos) {
-                                                const exoItem = exos.find((exo: ExoItem) => exo.id === item);
+                                ) : tab === tabs[1] ? (
+                                    <View className="my-3">
+                                        <Text className="mb-3 text-lg font-medium text-foreground">
+                                            Catalogue de ce programme
+                                        </Text>
+                                        <View>
+                                            {progData?.exercises?.map((item: string, index: number) => {
+                                                if (exos) {
+                                                    const exoItem = exos.find((exo: ExoItem) => exo.id === item);
 
-                                                return (
-                                                    <View key={index}>
-                                                        {exoItem ? (
-                                                            <View className="py-1">
-                                                                <ExosCard data={exoItem} />
-                                                            </View>
-                                                        ) : (
-                                                            <Text className="text-foreground">
-                                                                Aucun détail trouvé pour l'exercice "{item}"...
-                                                            </Text>
-                                                        )}
-                                                    </View>
-                                                );
-                                            }
-                                        })}
+                                                    return (
+                                                        <View key={index}>
+                                                            {exoItem ? (
+                                                                <View className="py-1">
+                                                                    <ExosCard data={exoItem} />
+                                                                </View>
+                                                            ) : (
+                                                                <Text className="text-foreground">
+                                                                    Aucun détail trouvé pour l'exercice "{item}"...
+                                                                </Text>
+                                                            )}
+                                                        </View>
+                                                    );
+                                                }
+                                            })}
+                                        </View>
                                     </View>
-                                </View>
-                            ) : null}
-                        </TabsContent>
-                    ))}
+                                ) : null}
+                            </TabsContent>
+                        ))}
+                    </>
                 </Tabs>
             </ScrollView>
             <View className="py-3">

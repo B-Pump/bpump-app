@@ -62,76 +62,79 @@ export default function Exos(): React.JSX.Element {
                     </View>
                 </View>
                 <Tabs defaultValue={tabs[0]}>
-                    <TabsTrigger data={tabs} />
-                    {tabs.map((tab: string, index: number) => (
-                        <TabsContent value={tab} key={index}>
-                            {tab === tabs[0] ? (
-                                <View className="my-3">
-                                    <Text className="mb-3 text-lg font-medium text-foreground">
-                                        En savoir plus sur cet exercice
-                                    </Text>
-                                    <View className="my-2">
-                                        <Text className="mb-3 text-foreground">📜​ Description :</Text>
-                                        <Text className="text-muted-foreground">
-                                            {exoData?.description ?? "Aucune données"}
+                    <>
+                        <TabsTrigger data={tabs} />
+                        {tabs.map((tab: string, index: number) => (
+                            <TabsContent value={tab} key={index}>
+                                {tab === tabs[0] ? (
+                                    <View className="my-3">
+                                        <Text className="mb-3 text-lg font-medium text-foreground">
+                                            En savoir plus sur cet exercice
                                         </Text>
-                                    </View>
-                                    <View className="my-2">
-                                        <Text className="mb-3 text-foreground">💪🏻​​ Muscles sollicités :</Text>
-                                        {exoData?.muscles?.map((item: string, index: number) => (
-                                            <Text className="text-muted-foreground" key={index}>
-                                                {"\u2022 "}
-                                                {item ?? "Aucune données"}
+                                        <View className="my-2">
+                                            <Text className="mb-3 text-foreground">📜​ Description :</Text>
+                                            <Text className="text-muted-foreground">
+                                                {exoData?.description ?? "Aucune données"}
                                             </Text>
-                                        ))}
-                                    </View>
-                                    <View className="my-2">
-                                        <Text className="mb-3 text-foreground">🔐​ Consignes de sécurité :</Text>
-                                        {exoData?.security?.map((item: string, index: number) => (
-                                            <Text className="text-muted-foreground" key={index}>
-                                                {"\u2022 "}
-                                                {item ?? "Aucune données"}
+                                        </View>
+                                        <View className="my-2">
+                                            <Text className="mb-3 text-foreground">💪🏻​​ Muscles sollicités :</Text>
+                                            {exoData?.muscles?.map((item: string, index: number) => (
+                                                <Text className="text-muted-foreground" key={index}>
+                                                    {"\u2022 "}
+                                                    {item ?? "Aucune données"}
+                                                </Text>
+                                            ))}
+                                        </View>
+                                        <View className="my-2">
+                                            <Text className="mb-3 text-foreground">🔐​ Consignes de sécurité :</Text>
+                                            {exoData?.security?.map((item: string, index: number) => (
+                                                <Text className="text-muted-foreground" key={index}>
+                                                    {"\u2022 "}
+                                                    {item ?? "Aucune données"}
+                                                </Text>
+                                            ))}
+                                        </View>
+                                        <View className="my-2">
+                                            <Text className="mb-3 text-foreground">🏋️ Préréquis :</Text>
+                                            {exoData?.needed?.map((item: string, index: number) => (
+                                                <Text className="text-muted-foreground" key={index}>
+                                                    {"\u2022 "}
+                                                    {item ?? "Aucune données"}
+                                                </Text>
+                                            ))}
+                                        </View>
+                                        <View className="my-2">
+                                            <Text className="mb-3 text-foreground">🤸​ Dépenses énergétiques :</Text>
+                                            <Text className="text-muted-foreground">
+                                                Calories brulées pour 10 reps : {exoData?.calories ?? "Aucune donnée"}{" "}
+                                                kcal
                                             </Text>
-                                        ))}
+                                        </View>
                                     </View>
-                                    <View className="my-2">
-                                        <Text className="mb-3 text-foreground">🏋️ Préréquis :</Text>
-                                        {exoData?.needed?.map((item: string, index: number) => (
-                                            <Text className="text-muted-foreground" key={index}>
-                                                {"\u2022 "}
-                                                {item ?? "Aucune données"}
-                                            </Text>
-                                        ))}
-                                    </View>
-                                    <View className="my-2">
-                                        <Text className="mb-3 text-foreground">🤸​ Dépenses énergétiques :</Text>
-                                        <Text className="text-muted-foreground">
-                                            Calories brulées pour 10 reps : {exoData?.calories ?? "Aucune donnée"} kcal
+                                ) : tab === tabs[1] ? (
+                                    <View className="my-3">
+                                        <Text className="mb-3 text-lg font-medium text-foreground">
+                                            Comment faire cet exercice
                                         </Text>
+                                        <View className="my-2">
+                                            <Text className="mb-3 text-foreground">📹​ Vidéo :</Text>
+                                            <Video
+                                                ref={videoRef}
+                                                source={{
+                                                    uri: exoData?.video || "https://urlz.fr/q5e8",
+                                                }}
+                                                style={styles.video}
+                                                useNativeControls
+                                                isLooping
+                                                resizeMode={ResizeMode.COVER} // TODO: update mode to CONTAiN on fullscreen
+                                            />
+                                        </View>
                                     </View>
-                                </View>
-                            ) : tab === tabs[1] ? (
-                                <View className="my-3">
-                                    <Text className="mb-3 text-lg font-medium text-foreground">
-                                        Comment faire cet exercice
-                                    </Text>
-                                    <View className="my-2">
-                                        <Text className="mb-3 text-foreground">📹​ Vidéo :</Text>
-                                        <Video
-                                            ref={videoRef}
-                                            source={{
-                                                uri: exoData?.video || "https://urlz.fr/q5e8",
-                                            }}
-                                            style={styles.video}
-                                            useNativeControls
-                                            isLooping
-                                            resizeMode={ResizeMode.COVER} // TODO: update mode to CONTAiN on fullscreen
-                                        />
-                                    </View>
-                                </View>
-                            ) : null}
-                        </TabsContent>
-                    ))}
+                                ) : null}
+                            </TabsContent>
+                        ))}
+                    </>
                 </Tabs>
             </ScrollView>
             <View className="py-3">

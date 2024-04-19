@@ -25,32 +25,34 @@ export default function ShowallExos(): React.JSX.Element {
                     </Text>
                 </View>
                 <Tabs defaultValue={tabs[0] as string}>
-                    <TabsTrigger data={tabs} />
-                    {tabs.map((tab: string, index: number) => (
-                        <TabsContent value={tab} key={index}>
-                            {tab === "Tout" ? (
-                                <>
-                                    {data?.map((item: ExoItem, index: number) => (
-                                        <View className="py-1" key={index}>
-                                            <ExosCard data={item} />
-                                        </View>
-                                    ))}
-                                </>
-                            ) : (
-                                <>
-                                    {data?.map((item: ExoItem, index: number) => {
-                                        if (item?.category === tab) {
-                                            return (
-                                                <View className="py-1" key={index}>
-                                                    <ExosCard data={item} />
-                                                </View>
-                                            );
-                                        }
-                                    })}
-                                </>
-                            )}
-                        </TabsContent>
-                    ))}
+                    <>
+                        <TabsTrigger data={tabs} />
+                        {tabs.map((tab: string, index: number) => (
+                            <TabsContent value={tab} key={index}>
+                                {tab === "Tout" ? (
+                                    <>
+                                        {data?.map((item: ExoItem, index: number) => (
+                                            <View className="py-1" key={index}>
+                                                <ExosCard data={item} />
+                                            </View>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <>
+                                        {data?.map((item: ExoItem, index: number) => {
+                                            if (item?.category === tab) {
+                                                return (
+                                                    <View className="py-1" key={index}>
+                                                        <ExosCard data={item} />
+                                                    </View>
+                                                );
+                                            }
+                                        })}
+                                    </>
+                                )}
+                            </TabsContent>
+                        ))}
+                    </>
                 </Tabs>
             </ScrollView>
         </SafeAreaView>

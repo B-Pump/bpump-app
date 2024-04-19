@@ -159,51 +159,57 @@ export default function CreateProgs(): React.JSX.Element {
                 </Button>
             </View>
             <Sheet ref={categoryRef} snap={["25%", "35%"]}>
-                <View className="mb-4 items-center">
-                    <Text className="text-xl font-bold text-foreground">Veuillez sélectionner une catégorie</Text>
-                </View>
-                <View className="flex flex-row flex-wrap justify-center">
-                    {categoryData.map((item: string, index: number) => (
-                        <View className="m-1" key={index}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    if (category === item) {
-                                        setCategory(null);
-                                    } else setCategory(item);
-                                }}
-                            >
-                                <Badge variant={category === item ? "success" : "outline"} label={item} />
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-                </View>
+                <>
+                    <View className="mb-4 items-center">
+                        <Text className="text-xl font-bold text-foreground">Veuillez sélectionner une catégorie</Text>
+                    </View>
+                    <View className="flex flex-row flex-wrap justify-center">
+                        {categoryData.map((item: string, index: number) => (
+                            <View className="m-1" key={index}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        if (category === item) {
+                                            setCategory(null);
+                                        } else setCategory(item);
+                                    }}
+                                >
+                                    <Badge variant={category === item ? "success" : "outline"} label={item} />
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                    </View>
+                </>
             </Sheet>
             <Sheet ref={exoRef} snap={["35%", "60%"]}>
-                <View className="mb-4 items-center">
-                    <Text className="text-xl font-bold text-foreground">Veuillez sélectionner des exercices</Text>
-                </View>
-                <View className="flex flex-row flex-wrap justify-center">
-                    {exos.map((item: ExoItem, index: number) => (
-                        <View className="m-1" key={index}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    if (exercises.some((exercise: ExosList) => exercise.id === item.id)) {
-                                        setExercices(exercises.filter((exercise: ExosList) => exercise.id !== item.id));
-                                    } else setExercices([...exercises, { id: item.id, title: item.title }]);
-                                }}
-                            >
-                                <Badge
-                                    variant={
-                                        exercises.some((exercise: ExosList) => exercise.id === item.id)
-                                            ? "success"
-                                            : "outline"
-                                    }
-                                    label={item.title}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-                </View>
+                <>
+                    <View className="mb-4 items-center">
+                        <Text className="text-xl font-bold text-foreground">Veuillez sélectionner des exercices</Text>
+                    </View>
+                    <View className="flex flex-row flex-wrap justify-center">
+                        {exos.map((item: ExoItem, index: number) => (
+                            <View className="m-1" key={index}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        if (exercises.some((exercise: ExosList) => exercise.id === item.id)) {
+                                            setExercices(
+                                                exercises.filter((exercise: ExosList) => exercise.id !== item.id),
+                                            );
+                                        } else setExercices([...exercises, { id: item.id, title: item.title }]);
+                                    }}
+                                >
+                                    <Badge
+                                        variant={
+                                            exercises.some((exercise: ExosList) => exercise.id === item.id)
+                                                ? "success"
+                                                : "outline"
+                                        }
+                                        label={item.title}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                    </View>
+                </>
                 {/* TODO: Drag & drop to change exos order */}
                 {/* <View className="mt-5 flex-row justify-center">
                     {exercises.map((item: { id: string; title: string }, index: number) => (
