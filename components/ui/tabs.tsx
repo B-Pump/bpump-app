@@ -10,7 +10,7 @@ interface TabsContextProps {
 
 interface TabsProps {
     defaultValue: string;
-    children: React.ReactNode;
+    children: React.JSX.Element;
 }
 
 const TabsContext = createContext<TabsContextProps>({

@@ -5,7 +5,12 @@ import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
 
 import { useSocket } from "@/context/socket";
 
-export default function Scan() {
+/**
+ * Page where users can scan a QR code to connect to their robot
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Scan(): React.JSX.Element {
     const { connect } = useSocket();
 
     const { width, height } = Dimensions.get("window");

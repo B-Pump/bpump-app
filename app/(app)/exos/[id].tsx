@@ -12,7 +12,12 @@ import { useDataStore } from "@/context/data";
 import { useSocket } from "@/context/socket";
 import { useColorScheme } from "@/lib/color";
 
-export default function Exos() {
+/**
+ * Page displaying the contents of an exercise based on its ID
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Exos(): React.JSX.Element {
     const { exos, metabolism } = useDataStore();
     const exoData = exos.find((exo: ExoItem) => exo.id === useLocalSearchParams().id);
 

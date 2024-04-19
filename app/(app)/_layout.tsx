@@ -14,7 +14,12 @@ import { useAuth } from "@/context/auth";
 import { SocketProvider } from "@/context/socket";
 import { useColorScheme } from "@/lib/color";
 
-export default function AppLayout() {
+/**
+ * App root layout
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function AppLayout(): React.JSX.Element {
     const { isDarkColorScheme } = useColorScheme();
     const { authenticated } = useAuth();
 

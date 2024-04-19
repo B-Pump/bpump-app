@@ -1,6 +1,11 @@
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 
-export default function About() {
+/**
+ * About page where informations about the project are displayed
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function About(): React.JSX.Element {
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView showsVerticalScrollIndicator={false}>

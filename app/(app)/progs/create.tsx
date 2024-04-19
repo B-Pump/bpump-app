@@ -18,7 +18,12 @@ interface ExosList {
     title: string;
 }
 
-export default function CreateProgs() {
+/**
+ * Page on which the user can create their own sports program from the exercises already available
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function CreateProgs(): React.JSX.Element {
     const { exos } = useDataStore();
     const { token } = useAuth();
 

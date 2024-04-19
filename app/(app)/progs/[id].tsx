@@ -14,7 +14,12 @@ import { useSocket } from "@/context/socket";
 import { API_URL } from "@/lib/api";
 import { useColorScheme } from "@/lib/color";
 
-export default function Progs() {
+/**
+ * Page displaying the contents of a program based on its ID
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Progs(): React.JSX.Element {
     const { exos, progs, metabolism } = useDataStore();
     const progData = progs.find((prog: ProgItem) => prog.id === useLocalSearchParams().id);
 

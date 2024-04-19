@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { UseBoundStore, create } from "zustand";
 
 type DataStoreType = {
     exos: ExoItem[];
@@ -9,6 +9,12 @@ type DataStoreType = {
     setMeta: (metabolism: MetaItem[]) => void;
 };
 
+/**
+ * State manager for API data
+ * @author wiizz
+ * @returns {UseBoundStore<StoreApi<DataStoreType>>}
+ * @see https://github.com/B-Pump/bpump-api
+ */
 export const useDataStore = create<DataStoreType>((set) => ({
     exos: [],
     progs: [],

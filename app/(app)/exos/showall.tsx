@@ -5,7 +5,12 @@ import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
 import { useDataStore } from "@/context/data";
 
-export default function ShowallExos() {
+/**
+ * Page which displays all the exercises and offers sorting by category
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function ShowallExos(): React.JSX.Element {
     const { exos: data } = useDataStore();
 
     const tabs: string[] = ["Tout", ...(data ? [...new Set(data.map((item: ExoItem) => item?.category))] : [])];

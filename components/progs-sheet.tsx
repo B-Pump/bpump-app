@@ -8,10 +8,17 @@ type Ref = BottomSheetModal;
 
 interface SheetProps {
     snap: string[];
-    children: React.ReactNode;
+    children: React.JSX.Element;
 }
 
-export const Sheet = forwardRef<Ref, SheetProps>((props, ref) => {
+/**
+ * Component giving a bottom sheet menu with a children inside
+ * @author wiizz
+ * @param {SheetProps} props {@link SheetProps SheetProps}
+ * @param {Ref} ref {@link BottomSheetModal BottomSheetModal}
+ * @returns {React.JSX.Element}
+ */
+export const Sheet = forwardRef<Ref, SheetProps>((props, ref): React.JSX.Element => {
     const { isDarkColorScheme } = useColorScheme();
 
     const snapPoints = useMemo(() => props.snap, []);

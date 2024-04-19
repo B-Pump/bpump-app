@@ -20,7 +20,12 @@ interface Info {
     label: string;
 }
 
-export default function Settings() {
+/**
+ * Page where users can configure the application and their account
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Settings(): React.JSX.Element {
     const { logout, remove, token } = useAuth();
     const { disconnect, socketValid, socketAdress } = useSocket();
 

@@ -10,7 +10,12 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/auth";
 import { DEFAULT_THEME, THEME_KEY } from "@/lib/color";
 
-export default function Register() {
+/**
+ * Authentification register page where you can create a new account
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Register(): React.JSX.Element {
     const { register, login } = useAuth();
 
     const [loading, setLoading] = useState<boolean>(false);

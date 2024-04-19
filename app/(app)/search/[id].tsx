@@ -5,7 +5,12 @@ import { ExosCard } from "@/components/data-card";
 
 import { useDataStore } from "@/context/data";
 
-export default function Search() {
+/**
+ * Page that displays the content of the user's search made via the home page input
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Search(): React.JSX.Element {
     const { exos } = useDataStore();
     const { id } = useLocalSearchParams();
 

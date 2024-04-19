@@ -10,7 +10,12 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/auth";
 import { DEFAULT_THEME, THEME_KEY } from "@/lib/color";
 
-export default function Login() {
+/**
+ * Authentification login page where you can log into your account
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Login(): React.JSX.Element {
     const { login } = useAuth();
 
     const [loading, setLoading] = useState<boolean>(false);

@@ -18,7 +18,14 @@ export function useSocket() {
 
 // TODO: use zustang to manage socket states
 
-export const SocketProvider = ({ children }: any) => {
+/**
+ * Provider for socket server
+ * @author wiizz
+ * @param {any} children
+ * @returns {React.JSX.Element}
+ * @see https://github.com/B-Pump/bpump-robot
+ */
+export const SocketProvider = ({ children }: any): React.JSX.Element => {
     const [socketAdress, setSocketAdress] = useState<string>(null);
     const [socketValid, setSocketValid] = useState<boolean>(false);
     const [socketInstance, setSocketInstance] = useState<Socket>(null);

@@ -65,7 +65,12 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     },
 }));
 
-export const useAuth = () => {
+/**
+ * State manager for authentication
+ * @author wiizz
+ * @returns {AuthStore}
+ */
+export const useAuth = (): AuthStore => {
     const store = useAuthStore();
 
     useEffect(() => {

@@ -2,7 +2,13 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
-export function ExosCard({ data }: { data: ExoItem }) {
+/**
+ * Component giving a small map based on information about an exercise
+ * @author wiizz
+ * @param {ExoItem} data {@link ExoItem ExoItem}
+ * @returns {React.JSX.Element}
+ */
+export function ExosCard({ data }: { data: ExoItem }): React.JSX.Element {
     return (
         <TouchableOpacity onPress={() => router.push(`/exos/${data?.id}`)}>
             <View className="flex-row rounded-lg border border-border bg-background p-6">
@@ -27,7 +33,13 @@ export function ExosCard({ data }: { data: ExoItem }) {
     );
 }
 
-export function ProgsCard({ data }: { data: ProgItem }) {
+/**
+ * Component giving a small map based on information about a program
+ * @author wiizz
+ * @param {ProgItem} data {@link ProgItem ProgItem}
+ * @returns {React.JSX.Element}
+ */
+export function ProgsCard({ data }: { data: ProgItem }): React.JSX.Element {
     return (
         <TouchableOpacity onPress={() => router.push(`/progs/${data?.id}`)}>
             <View className="w-[300px] rounded-lg border border-border bg-background p-6">

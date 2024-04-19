@@ -1,8 +1,7 @@
 import "@/styles/globals.css";
 
-import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold, useFonts } from "@expo-google-fonts/dm-sans";
 import NetInfo from "@react-native-community/netinfo";
-import { Slot, SplashScreen } from "expo-router";
+import { Slot } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Wifi } from "lucide-react-native";
 import { useEffect, useState } from "react";
@@ -10,28 +9,22 @@ import { SafeAreaView, Text, View } from "react-native";
 
 import { useColorScheme } from "@/lib/color";
 
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
+/**
+ * Global root layout
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function RootLayout(): React.JSX.Element {
     const { isDarkColorScheme } = useColorScheme();
-    const [isConnected, setIsConnected] = useState<boolean>(false);
-    const [fontsLoaded, fontError] = useFonts({
-        DMSans_700Bold,
-        DMSans_500Medium,
-        DMSans_400Regular,
-    });
 
+    const [isConnected, setIsConnected] = useState<boolean>(false);
     useEffect(() => {
+        // Listener for connection state changes, here used to change screen when user do not have internet on his device
         const unsubscribe = NetInfo.addEventListener((state) => setIsConnected(state.isConnected));
 
+        // Cleanup function to remove the listener when the component unmounts
         return () => unsubscribe();
     }, []);
-
-    useEffect(() => {
-        if (fontsLoaded || fontError) SplashScreen.hideAsync();
-    }, [fontsLoaded, fontError]);
-
-    if (!fontsLoaded && !fontError) return null;
 
     return (
         <>

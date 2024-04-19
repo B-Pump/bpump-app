@@ -8,7 +8,12 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth";
 import { DEFAULT_THEME, THEME_KEY, useColorScheme } from "@/lib/color";
 
-export default function AppLayout() {
+/**
+ * Authentification root layout
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function AuthLayout(): React.JSX.Element {
     const { isDarkColorScheme, setColorScheme } = useColorScheme();
     const { authenticated } = useAuth();
 
@@ -23,7 +28,10 @@ export default function AppLayout() {
     }
 
     if (authenticated) {
+        // Set theme to last used by user
         setTheme();
+
+        // User is connected, so we send him to home page
         return <Redirect href="/" />;
     } else setColorScheme(DEFAULT_THEME);
 

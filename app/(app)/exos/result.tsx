@@ -7,7 +7,12 @@ import { LineChart } from "react-native-gifted-charts";
 
 import { useColorScheme } from "@/lib/color";
 
-export default function Result() {
+/**
+ * Page that displays a summary of the exercise performed by the user
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Result(): React.JSX.Element {
     const { data } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
 

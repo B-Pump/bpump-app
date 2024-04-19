@@ -4,7 +4,12 @@ import { SafeAreaView, Text, View } from "react-native";
 
 import { Button } from "@/components/ui/button";
 
-export default function Home() {
+/**
+ * Authentification home page where you can choose between creating a new account or logging in to an existing one
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function Home(): React.JSX.Element {
     return (
         <SafeAreaView className="flex-1 bg-white px-3">
             <View className="flex-1 items-center justify-center">

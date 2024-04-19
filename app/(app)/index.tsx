@@ -27,7 +27,12 @@ interface ProgsFetch {
     refetch: () => void;
 }
 
-export default function App() {
+/**
+ * Application home page where you can access to every other page
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function App(): React.JSX.Element {
     const { exos, progs, setExos, setProgs, setMeta } = useDataStore();
     const { token } = useAuth();
     const { isDarkColorScheme } = useColorScheme();
