@@ -1,7 +1,8 @@
 import { Camera, CameraView } from "expo-camera/next";
 import { router } from "expo-router";
+import { CameraIcon } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
+import { Alert, Dimensions, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { useSocket } from "@/context/socket";
 
@@ -36,11 +37,13 @@ export default function Scan(): React.JSX.Element {
             setHasPermission(status === "granted");
         };
 
+        // Check if user have access to the camera
         getCameraPermissions();
     }, [setHasPermission]);
 
     const handleBarCodeScanned = ({ type, data }) => {
         if (typeof data === "string") {
+            // Regex to check if the scanned qr code matches an ngrok address
             const regex = /https:\/\/[a-z0-9-]+\.ngrok-[a-z]+\.app/g;
 
             if (regex.test(data)) {
@@ -53,16 +56,32 @@ export default function Scan(): React.JSX.Element {
 
     if (hasPermission === null) {
         return (
-            <View className="flex-1 items-center justify-center bg-background">
-                <Text className="text-foreground">Demander la permission d'accès à la caméra</Text>
-            </View>
+            <SafeAreaView className="flex-1 bg-background px-3">
+                <View className="flex-1 items-center justify-center">
+                    <View className="flex-row gap-2.5">
+                        <CameraIcon color="black" />
+                        <Text className="mb-4 text-lg font-bold text-foreground">Accès à la caméra requis</Text>
+                    </View>
+                    <View className="items-center">
+                        <Text className="text-sm text-muted-foreground">Veuillez accepter l'autorisation</Text>
+                    </View>
+                </View>
+            </SafeAreaView>
         );
     }
     if (hasPermission === false) {
         return (
-            <View className="flex-1 items-center justify-center bg-background">
-                <Text className="text-foreground">Aucun accès à la caméra</Text>
-            </View>
+            <SafeAreaView className="flex-1 bg-background px-3">
+                <View className="flex-1 items-center justify-center">
+                    <View className="flex-row gap-2.5">
+                        <CameraIcon color="black" />
+                        <Text className="mb-4 text-lg font-bold text-foreground">Accès à la caméra requis</Text>
+                    </View>
+                    <View className="items-center">
+                        <Text className="text-sm text-muted-foreground">Vous avez refusé l'autorisation</Text>
+                    </View>
+                </View>
+            </SafeAreaView>
         );
     }
 

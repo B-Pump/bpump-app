@@ -41,6 +41,7 @@ export default function CreateProgs(): React.JSX.Element {
 
     let categoryData = [];
     if (Array.isArray(exos)) {
+        // Create a table with the existing (unique) categories of exercises
         const uniqueCategories = new Set(exos.map((item) => item.category));
         categoryData = [...uniqueCategories];
     }
@@ -169,7 +170,7 @@ export default function CreateProgs(): React.JSX.Element {
                                 <TouchableOpacity
                                     onPress={() => {
                                         if (category === item) {
-                                            setCategory(null);
+                                            setCategory(null); // Unselect category because it was already selected
                                         } else setCategory(item);
                                     }}
                                 >
@@ -190,10 +191,13 @@ export default function CreateProgs(): React.JSX.Element {
                             <View className="m-1" key={index}>
                                 <TouchableOpacity
                                     onPress={() => {
+                                        // Checks if an exercise with the same ID as the current item already exists in the list
                                         if (exercises.some((exercise: ExosList) => exercise.id === item.id)) {
                                             setExercices(
+                                                // If an exercise with the same ID already exists, remove it from the list
                                                 exercises.filter((exercise: ExosList) => exercise.id !== item.id),
                                             );
+                                            // If no exercise with the same ID exists, add the new exercise to the list
                                         } else setExercices([...exercises, { id: item.id, title: item.title }]);
                                     }}
                                 >

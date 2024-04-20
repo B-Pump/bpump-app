@@ -28,9 +28,10 @@ export default function RootLayout(): React.JSX.Element {
 
     return (
         <>
-            {isConnected ? (
+            {isConnected ? ( // Render app children if user is connected
                 <Slot />
             ) : (
+                // Else, render page telling him to connect to wifi
                 <SafeAreaView className="flex-1 bg-white px-3">
                     <View className="flex-1 items-center justify-center">
                         <View className="flex-row gap-2.5">

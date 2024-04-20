@@ -21,16 +21,18 @@ export default function Search(): React.JSX.Element {
             .toLowerCase();
     };
 
-    const filteredData = exos?.filter((item: ExoItem) => {
+    const filteredData = exos?.filter((item: ExoItem): boolean => {
         const title = item?.title || "";
         const description = item?.description || "";
         const category = item?.category || "";
 
+        // Find the keyword in the exercise data
         const matchKeyword = (field: string): boolean => {
             const keywordsArray = Array.isArray(id) ? id : [id];
             return keywordsArray.some((kw) => normalizeString(field).includes(normalizeString(kw)));
         };
 
+        // Return true if the keyword was find in the title, description or category
         return matchKeyword(title) || matchKeyword(description) || matchKeyword(category);
     });
 

@@ -13,6 +13,7 @@ import { useDataStore } from "@/context/data";
 export default function ShowallExos(): React.JSX.Element {
     const { exos: data } = useDataStore();
 
+    // Initializes an array with a first value of "Tout" and the unique categories extracted from the data, if available
     const tabs: string[] = ["Tout", ...(data ? [...new Set(data.map((item: ExoItem) => item?.category))] : [])];
 
     return (

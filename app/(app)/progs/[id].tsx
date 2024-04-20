@@ -174,7 +174,7 @@ export default function Progs(): React.JSX.Element {
                                         socketInstance.emit("start_exo", {
                                             type: "prog",
                                             data: exoItem,
-                                            metabolism: metabolism, // TODO: add custom metabolism
+                                            metabolism: metabolism,
                                         });
                                     }
                                 });

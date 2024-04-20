@@ -147,7 +147,6 @@ export default function Exos(): React.JSX.Element {
                                     data: exoData,
                                     metabolism: metabolism,
                                 });
-                                // TODO: add custom metabolism
                             }
                         } else router.push("/settings/scan");
                     }}

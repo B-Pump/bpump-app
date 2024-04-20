@@ -57,6 +57,7 @@ export default function App(): React.JSX.Element {
     );
 
     useEffect(() => {
+        // Set api data into datastore
         setExos(exosData);
         setProgs(progsData);
         setMeta(metaData);
@@ -229,8 +230,8 @@ export default function App(): React.JSX.Element {
                             </Text>
                         ) : (
                             exos
-                                ?.sort(() => Math.random() - 0.5)
-                                .slice(0, 3)
+                                ?.sort(() => Math.random() - 0.5) // Shuffling the board
+                                .slice(0, 3) // Then put only three because that's what I call the "recommended exercises"
                                 .map((item: ExoItem, index: number) => (
                                     <View className="py-1" key={index}>
                                         <ExosCard data={item} />

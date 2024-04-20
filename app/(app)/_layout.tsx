@@ -23,6 +23,7 @@ export default function AppLayout(): React.JSX.Element {
     const { isDarkColorScheme } = useColorScheme();
     const { authenticated } = useAuth();
 
+    // User is not logged in, so we send him to authentifications page
     if (!authenticated) return <Redirect href="/auth/" />;
 
     const lightTheme: Theme = {

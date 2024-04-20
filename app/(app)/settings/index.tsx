@@ -55,7 +55,7 @@ export default function Settings(): React.JSX.Element {
                     <Text className="mb-3 text-foreground">🤖​ Configuration du robot</Text>
                     <View className="rounded-lg border border-border">
                         <View className="p-4">
-                            {socketValid ? (
+                            {socketValid ? ( // If user is connected to a socket server, display a button to disconnect from the server
                                 <>
                                     <Text className="mb-5 text-foreground">
                                         Vous êtes actuellement connecté à l'addresse : {"\n" + socketAdress}
@@ -65,6 +65,7 @@ export default function Settings(): React.JSX.Element {
                                     </Button>
                                 </>
                             ) : (
+                                // Else, display a button to connect to a server
                                 <>
                                     <Text className="mb-5 text-foreground">
                                         Connectez votre robot en scannant un code QR que vous pouvez retrouver sur la
@@ -85,7 +86,7 @@ export default function Settings(): React.JSX.Element {
                             <View className={`p-4 ${index !== 0 && "border-t border-border"}`} key={index}>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        setItemAsync(THEME_KEY, item.value);
+                                        setItemAsync(THEME_KEY, item.value); // Save the chosen theme to apply it the next time he open the app
                                         setColorScheme(item.value);
                                     }}
                                 >
@@ -143,7 +144,7 @@ export default function Settings(): React.JSX.Element {
                             <Button
                                 variant="outline"
                                 onPress={() => {
-                                    deleteItemAsync(THEME_KEY);
+                                    deleteItemAsync(THEME_KEY); // Reset the current selected theme
                                     logout();
                                 }}
                             >
@@ -169,7 +170,7 @@ export default function Settings(): React.JSX.Element {
                                             {
                                                 text: "Confirmer",
                                                 onPress: () => {
-                                                    deleteItemAsync(THEME_KEY);
+                                                    deleteItemAsync(THEME_KEY); // Reset the current selected theme
                                                     remove(token);
                                                 },
                                                 style: "destructive",
