@@ -28,13 +28,30 @@ export default function Register(): React.JSX.Element {
             return Alert.alert("Erreur", "Veuillez remplir tous les champs");
         }
 
-        const usernameRegex = /^[a-zA-Z0-9_\-]+$/;
-        const passwordRegex = /^[a-zA-Z0-9@#$%^&*]+$/;
-
-        if (!usernameRegex.test(username.trim()) && !passwordRegex.test(password.trim())) {
+        if (username.includes(" ") || password.includes(" ")) {
             return Alert.alert(
                 "Erreur",
-                "Le nom d'utilisateur ou le mot de passe contient des caractères non autorisés",
+                "Votre nom d'utilisateur ou votre mot de passe contient un ou plusieurs espaces",
+            );
+        }
+
+        if (username.length > 8) {
+            return Alert.alert("Erreur", "Votre nom d'utilisateur doit faire moins de 8 caractères");
+        }
+
+        if (password.length < 5) {
+            return Alert.alert("Erreur", "Votre mote de passe doit faire au moins 5 caractères");
+        }
+
+        const hasNumber = /\d/.test(password);
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasLowerCase = /[a-z]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        if (!hasNumber || !hasUpperCase || !hasLowerCase || !hasSpecialChar) {
+            return Alert.alert(
+                "Erreur",
+                "Votre mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule et un caractère spécial",
             );
         }
 
@@ -48,11 +65,11 @@ export default function Register(): React.JSX.Element {
 
         const loginResult = await login!(username, password);
         if (loginResult && loginResult.error) {
-            Alert.alert("Erreur", "Erreur lors de la connexion à votre compte");
-        } else {
-            setItemAsync(THEME_KEY, DEFAULT_THEME);
-            router.replace("/");
+            return Alert.alert("Erreur", "Erreur lors de la connexion à votre compte");
         }
+
+        setItemAsync(THEME_KEY, DEFAULT_THEME);
+        router.replace("/");
 
         setLoading(false);
     };
