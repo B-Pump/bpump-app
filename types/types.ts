@@ -9,7 +9,6 @@ interface ExoItem {
     muscles: string[];
     security: string[];
     needed: string[];
-    calories: number;
 }
 
 interface ProgItem {
@@ -32,9 +31,17 @@ interface MetaItem {
 }
 
 interface ChartDataItem {
-    message: string;
-    data: {
+    total_energy: number;
+    energy: {
         value: number;
-        time: number;
+        label: string;
+    }[];
+    speed: {
+        value: number;
+        label: string;
+    }[];
+    force: {
+        value: number;
+        label: string;
     }[];
 }

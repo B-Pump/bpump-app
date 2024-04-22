@@ -104,13 +104,6 @@ export default function Exos(): React.JSX.Element {
                                                 </Text>
                                             ))}
                                         </View>
-                                        <View className="my-2">
-                                            <Text className="mb-3 text-foreground">🤸​ Dépenses énergétiques :</Text>
-                                            <Text className="text-muted-foreground">
-                                                Calories brulées pour 10 reps : {exoData?.calories ?? "Aucune donnée"}{" "}
-                                                kcal
-                                            </Text>
-                                        </View>
                                     </View>
                                 ) : tab === tabs[1] ? (
                                     <View className="my-3">
@@ -143,7 +136,6 @@ export default function Exos(): React.JSX.Element {
                         if (socketValid) {
                             if (socketValid && socketInstance) {
                                 socketInstance.emit("start_exo", {
-                                    type: "exo",
                                     data: exoData,
                                     metabolism: metabolism,
                                 });

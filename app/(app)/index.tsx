@@ -61,7 +61,7 @@ export default function App(): React.JSX.Element {
         setExos(exosData);
         setProgs(progsData);
         setMeta(metaData);
-    }, [exosData, progsData]);
+    }, [exosData, progsData, metaData]);
 
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {

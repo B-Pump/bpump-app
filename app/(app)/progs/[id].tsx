@@ -168,15 +168,15 @@ export default function Progs(): React.JSX.Element {
                     onPress={() => {
                         if (socketValid) {
                             if (socketInstance) {
+                                let data_list = [];
+
                                 progData.exercises.forEach((exerciseId) => {
                                     const exoItem = exos.find((exo) => exo.id === exerciseId);
-                                    if (exoItem) {
-                                        socketInstance.emit("start_exo", {
-                                            type: "prog",
-                                            data: exoItem,
-                                            metabolism: metabolism,
-                                        });
-                                    }
+                                    if (exoItem) data_list.push(exoItem);
+                                });
+                                socketInstance.emit("start_program", {
+                                    data: data_list,
+                                    metabolism: metabolism,
                                 });
                             }
                         } else router.push("/settings/scan");

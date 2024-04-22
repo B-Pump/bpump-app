@@ -1,7 +1,4 @@
-import { globals } from "@/styles/globals";
-
 import { useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
 
@@ -16,29 +13,12 @@ export default function Result(): React.JSX.Element {
     const { data } = useLocalSearchParams();
     const { isDarkColorScheme } = useColorScheme();
 
-    const [chartData, setChartData] = useState<ChartDataItem>({
-        message: "",
-        data: [],
-    });
-
-    useEffect(() => {
-        if (typeof data === "string") {
-            try {
-                const parsedData = JSON.parse(data);
-
-                if (Array.isArray(parsedData.data)) {
-                    setChartData(parsedData);
-                } else console.warn("Data is not in tabular form");
-            } catch (error) {
-                console.warn("Error parsing JSON data :", error);
-            }
-        } else console.warn("Data is not a string");
-    }, [data]);
+    const chartData = JSON.parse(data as string) as ChartDataItem;
 
     return (
-        <SafeAreaView className="flex-1 bg-background px-3">
+        <SafeAreaView className="flex-1 bg-background">
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View className="mt-3">
+                <View className="mt-3 px-3">
                     <Text className="text-2xl text-foreground">Bel effort !</Text>
                     <Text className="text-3xl font-semibold leading-tight text-foreground">
                         Découvrez vos statistiques !
@@ -46,27 +26,45 @@ export default function Result(): React.JSX.Element {
                 </View>
                 <View className="my-3">
                     <LineChart
-                        isAnimated
                         curved
-                        data={chartData.data}
+                        noOfSections={7}
+                        spacing={16}
+                        data={chartData.force}
+                        secondaryData={chartData.speed}
+                        hideDataPoints
                         width={300}
                         height={350}
-                        thickness={2}
                         initialSpacing={3}
-                        rulesColor={isDarkColorScheme ? "gray" : "gray"}
-                        dataPointsColor={isDarkColorScheme ? globals.dark.primary : globals.light.primary}
-                        color={isDarkColorScheme ? globals.light.primary : globals.dark.primary}
-                        yAxisColor={isDarkColorScheme ? "white" : "black"}
+                        rulesColor="gray"
+                        color1="red"
+                        secondaryLineConfig={{ color: "blue" }}
+                        secondaryYAxis={{ yAxisColor: "blue" }}
                         xAxisColor={isDarkColorScheme ? "white" : "black"}
-                        yAxisLabelSuffix="N"
+                        yAxisColor="red"
                     />
                 </View>
-                <Text className="pb-5 text-center font-semibold">
-                    Force exercée (Newton) en fonction du temps (secondes).
-                </Text>
-                <View>
+                <View className="pb-5">
+                    <Text className="text-center font-medium text-red-600">
+                        Force exercée (Newton) en fonction du temps (secondes).
+                    </Text>
+                    <Text className="text-center font-medium text-blue-800">
+                        Vitesse (mètre/seconde) en fonction du temps (secondes).
+                    </Text>
+                </View>
+                <View className="px-3">
                     <Text className="text-lg font-medium text-foreground">📋​ Résumé de votre performance :</Text>
-                    <Text className="text-foreground">{chartData.message}</Text>
+                    <Text className="pb-2 text-foreground">
+                        Vous avez dépensé {Math.round(chartData.total_energy)} joules, ce qui équivaut à{" "}
+                        {Math.round(chartData.total_energy * 0.24)} calories.
+                    </Text>
+                    <Text className="text-xs text-foreground">
+                        Veuillez noter que les données affichées sont des estimations théoriques et peuvent ne pas
+                        correspondre exactement à votre performance réelle. Plusieurs facteurs peuvent influencer les
+                        résultats, tels que la précision des capteurs, les conditions environnementales et les
+                        variations individuelles dans la technique d'exercice. Les chiffres fournis sont donc à titre
+                        indicatif et peuvent nécessiter une certaine marge d'erreur. Continuez votre bon travail et
+                        utilisez ces statistiques comme un guide général pour évaluer votre performance.
+                    </Text>
                 </View>
             </ScrollView>
         </SafeAreaView>
