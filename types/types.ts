@@ -45,3 +45,8 @@ interface ChartDataItem {
         label: string;
     }[];
 }
+
+interface ExosList {
+    id: string;
+    title: string;
+}

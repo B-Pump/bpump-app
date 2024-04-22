@@ -10,13 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "@/context/auth";
+import { useCreateStore } from "@/context/create";
 import { useDataStore } from "@/context/data";
 import { API_URL } from "@/lib/api";
-
-interface ExosList {
-    id: string;
-    title: string;
-}
 
 /**
  * Page on which the user can create their own sports program from the exercises already available
@@ -25,6 +21,8 @@ interface ExosList {
  */
 export default function CreateProgs(): React.JSX.Element {
     const { exos } = useDataStore();
+    const { selected } = useCreateStore();
+
     const { token } = useAuth();
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -34,10 +32,8 @@ export default function CreateProgs(): React.JSX.Element {
     const [description, setDesc] = useState<string>(null);
     const [difficulty, setDiff] = useState<string>(null);
     const [category, setCategory] = useState<string>(null);
-    const [exercises, setExercices] = useState<ExosList[]>([]);
 
     const categoryRef = useRef<BottomSheetModal>(null);
-    const exoRef = useRef<BottomSheetModal>(null);
 
     let categoryData = [];
     if (Array.isArray(exos)) {
@@ -48,7 +44,7 @@ export default function CreateProgs(): React.JSX.Element {
 
     const addProg = async () => {
         try {
-            if (icon && title && description && difficulty && categoryData && exercises) {
+            if (icon && title && description && difficulty && categoryData && selected) {
                 const newDiff = parseInt(difficulty);
                 if (newDiff >= 1 && newDiff <= 5) {
                     setLoading(true);
@@ -70,7 +66,7 @@ export default function CreateProgs(): React.JSX.Element {
                             "Soyez patient et persévérant, les résultats viendront avec le temps et l'effort",
                             "Entraînez-vous dans un environnement sûr et adapté à votre activité",
                         ],
-                        exercises: exercises.map((exercise) => exercise.id),
+                        exercises: selected.map((exercise) => exercise.id),
                     });
 
                     router.back();
@@ -81,24 +77,6 @@ export default function CreateProgs(): React.JSX.Element {
             console.warn("Error while creating program :", error);
         }
     };
-
-    // const moveExerciseUp = (index) => {
-    //     if (index === 0) return;
-    //     const newOrder = [...exercises];
-    //     const temp = newOrder[index];
-    //     newOrder[index] = newOrder[index - 1];
-    //     newOrder[index - 1] = temp;
-    //     setExercices(newOrder);
-    // };
-
-    // const moveExerciseDown = (index) => {
-    //     if (index === exercises.length - 1) return;
-    //     const newOrder = [...exercises];
-    //     const temp = newOrder[index];
-    //     newOrder[index] = newOrder[index + 1];
-    //     newOrder[index + 1] = temp;
-    //     setExercices(newOrder);
-    // };
 
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
@@ -143,11 +121,11 @@ export default function CreateProgs(): React.JSX.Element {
                         <Button
                             variant="outline"
                             className="justify-start p-3.5"
-                            onPress={() => exoRef.current?.present()}
+                            onPress={() => router.push("/progs/create/select")}
                         >
-                            <Text className={exercises.length > 0 ? "text-foreground" : "text-muted-foreground"}>
-                                {exercises.length > 0
-                                    ? exercises.map((exercise: ExosList) => exercise.title).join(", ")
+                            <Text className={selected.length > 0 ? "text-foreground" : "text-muted-foreground"}>
+                                {selected.length > 0
+                                    ? selected.map((exercise: ExosList) => exercise.title).join(", ")
                                     : "Exercices"}
                             </Text>
                         </Button>
@@ -180,54 +158,6 @@ export default function CreateProgs(): React.JSX.Element {
                         ))}
                     </View>
                 </>
-            </Sheet>
-            <Sheet ref={exoRef} snap={["35%", "60%"]}>
-                <>
-                    <View className="mb-4 items-center">
-                        <Text className="text-xl font-bold text-foreground">Veuillez sélectionner des exercices</Text>
-                    </View>
-                    <View className="flex flex-row flex-wrap justify-center">
-                        {exos.map((item: ExoItem, index: number) => (
-                            <View className="m-1" key={index}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        // Checks if an exercise with the same ID as the current item already exists in the list
-                                        if (exercises.some((exercise: ExosList) => exercise.id === item.id)) {
-                                            setExercices(
-                                                // If an exercise with the same ID already exists, remove it from the list
-                                                exercises.filter((exercise: ExosList) => exercise.id !== item.id),
-                                            );
-                                            // If no exercise with the same ID exists, add the new exercise to the list
-                                        } else setExercices([...exercises, { id: item.id, title: item.title }]);
-                                    }}
-                                >
-                                    <Badge
-                                        variant={
-                                            exercises.some((exercise: ExosList) => exercise.id === item.id)
-                                                ? "success"
-                                                : "outline"
-                                        }
-                                        label={item.title}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                        ))}
-                    </View>
-                </>
-                {/* TODO: Drag & drop to change exos order */}
-                {/* <View className="mt-5 flex-row justify-center">
-                    {exercises.map((item: { id: string; title: string }, index: number) => (
-                        <View className="flex-col items-center gap-6" key={index}>
-                            <TouchableOpacity onPress={() => moveExerciseUp(index)}>
-                                <Text>HAUT</Text>
-                            </TouchableOpacity>
-                            <Text>{item.title}</Text>
-                            <TouchableOpacity onPress={() => moveExerciseDown(index)}>
-                                <Text>BAS</Text>
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-                </View> */}
             </Sheet>
         </SafeAreaView>
     );

@@ -27,18 +27,15 @@ export default function Register(): React.JSX.Element {
         if (!username || !password) {
             return Alert.alert("Erreur", "Veuillez remplir tous les champs");
         }
-
         if (username.includes(" ") || password.includes(" ")) {
             return Alert.alert(
                 "Erreur",
                 "Votre nom d'utilisateur ou votre mot de passe contient un ou plusieurs espaces",
             );
         }
-
         if (username.length > 8) {
             return Alert.alert("Erreur", "Votre nom d'utilisateur doit faire moins de 8 caractères");
         }
-
         if (password.length < 5) {
             return Alert.alert("Erreur", "Votre mote de passe doit faire au moins 5 caractères");
         }

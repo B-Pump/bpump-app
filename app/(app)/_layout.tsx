@@ -109,7 +109,8 @@ export default function AppLayout(): React.JSX.Element {
                             <Stack.Screen name="exos/[id]" options={defaultStack} />
                             <Stack.Screen name="exos/showall" options={defaultStack} />
                             <Stack.Screen name="exos/result" options={defaultStack} />
-                            <Stack.Screen name="progs/create" options={defaultStack} />
+                            <Stack.Screen name="progs/create/index" options={defaultStack} />
+                            <Stack.Screen name="progs/create/select" options={defaultStack} />
                             <Stack.Screen name="search/[id]" options={defaultStack} />
                         </Stack>
                     </SocketProvider>
