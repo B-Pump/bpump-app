@@ -175,11 +175,18 @@ export default function Progs(): React.JSX.Element {
                     onPress={() => {
                         if (socketValid) {
                             if (socketInstance) {
-                                let data_list = [];
+                                const data_list = [];
 
-                                progData.exercises.forEach((exerciseId) => {
-                                    const exoItem = exos.find((exo) => exo.id === exerciseId);
-                                    if (exoItem) data_list.push(exoItem);
+                                progData?.exercises?.forEach((item: string, index: number) => {
+                                    const exoItem = exos.find((exo) => exo.id === item);
+                                    const rest = progData?.rest[index] || 0;
+                                    const reps = progData?.reps[index] || 0;
+
+                                    if (exoItem) {
+                                        // Create a copy of the exoItem object so as not to modify it directly
+                                        const updatedExoItem = { ...exoItem, rest, reps };
+                                        data_list.push(updatedExoItem);
+                                    }
                                 });
                                 socketInstance.emit("start_program", {
                                     data: data_list,
