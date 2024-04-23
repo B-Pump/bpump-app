@@ -94,7 +94,7 @@ export default function App(): React.JSX.Element {
                             Trouvez votre programme d'entraînement parfait !
                         </Text>
                     </View>
-                    <View className="my-3 flex flex-row items-center justify-center">
+                    <View className="my-3 flex-row items-center justify-center">
                         <View className="mr-3 flex-1">
                             <Input
                                 value={searchTerm}
@@ -103,7 +103,6 @@ export default function App(): React.JSX.Element {
                             />
                         </View>
                         <Button
-                            variant="default"
                             size="icon_lg"
                             onPress={() => {
                                 if (searchTerm) router.push(`/search/${searchTerm}`);

@@ -42,12 +42,25 @@ export default function CreateProgs(): React.JSX.Element {
         categoryData = [...uniqueCategories];
     }
 
+    const exoFilter = selected
+        .filter((item): item is { type: "exercise"; exo: ExosList; reps: number } => item.type === "exercise")
+        .map((exercise) => exercise.exo.title);
+    const restFilter = selected
+        .filter((item): item is { type: "rest"; duration: number } => item.type === "rest")
+        .map((exercise) => exercise.duration);
+
     const addProg = async () => {
         try {
             if (icon && title && description && difficulty && categoryData && selected) {
                 const newDiff = parseInt(difficulty);
                 if (newDiff >= 1 && newDiff <= 5) {
                     setLoading(true);
+
+                    const numberOfExercises = selected.filter((item) => item.type === "exercise").length;
+                    if (restFilter.length < numberOfExercises) {
+                        const missingRestTimes = new Array(numberOfExercises - restFilter.length).fill(0);
+                        restFilter.push(...missingRestTimes);
+                    }
 
                     await axios.post(`${API_URL}/add_program?username=${token}`, {
                         id: title.toLowerCase(),
@@ -66,7 +79,8 @@ export default function CreateProgs(): React.JSX.Element {
                             "Soyez patient et persévérant, les résultats viendront avec le temps et l'effort",
                             "Entraînez-vous dans un environnement sûr et adapté à votre activité",
                         ],
-                        exercises: selected.map((exercise) => exercise.id),
+                        exercises: exoFilter,
+                        rest: restFilter,
                     });
 
                     router.back();
@@ -123,10 +137,8 @@ export default function CreateProgs(): React.JSX.Element {
                             className="justify-start p-3.5"
                             onPress={() => router.push("/progs/create/select")}
                         >
-                            <Text className={selected.length > 0 ? "text-foreground" : "text-muted-foreground"}>
-                                {selected.length > 0
-                                    ? selected.map((exercise: ExosList) => exercise.title).join(", ")
-                                    : "Exercices"}
+                            <Text className={exoFilter.length > 0 ? "text-foreground" : "text-muted-foreground"}>
+                                {exoFilter.length > 0 ? exoFilter.join(", ") : "Exercices"}
                             </Text>
                         </Button>
                     </View>

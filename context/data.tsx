@@ -1,4 +1,4 @@
-import { UseBoundStore, create } from "zustand";
+import { create } from "zustand";
 
 type DataStoreType = {
     exos: ExoItem[];

@@ -49,4 +49,16 @@ interface ChartDataItem {
 interface ExosList {
     id: string;
     title: string;
+    icon: string;
 }
+
+type SelectedItem =
+    | {
+          type: "exercise";
+          exo: ExosList;
+          reps: number;
+      }
+    | {
+          type: "rest";
+          duration: number;
+      };

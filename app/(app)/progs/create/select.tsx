@@ -1,58 +1,171 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Image } from "expo-image";
+import { Minus, Plus, Trash } from "lucide-react-native";
 import { useRef } from "react";
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { Sheet } from "@/components/progs-sheet";
 import { Button } from "@/components/ui/button";
 
-import { useCreateStore } from "@/context/create";
+import { useCreateStore, useCreateStoreActions } from "@/context/create";
 import { useDataStore } from "@/context/data";
-import { Image } from "expo-image";
+import { useColorScheme } from "@/lib/color";
 
 export default function SelectExos() {
     const { exos } = useDataStore();
-    const { selected, setSelected } = useCreateStore();
+
+    const { selected } = useCreateStore();
+    const { addExercise, addRest, removeItem, updateExerciseReps, updateRestDuration } = useCreateStoreActions();
+
+    const { isDarkColorScheme } = useColorScheme();
 
     const exoRef = useRef<BottomSheetModal>(null);
 
-    // const moveExerciseUp = (index) => {
-    //     if (index === 0) return;
-    //     const newOrder = [...exercises];
-    //     const temp = newOrder[index];
-    //     newOrder[index] = newOrder[index - 1];
-    //     newOrder[index - 1] = temp;
-    //     setExercices(newOrder);
-    // };
-
-    // const moveExerciseDown = (index) => {
-    //     if (index === exercises.length - 1) return;
-    //     const newOrder = [...exercises];
-    //     const temp = newOrder[index];
-    //     newOrder[index] = newOrder[index + 1];
-    //     newOrder[index + 1] = temp;
-    //     setExercices(newOrder);
-    // };
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mt-3">
                     <Text className="text-2xl text-foreground">Création de programme</Text>
-                    <Text className="text-3xl font-semibold leading-tight text-foreground">Choix des exercices</Text>
-                </View>
-                <View className="my-3">
-                    <Text className={selected.length > 0 ? "text-foreground" : "text-muted-foreground"}>
-                        {selected.length > 0 ? (
-                            selected.map((item: ExosList, index: number) => <View key={index}></View>)
-                        ) : (
-                            <></>
-                        )}
+                    <Text className="text-3xl font-semibold leading-tight text-foreground">
+                        Choisissez des exercices
                     </Text>
                 </View>
+                <View className="my-3">
+                    {selected.length > 0 ? (
+                        selected.map((item: SelectedItem, index: number) =>
+                            item.type === "exercise" ? (
+                                <View key={index}>
+                                    <View className="flex-row items-center justify-center py-1">
+                                        <View className="mr-3 flex-1">
+                                            <View className="flex-row rounded-xl border border-border bg-background p-1">
+                                                <Image
+                                                    style={{ width: 40, height: 40, borderRadius: 10 }}
+                                                    source={item.exo?.icon || "https://urlz.fr/q5qm"}
+                                                    contentFit="fill"
+                                                />
+                                                <View className="ml-5 justify-center">
+                                                    <Text className="text-xl font-medium text-foreground">
+                                                        {item.exo?.title || "Titre non trouvé"} - {item.reps} reps
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <View className="flex-row gap-2">
+                                            <Button
+                                                size="icon_lg"
+                                                onPress={() => {
+                                                    if (item.reps > 3) updateExerciseReps(index, item.reps - 1);
+                                                }}
+                                                disabled={item.reps === 3}
+                                            >
+                                                <Minus color={isDarkColorScheme ? "black" : "white"} />
+                                            </Button>
+                                            <Button
+                                                size="icon_lg"
+                                                onPress={() => {
+                                                    if (item.reps <= 30) updateExerciseReps(index, item.reps + 1);
+                                                }}
+                                                disabled={item.reps === 30}
+                                            >
+                                                <Plus color={isDarkColorScheme ? "black" : "white"} />
+                                            </Button>
+                                            <Button
+                                                variant="destructive"
+                                                size="icon_lg"
+                                                onPress={() => removeItem(index)}
+                                            >
+                                                <Trash color={isDarkColorScheme ? "black" : "white"} />
+                                            </Button>
+                                        </View>
+                                    </View>
+                                </View>
+                            ) : (
+                                <View key={index}>
+                                    <View className="flex-row items-center justify-center py-1">
+                                        <View className="mr-3 flex-1">
+                                            <View className="flex-row rounded-xl border border-border bg-background p-1">
+                                                <Image
+                                                    style={{ width: 40, height: 40, borderRadius: 10 }}
+                                                    source="https://i.imgur.com/ieQPqYc.png"
+                                                    contentFit="fill"
+                                                />
+                                                <View className="ml-5 justify-center">
+                                                    <Text className="text-xl font-medium text-foreground">
+                                                        Repos - {item.duration} sec
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <View className="flex-row gap-2">
+                                            <Button
+                                                size="icon_lg"
+                                                onPress={() => {
+                                                    if (item.duration > 15)
+                                                        updateRestDuration(index, item.duration - 15);
+                                                }}
+                                                disabled={item.duration === 15}
+                                            >
+                                                <Minus color={isDarkColorScheme ? "black" : "white"} />
+                                            </Button>
+                                            <Button
+                                                size="icon_lg"
+                                                onPress={() => {
+                                                    if (item.duration <= 180)
+                                                        updateRestDuration(index, item.duration + 15);
+                                                }}
+                                                disabled={item.duration === 180}
+                                            >
+                                                <Plus color={isDarkColorScheme ? "black" : "white"} />
+                                            </Button>
+                                            <Button
+                                                variant="destructive"
+                                                size="icon_lg"
+                                                onPress={() => removeItem(index)}
+                                            >
+                                                <Trash color={isDarkColorScheme ? "black" : "white"} />
+                                            </Button>
+                                        </View>
+                                    </View>
+                                </View>
+                            ),
+                        )
+                    ) : (
+                        <View className="items-center pt-20">
+                            <Text className="text-lg font-medium">Rien à afficher ici...</Text>
+                        </View>
+                    )}
+                </View>
             </ScrollView>
-            <View className="py-3">
-                <Button onPress={() => exoRef.current?.present()}>
-                    <Text className="text-accent">Ajouter un exercice</Text>
-                </Button>
+            <View className="flex-row items-center justify-center gap-3 py-3">
+                <View className="w-1/2 flex-1">
+                    <Button
+                        onPress={() => {
+                            if (selected.length === 0) {
+                                return Alert.alert(
+                                    "Erreur",
+                                    "Vous ne pouvez pas démarrer votre programme par du repos",
+                                );
+                            }
+                            if (selected[selected.length - 1].type === "rest") {
+                                return Alert.alert(
+                                    "Erreur",
+                                    "Vous ne pouvez pas mettre deux temps de repos à la suite",
+                                );
+                            }
+
+                            addRest(15);
+                        }}
+                    >
+                        <Text className="text-accent" numberOfLines={1}>
+                            Ajouter temps de repos
+                        </Text>
+                    </Button>
+                </View>
+                <View className="w-1/2 flex-1">
+                    <Button onPress={() => exoRef.current?.present()}>
+                        <Text className="text-accent">Ajouter un exercice</Text>
+                    </Button>
+                </View>
             </View>
             <Sheet ref={exoRef} snap={["35%", "60%"]}>
                 <>
@@ -62,24 +175,8 @@ export default function SelectExos() {
                     <View className="flex flex-row flex-wrap justify-center">
                         {exos.map((item: ExoItem, index: number) => (
                             <View className="m-1" key={index}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        // Checks if an exercise with the same ID as the current item already exists in the list
-                                        if (selected.some((exercise: ExosList) => exercise.id === item.id)) {
-                                            setSelected(
-                                                // If an exercise with the same ID already exists, remove it from the list
-                                                selected.filter((exercise: ExosList) => exercise.id !== item.id),
-                                            );
-                                            // If no exercise with the same ID exists, add the new exercise to the list
-                                        } else setSelected([...selected, { id: item.id, title: item.title }]);
-                                    }}
-                                >
-                                    <View
-                                        className={`rounded-lg border border-border bg-background p-6 ${
-                                            selected.some((exercise: ExosList) => exercise.id === item.id) &&
-                                            "border-primary"
-                                        }`}
-                                    >
+                                <TouchableOpacity onPress={() => addExercise(item)}>
+                                    <View className="rounded-lg border border-border bg-background p-6">
                                         <View className="w-20 items-center justify-between rounded-xl">
                                             <Image
                                                 style={{ width: 65, height: 65, borderRadius: 10 }}
@@ -96,20 +193,6 @@ export default function SelectExos() {
                         ))}
                     </View>
                 </>
-                {/* TODO: Drag & drop to change exos order */}
-                {/* <View className="mt-5 flex-row justify-center">
-                    {exercises.map((item: { id: string; title: string }, index: number) => (
-                        <View className="flex-col items-center gap-6" key={index}>
-                            <TouchableOpacity onPress={() => moveExerciseUp(index)}>
-                                <Text>HAUT</Text>
-                            </TouchableOpacity>
-                            <Text>{item.title}</Text>
-                            <TouchableOpacity onPress={() => moveExerciseDown(index)}>
-                                <Text>BAS</Text>
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-                </View> */}
             </Sheet>
         </SafeAreaView>
     );
