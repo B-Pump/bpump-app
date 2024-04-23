@@ -21,6 +21,8 @@ interface ProgItem {
     difficulty: number;
     hint: string[];
     exercises: string[];
+    reps: number[];
+    rest: number[];
 }
 
 interface MetaItem {

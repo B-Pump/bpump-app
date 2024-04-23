@@ -7,6 +7,7 @@ import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "r
 import { Sheet } from "@/components/progs-sheet";
 import { Button } from "@/components/ui/button";
 
+import { CreateCard } from "@/components/data-card";
 import { useCreateStore, useCreateStoreActions } from "@/context/create";
 import { useDataStore } from "@/context/data";
 import { useColorScheme } from "@/lib/color";
@@ -34,97 +35,63 @@ export default function SelectExos() {
                     {selected.length > 0 ? (
                         selected.map((item: SelectedItem, index: number) =>
                             item.type === "exercise" ? (
-                                <View key={index}>
-                                    <View className="flex-row items-center justify-center py-1">
-                                        <View className="mr-3 flex-1">
-                                            <View className="flex-row rounded-xl border border-border bg-background p-1">
-                                                <Image
-                                                    style={{ width: 40, height: 40, borderRadius: 10 }}
-                                                    source={item.exo?.icon || "https://urlz.fr/q5qm"}
-                                                    contentFit="fill"
-                                                />
-                                                <View className="ml-5 justify-center">
-                                                    <Text className="text-xl font-medium text-foreground">
-                                                        {item.exo?.title || "Titre non trouvé"} - {item.reps} reps
-                                                    </Text>
-                                                </View>
-                                            </View>
-                                        </View>
-                                        <View className="flex-row gap-2">
-                                            <Button
-                                                size="icon_lg"
-                                                onPress={() => {
-                                                    if (item.reps > 3) updateExerciseReps(index, item.reps - 1);
-                                                }}
-                                                disabled={item.reps === 3}
-                                            >
-                                                <Minus color={isDarkColorScheme ? "black" : "white"} />
-                                            </Button>
-                                            <Button
-                                                size="icon_lg"
-                                                onPress={() => {
-                                                    if (item.reps <= 30) updateExerciseReps(index, item.reps + 1);
-                                                }}
-                                                disabled={item.reps === 30}
-                                            >
-                                                <Plus color={isDarkColorScheme ? "black" : "white"} />
-                                            </Button>
-                                            <Button
-                                                variant="destructive"
-                                                size="icon_lg"
-                                                onPress={() => removeItem(index)}
-                                            >
-                                                <Trash color={isDarkColorScheme ? "black" : "white"} />
-                                            </Button>
-                                        </View>
+                                <View className="flex-row items-center justify-center py-1" key={index}>
+                                    <CreateCard
+                                        icon={item.exo?.icon || "https://urlz.fr/q5qm"}
+                                        title={item.exo?.title + " - " + item.reps + " reps"}
+                                    />
+                                    <View className="flex-row gap-2">
+                                        <Button
+                                            size="icon_lg"
+                                            onPress={() => {
+                                                if (item.reps > 3) updateExerciseReps(index, item.reps - 1);
+                                            }}
+                                            disabled={item.reps === 3}
+                                        >
+                                            <Minus color={isDarkColorScheme ? "black" : "white"} />
+                                        </Button>
+                                        <Button
+                                            size="icon_lg"
+                                            onPress={() => {
+                                                if (item.reps <= 30) updateExerciseReps(index, item.reps + 1);
+                                            }}
+                                            disabled={item.reps === 30}
+                                        >
+                                            <Plus color={isDarkColorScheme ? "black" : "white"} />
+                                        </Button>
+                                        <Button variant="destructive" size="icon_lg" onPress={() => removeItem(index)}>
+                                            <Trash color={isDarkColorScheme ? "black" : "white"} />
+                                        </Button>
                                     </View>
                                 </View>
                             ) : (
-                                <View key={index}>
-                                    <View className="flex-row items-center justify-center py-1">
-                                        <View className="mr-3 flex-1">
-                                            <View className="flex-row rounded-xl border border-border bg-background p-1">
-                                                <Image
-                                                    style={{ width: 40, height: 40, borderRadius: 10 }}
-                                                    source="https://i.imgur.com/ieQPqYc.png"
-                                                    contentFit="fill"
-                                                />
-                                                <View className="ml-5 justify-center">
-                                                    <Text className="text-xl font-medium text-foreground">
-                                                        Repos - {item.duration} sec
-                                                    </Text>
-                                                </View>
-                                            </View>
-                                        </View>
-                                        <View className="flex-row gap-2">
-                                            <Button
-                                                size="icon_lg"
-                                                onPress={() => {
-                                                    if (item.duration > 15)
-                                                        updateRestDuration(index, item.duration - 15);
-                                                }}
-                                                disabled={item.duration === 15}
-                                            >
-                                                <Minus color={isDarkColorScheme ? "black" : "white"} />
-                                            </Button>
-                                            <Button
-                                                size="icon_lg"
-                                                onPress={() => {
-                                                    if (item.duration <= 180)
-                                                        updateRestDuration(index, item.duration + 15);
-                                                }}
-                                                disabled={item.duration === 180}
-                                            >
-                                                <Plus color={isDarkColorScheme ? "black" : "white"} />
-                                            </Button>
-                                            <Button
-                                                variant="destructive"
-                                                size="icon_lg"
-                                                onPress={() => removeItem(index)}
-                                            >
-                                                <Trash color={isDarkColorScheme ? "black" : "white"} />
-                                            </Button>
-                                        </View>
+                                <View className="flex-row items-center justify-center py-1" key={index}>
+                                    <CreateCard
+                                        icon="https://i.imgur.com/ieQPqYc.png"
+                                        title={"Repos - " + item.duration + " sec"}
+                                    />
+                                    <View className="flex-row gap-2">
+                                        <Button
+                                            size="icon_lg"
+                                            onPress={() => {
+                                                if (item.duration > 15) updateRestDuration(index, item.duration - 15);
+                                            }}
+                                            disabled={item.duration === 15}
+                                        >
+                                            <Minus color={isDarkColorScheme ? "black" : "white"} />
+                                        </Button>
+                                        <Button
+                                            size="icon_lg"
+                                            onPress={() => {
+                                                if (item.duration <= 180) updateRestDuration(index, item.duration + 15);
+                                            }}
+                                            disabled={item.duration === 180}
+                                        >
+                                            <Plus color={isDarkColorScheme ? "black" : "white"} />
+                                        </Button>
+                                        <Button variant="destructive" size="icon_lg" onPress={() => removeItem(index)}>
+                                            <Trash color={isDarkColorScheme ? "black" : "white"} />
+                                        </Button>
                                     </View>
                                 </View>
                             ),

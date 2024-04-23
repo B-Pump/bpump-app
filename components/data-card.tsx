@@ -68,3 +68,16 @@ export function ProgsCard({ data }: { data: ProgItem }): React.JSX.Element {
         </TouchableOpacity>
     );
 }
+
+export function CreateCard({ icon, title }: { icon: string; title: string }): React.JSX.Element {
+    return (
+        <View className="mr-3 flex-1">
+            <View className="flex-row rounded-xl border border-border bg-background p-1">
+                <Image style={{ width: 40, height: 40, borderRadius: 10 }} source={icon} contentFit="fill" />
+                <View className="ml-5 justify-center">
+                    <Text className="text-xl font-medium text-foreground">{title}</Text>
+                </View>
+            </View>
+        </View>
+    );
+}

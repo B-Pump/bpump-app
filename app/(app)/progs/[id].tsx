@@ -4,7 +4,7 @@ import { Stack, router, useLocalSearchParams } from "expo-router";
 import { ArrowLeft, Settings2, Star } from "lucide-react-native";
 import { Alert, SafeAreaView, ScrollView, Text, View } from "react-native";
 
-import { ExosCard } from "@/components/data-card";
+import { CreateCard } from "@/components/data-card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
@@ -137,23 +137,30 @@ export default function Progs(): React.JSX.Element {
                                         </Text>
                                         <View>
                                             {progData?.exercises?.map((item: string, index: number) => {
-                                                if (exos) {
-                                                    const exoItem = exos.find((exo: ExoItem) => exo.id === item);
+                                                const exoItem = exos.find((exo: ExoItem) => exo.id === item);
+                                                const rest = progData?.rest[index] || 0;
+                                                const reps = progData?.reps[index] || 0;
 
-                                                    return (
-                                                        <View key={index}>
-                                                            {exoItem ? (
-                                                                <View className="py-1">
-                                                                    <ExosCard data={exoItem} />
-                                                                </View>
-                                                            ) : (
-                                                                <Text className="text-foreground">
-                                                                    Aucun détail trouvé pour l'exercice "{item}"...
-                                                                </Text>
-                                                            )}
-                                                        </View>
-                                                    );
-                                                }
+                                                return (
+                                                    <View key={index}>
+                                                        {exoItem && (
+                                                            <View className="py-1">
+                                                                <CreateCard
+                                                                    icon={exoItem.icon}
+                                                                    title={exoItem.title + " - " + reps + " reps"}
+                                                                />
+                                                            </View>
+                                                        )}
+                                                        {rest > 0 && (
+                                                            <View className="py-1">
+                                                                <CreateCard
+                                                                    icon="https://i.imgur.com/ieQPqYc.png"
+                                                                    title={"Repos - " + rest.toString() + " sec"}
+                                                                />
+                                                            </View>
+                                                        )}
+                                                    </View>
+                                                );
                                             })}
                                         </View>
                                     </View>

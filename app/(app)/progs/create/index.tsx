@@ -51,7 +51,7 @@ export default function CreateProgs(): React.JSX.Element {
 
     const addProg = async () => {
         try {
-            if (icon && title && description && difficulty && categoryData && selected) {
+            if (icon && title && description && difficulty && categoryData && exoFilter.length > 0) {
                 const newDiff = parseInt(difficulty);
                 if (newDiff >= 1 && newDiff <= 5) {
                     setLoading(true);
@@ -79,17 +79,29 @@ export default function CreateProgs(): React.JSX.Element {
                             "Soyez patient et persévérant, les résultats viendront avec le temps et l'effort",
                             "Entraînez-vous dans un environnement sûr et adapté à votre activité",
                         ],
-                        exercises: exoFilter,
+                        exercises: selected
+                            .filter(
+                                (item): item is { type: "exercise"; exo: ExosList; reps: number } =>
+                                    item.type === "exercise",
+                            )
+                            .map((exercise) => exercise.exo.id),
+                        reps: selected
+                            .filter(
+                                (item): item is { type: "exercise"; exo: ExosList; reps: number } =>
+                                    item.type === "exercise",
+                            )
+                            .map((exercise) => exercise.reps),
                         rest: restFilter,
                     });
 
                     router.back();
-                    setLoading(false);
                 } else Alert.alert("Erreur", "La difficulté doit être un nombre entre 1 et 5");
             } else Alert.alert("Erreur", "Veuillez remplir tous les champs");
         } catch (error) {
             console.warn("Error while creating program :", error);
         }
+
+        setLoading(false);
     };
 
     return (
