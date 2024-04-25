@@ -1,7 +1,8 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Image } from "expo-image";
-import { Minus, Plus, Trash } from "lucide-react-native";
-import { useRef } from "react";
+import { Stack, router } from "expo-router";
+import { ArrowDown, ArrowLeft, ArrowUp, Edit, Minus, Plus, Trash } from "lucide-react-native";
+import { useRef, useState } from "react";
 import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { Sheet } from "@/components/progs-sheet";
@@ -20,15 +21,57 @@ import { useColorScheme } from "@/lib/color";
 export default function SelectExos(): React.JSX.Element {
     const { exos } = useDataStore();
 
-    const { selected } = useCreateStore();
+    const { selected, setSelected } = useCreateStore();
     const { addExercise, addRest, removeItem, updateExerciseReps, updateRestDuration } = useCreateStoreActions();
 
     const { isDarkColorScheme } = useColorScheme();
 
     const exoRef = useRef<BottomSheetModal>(null);
 
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const moveItemUp = (index: number) => {
+        if (index === 0) return;
+
+        setSelected((prevSelected) => {
+            const newOrder = [...prevSelected];
+            const temp = newOrder[index];
+            newOrder[index] = newOrder[index - 1];
+            newOrder[index - 1] = temp;
+            return newOrder;
+        });
+    };
+
+    const moveItemDown = (index: number) => {
+        if (index === selected.length - 1) return;
+
+        setSelected((prevSelected) => {
+            const newOrder = [...prevSelected];
+            const temp = newOrder[index];
+            newOrder[index] = newOrder[index + 1];
+            newOrder[index + 1] = temp;
+            return newOrder;
+        });
+    };
+
     return (
         <SafeAreaView className="flex-1 bg-background px-3">
+            <Stack.Screen
+                options={{
+                    animation: "fade_from_bottom",
+                    headerLeft: () => (
+                        <Button variant="secondary" size="icon_sm" onPress={() => router.back()}>
+                            <ArrowLeft color={isDarkColorScheme ? "white" : "black"} />
+                        </Button>
+                    ),
+                    headerRight: () => (
+                        <Button variant="secondary" size="icon_sm" onPress={() => setEditMode(!editMode)}>
+                            <Edit color={isDarkColorScheme ? "white" : "black"} />
+                        </Button>
+                    ),
+                    headerShadowVisible: false,
+                    title: "",
+                }}
+            />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mt-3">
                     <Text className="text-2xl text-foreground">Création de programme</Text>
@@ -46,24 +89,45 @@ export default function SelectExos(): React.JSX.Element {
                                         title={item.exo?.title + " - " + item.reps + " reps"}
                                     />
                                     <View className="flex-row gap-2">
-                                        <Button
-                                            size="icon_lg"
-                                            onPress={() => {
-                                                if (item.reps > 3) updateExerciseReps(index, item.reps - 1);
-                                            }}
-                                            disabled={item.reps === 3}
-                                        >
-                                            <Minus color={isDarkColorScheme ? "black" : "white"} />
-                                        </Button>
-                                        <Button
-                                            size="icon_lg"
-                                            onPress={() => {
-                                                if (item.reps <= 30) updateExerciseReps(index, item.reps + 1);
-                                            }}
-                                            disabled={item.reps === 30}
-                                        >
-                                            <Plus color={isDarkColorScheme ? "black" : "white"} />
-                                        </Button>
+                                        {editMode ? (
+                                            <>
+                                                <Button
+                                                    size="icon_lg"
+                                                    onPress={() => moveItemDown(index)}
+                                                    disabled={index === selected.length - 1}
+                                                >
+                                                    <ArrowDown color={isDarkColorScheme ? "black" : "white"} />
+                                                </Button>
+                                                <Button
+                                                    size="icon_lg"
+                                                    onPress={() => moveItemUp(index)}
+                                                    disabled={index === 0}
+                                                >
+                                                    <ArrowUp color={isDarkColorScheme ? "black" : "white"} />
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Button
+                                                    size="icon_lg"
+                                                    onPress={() => {
+                                                        if (item.reps > 3) updateExerciseReps(index, item.reps - 1);
+                                                    }}
+                                                    disabled={item.reps === 3}
+                                                >
+                                                    <Minus color={isDarkColorScheme ? "black" : "white"} />
+                                                </Button>
+                                                <Button
+                                                    size="icon_lg"
+                                                    onPress={() => {
+                                                        if (item.reps <= 30) updateExerciseReps(index, item.reps + 1);
+                                                    }}
+                                                    disabled={item.reps === 30}
+                                                >
+                                                    <Plus color={isDarkColorScheme ? "black" : "white"} />
+                                                </Button>
+                                            </>
+                                        )}
                                         <Button variant="destructive" size="icon_lg" onPress={() => removeItem(index)}>
                                             <Trash color={isDarkColorScheme ? "black" : "white"} />
                                         </Button>
@@ -76,24 +140,47 @@ export default function SelectExos(): React.JSX.Element {
                                         title={"Repos - " + item.duration + " sec"}
                                     />
                                     <View className="flex-row gap-2">
-                                        <Button
-                                            size="icon_lg"
-                                            onPress={() => {
-                                                if (item.duration > 15) updateRestDuration(index, item.duration - 15);
-                                            }}
-                                            disabled={item.duration === 15}
-                                        >
-                                            <Minus color={isDarkColorScheme ? "black" : "white"} />
-                                        </Button>
-                                        <Button
-                                            size="icon_lg"
-                                            onPress={() => {
-                                                if (item.duration <= 180) updateRestDuration(index, item.duration + 15);
-                                            }}
-                                            disabled={item.duration === 180}
-                                        >
-                                            <Plus color={isDarkColorScheme ? "black" : "white"} />
-                                        </Button>
+                                        {editMode ? (
+                                            <>
+                                                <Button
+                                                    size="icon_lg"
+                                                    onPress={() => moveItemDown(index)}
+                                                    disabled={index === selected.length - 1}
+                                                >
+                                                    <ArrowDown color={isDarkColorScheme ? "black" : "white"} />
+                                                </Button>
+                                                <Button
+                                                    size="icon_lg"
+                                                    onPress={() => moveItemUp(index)}
+                                                    disabled={index === 0}
+                                                >
+                                                    <ArrowUp color={isDarkColorScheme ? "black" : "white"} />
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Button
+                                                    size="icon_lg"
+                                                    onPress={() => {
+                                                        if (item.duration > 15)
+                                                            updateRestDuration(index, item.duration - 15);
+                                                    }}
+                                                    disabled={item.duration === 15}
+                                                >
+                                                    <Minus color={isDarkColorScheme ? "black" : "white"} />
+                                                </Button>
+                                                <Button
+                                                    size="icon_lg"
+                                                    onPress={() => {
+                                                        if (item.duration <= 180)
+                                                            updateRestDuration(index, item.duration + 15);
+                                                    }}
+                                                    disabled={item.duration === 180}
+                                                >
+                                                    <Plus color={isDarkColorScheme ? "black" : "white"} />
+                                                </Button>
+                                            </>
+                                        )}
                                         <Button variant="destructive" size="icon_lg" onPress={() => removeItem(index)}>
                                             <Trash color={isDarkColorScheme ? "black" : "white"} />
                                         </Button>
