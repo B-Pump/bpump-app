@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 /**
- * Component giving a small map based on information about an exercise
+ * Component giving a small card based on information about an exercise
  * @author wiizz
  * @param {ExoItem} data {@link ExoItem ExoItem}
  * @returns {React.JSX.Element}
@@ -34,7 +34,7 @@ export function ExosCard({ data }: { data: ExoItem }): React.JSX.Element {
 }
 
 /**
- * Component giving a small map based on information about a program
+ * Component giving a small card based on information about a program
  * @author wiizz
  * @param {ProgItem} data {@link ProgItem ProgItem}
  * @returns {React.JSX.Element}
@@ -69,13 +69,20 @@ export function ProgsCard({ data }: { data: ProgItem }): React.JSX.Element {
     );
 }
 
+/**
+ * Component giving a small card based on an icon and a title
+ * @author wiizz
+ * @param {string} icon
+ * @param {string} title
+ * @returns {React.JSX.Element}
+ */
 export function CreateCard({ icon, title }: { icon: string; title: string }): React.JSX.Element {
     return (
         <View className="mr-3 flex-1">
             <View className="flex-row rounded-xl border border-border bg-background p-1">
                 <Image style={{ width: 40, height: 40, borderRadius: 10 }} source={icon} contentFit="fill" />
                 <View className="ml-5 justify-center">
-                    <Text className="text-xl font-medium text-foreground">{title}</Text>
+                    <Text className="text-lg font-medium text-foreground">{title}</Text>
                 </View>
             </View>
         </View>

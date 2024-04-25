@@ -12,7 +12,12 @@ import { useCreateStore, useCreateStoreActions } from "@/context/create";
 import { useDataStore } from "@/context/data";
 import { useColorScheme } from "@/lib/color";
 
-export default function SelectExos() {
+/**
+ * Page on which the user can add exercise and rest timer to create his own program
+ * @author wiizz
+ * @returns {React.JSX.Element}
+ */
+export default function SelectExos(): React.JSX.Element {
     const { exos } = useDataStore();
 
     const { selected } = useCreateStore();
