@@ -26,7 +26,8 @@
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             },
-            "package": "com.wiizz.bpumpapp"
+            "package": "com.wiizz.bpumpapp",
+            "versionCode": 3
         },
         "plugins": [
             "expo-router",
