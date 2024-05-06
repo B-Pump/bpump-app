@@ -16,7 +16,7 @@ export function useSocket() {
     return useContext(SocketContext);
 }
 
-// TODO: use zustang to manage socket states
+// TODO: use zustand to manage socket states
 
 /**
  * Provider for socket server
